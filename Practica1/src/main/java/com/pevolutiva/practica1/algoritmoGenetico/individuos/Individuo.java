@@ -21,11 +21,9 @@ public abstract class Individuo<T> {
 
     protected Integer[] tamGenes;
 
-    protected Double valorError;
-
     protected Double precision;
 
-    protected Random rand;
+    protected Random rand = new Random();
 
     public Double[] getMin() {
         return min;
@@ -45,7 +43,10 @@ public abstract class Individuo<T> {
 
     
 
-    public int tamGen(Double valorError, Double min, Double max) {
+    public int tamGen(Double min, Double max, Double precision) {
+    	//La preision es lo mismo que el valorError y por defecto es 0.001
+    	precision=0.001;
+    	System.out.println((int) (Math.log10(((max - min) / precision) + 1) / Math.log10(2)));
         return (int) (Math.log10(((max - min) / precision) + 1) / Math.log10(2));
     }
 

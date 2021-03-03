@@ -5,6 +5,10 @@
  */
 package com.pevolutiva.practica1.main;
 
+import java.util.Arrays;
+
+import com.pevolutiva.practica1.algoritmoGenetico.individuos.IndividuoFuncion1;
+
 /**
  *
  * @author Diego
@@ -12,7 +16,10 @@ package com.pevolutiva.practica1.main;
 public class Main {
     public static void main(String[] args){
         System.out.println("Hellow world");
-
-        
+        IndividuoFuncion1 ind= new IndividuoFuncion1();
+        Boolean [] list = ind.getCromosoma();
+        System.out.println(Arrays.toString(list));
+        //Para ver toda la información de un individuo
+        System.out.println(ind.toString());
     }
 }
