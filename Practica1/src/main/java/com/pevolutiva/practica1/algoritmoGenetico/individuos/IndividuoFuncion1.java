@@ -45,12 +45,13 @@ public class IndividuoFuncion1 extends Individuo<Boolean> {
 
 	public Double getFenotipo(Integer val) {
 		int rang1 = 0, rang2 = 0;
-		for (int i = 0; i < tamGenes.length; ++i) {
-			rang2 += tamGenes[i + 1];
+                
+		for (int i = 1; i < tamGenes.length; ++i) {
+			rang2 += tamGenes[i];
 			if (val == i) {
 				break;
 			}
-			rang1 += tamGenes[i];
+			rang1 += tamGenes[i - 1];
 		}
 		return min[val]
 				+ this.bin2dec(cromosoma, rang1, rang2) * (max[val] - min[val]) / (Math.pow(2, tamGenes[val]) - 1);

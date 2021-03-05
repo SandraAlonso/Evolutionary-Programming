@@ -13,6 +13,8 @@ import java.util.Set;
 
 import com.pevolutiva.practica1.algoritmoGenetico.individuos.Individuo;
 import com.pevolutiva.practica1.algoritmoGenetico.individuos.IndividuoFuncion1;
+import com.pevolutiva.practica1.algoritmoGenetico.seleccion.Seleccion;
+import com.pevolutiva.practica1.algoritmoGenetico.seleccion.SeleccionRuleta;
 
 /**
  *
@@ -29,6 +31,7 @@ public class AlgoritmoGenetico {
 	private String metodoMutacion;
 	private Double porcentElitismo;
 	private List<Individuo> poblacion;
+        private Seleccion seleccion;
 
 	public void iniciarPoblacion() {
 		tamPoblacion= 100;
@@ -37,41 +40,19 @@ public class AlgoritmoGenetico {
 			poblacion.add(new IndividuoFuncion1());
 		this.poblacion = poblacion;
 	}
-
-	public void seleccionRuleta() {
-		Double suma = 0.0;
-		for (Individuo ind : poblacion) {
-			suma += ind.getValor();
-		}
-		Integer numIndSelec = 50;
-		Random rand = new Random();
-		List<Individuo> NuevaPoblacion = new ArrayList<Individuo>();
-
-		for (int i = 0; i < numIndSelec; i++) {
-			Double alt = rand.nextDouble();
-
-			for (Individuo ind : poblacion) {
-
-				if (ind.getValor() / suma >= alt) {
-					NuevaPoblacion.add(ind);
-					break;
-				}
-			}
-		}
-		System.out.println(NuevaPoblacion);
-	}
-
-	public void seleccion() {
-		//if (metodoSeleccion == "Ruleta")
-			seleccionRuleta();
-	}
+        
+        public void iniciarSeleccion(){
+            //if (metodoSeleccion == "Ruleta")
+		seleccion = new SeleccionRuleta();
+        }
 
 	public void run() {
 		iniciarPoblacion();
 		Integer generacionActual = 0;
 		numGeneraciones=1;
+                iniciarSeleccion();
 		while (generacionActual < this.numGeneraciones) {
-			seleccion();
+			seleccion.run(poblacion);
 			// Siguiente generacion
 			generacionActual++;
 		}

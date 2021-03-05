@@ -21,7 +21,7 @@ public class Main {
         Boolean [] list = ind.getCromosoma();
        // System.out.println(Arrays.toString(list));
         //Para ver toda la información de un individuo
-        //System.out.println(ind.toString());
+        System.out.println(ind.toString());
         
         AlgoritmoGenetico alg = new AlgoritmoGenetico();
         alg.run();
