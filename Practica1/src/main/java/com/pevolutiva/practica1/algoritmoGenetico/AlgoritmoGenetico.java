@@ -14,6 +14,7 @@ import java.util.Set;
 import com.pevolutiva.practica1.algoritmoGenetico.individuos.Individuo;
 import com.pevolutiva.practica1.algoritmoGenetico.individuos.IndividuoFuncion1;
 import com.pevolutiva.practica1.algoritmoGenetico.seleccion.Seleccion;
+import com.pevolutiva.practica1.algoritmoGenetico.seleccion.SeleccionEstocasticoUniversal;
 import com.pevolutiva.practica1.algoritmoGenetico.seleccion.SeleccionRuleta;
 
 /**
@@ -43,7 +44,8 @@ public class AlgoritmoGenetico {
         
         public void iniciarSeleccion(){
             //if (metodoSeleccion == "Ruleta")
-		seleccion = new SeleccionRuleta();
+		//seleccion = new SeleccionRuleta();
+		seleccion = new SeleccionEstocasticoUniversal();
         }
 
 	public void run() {

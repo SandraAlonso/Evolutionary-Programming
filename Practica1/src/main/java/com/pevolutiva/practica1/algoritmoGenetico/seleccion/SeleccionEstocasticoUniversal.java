@@ -1,0 +1,46 @@
+package com.pevolutiva.practica1.algoritmoGenetico.seleccion;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
+import com.pevolutiva.practica1.algoritmoGenetico.individuos.Individuo;
+
+public class SeleccionEstocasticoUniversal extends Seleccion {
+
+	@Override
+	public List<Individuo> run(List<Individuo> poblacion) {
+
+		Double suma = 0.0;
+		for (Individuo ind : poblacion) {
+			suma += ind.getValor();
+		}
+
+		// Establecer una marcas equidistantes entre 0 y tamPoblacion;
+		int a = 1/poblacion.size();
+		int p = poblacion.size();
+		double distanciaMarcas =  (1 / poblacion.size());
+
+		List<Individuo> NuevaPoblacion = new ArrayList<Individuo>();
+		Integer numIndSelec = 3;
+
+		// Repetimos el proceso tantas veces como individuos queramos seleccionar.
+		for (int i = 0; i < numIndSelec; i++) {
+			Double acum = 0.0;
+
+			// Recorremos toda la poblacion hasta encontrar el individuo que encaja
+			for (int j = 0; i < poblacion.size(); j++) {
+
+				Double posIndividuo = (distanciaMarcas + j - 1) / numIndSelec;
+				if ((poblacion.get(i).getValor() + acum) / suma >= posIndividuo) {
+					NuevaPoblacion.add(poblacion.get(i));
+					break;
+				}
+				acum += poblacion.get(i).getValor();
+			}
+		}
+		System.out.println(NuevaPoblacion);
+		return NuevaPoblacion;
+	}
+
+}

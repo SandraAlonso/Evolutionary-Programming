@@ -14,37 +14,33 @@ import java.util.Random;
  *
  * @author Diego
  */
-public class SeleccionRuleta extends Seleccion{
+public class SeleccionRuleta extends Seleccion {
 
-    @Override
-    public List<Individuo> run(List<Individuo> poblacion) {
-        Double suma = 0.0;
-        for (Individuo ind : poblacion) {
-                suma += ind.getValor();
-        }
-        Integer numIndSelec = 3;
-        Random rand = new Random();
-        List<Individuo> NuevaPoblacion = new ArrayList<Individuo>();
+	@Override
+	public List<Individuo> run(List<Individuo> poblacion) {
+		Double suma = 0.0;
+		for (Individuo ind : poblacion) {
+			suma += ind.getValor();
+		}
+		Integer numIndSelec = 3;
+		Random rand = new Random();
+		List<Individuo> NuevaPoblacion = new ArrayList<Individuo>();
 
-        for (int i = 0; i < numIndSelec; i++) {
-                Double alt = rand.nextDouble();
-                Double acum = 0.0;
-                for (Individuo ind : poblacion) {
-                	Double aux= ind.getValor();
-                	Double aux1= aux+acum;
-                	Double a = aux1/suma;
-                	Double aux2 = (ind.getValor() + acum) / suma;
+		for (int i = 0; i < numIndSelec; i++) {
+			Double alt = rand.nextDouble();
+			Double acum = 0.0;
+			for (Individuo ind : poblacion) {
+				Double aux2 = (ind.getValor() + acum) / suma;
 
+				if ((ind.getValor() + acum) / suma >= alt) {
+					NuevaPoblacion.add(ind);
+					break;
+				}
+				acum += ind.getValor();
+			}
+		}
+		System.out.println(NuevaPoblacion);
+		return NuevaPoblacion;
+	}
 
-                        if ((ind.getValor() + acum) / suma >= alt) { 
-                                NuevaPoblacion.add(ind);
-                                break;
-                        }
-                        acum += ind.getValor();
-                }
-        }
-        System.out.println(NuevaPoblacion);
-        return NuevaPoblacion;
-    }
-    
 }
