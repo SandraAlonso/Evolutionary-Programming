@@ -15,5 +15,5 @@ import java.util.List;
 public abstract class Seleccion {
     
     
-    public abstract void run(List<Individuo> poblacion);
+    public abstract List<Individuo> run(List<Individuo> poblacion);
 }

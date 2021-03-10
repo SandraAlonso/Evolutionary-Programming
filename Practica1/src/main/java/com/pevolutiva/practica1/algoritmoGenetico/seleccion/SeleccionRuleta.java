@@ -17,7 +17,7 @@ import java.util.Random;
 public class SeleccionRuleta extends Seleccion{
 
     @Override
-    public void run(List<Individuo> poblacion) {
+    public List<Individuo> run(List<Individuo> poblacion) {
         Double suma = 0.0;
         for (Individuo ind : poblacion) {
                 suma += ind.getValor();
@@ -30,8 +30,13 @@ public class SeleccionRuleta extends Seleccion{
                 Double alt = rand.nextDouble();
                 Double acum = 0.0;
                 for (Individuo ind : poblacion) {
+                	Double aux= ind.getValor();
+                	Double aux1= aux+acum;
+                	Double a = aux1/suma;
+                	Double aux2 = (ind.getValor() + acum) / suma;
 
-                        if (ind.getValor() + acum / suma >= alt) {
+
+                        if ((ind.getValor() + acum) / suma >= alt) { 
                                 NuevaPoblacion.add(ind);
                                 break;
                         }
@@ -39,8 +44,7 @@ public class SeleccionRuleta extends Seleccion{
                 }
         }
         System.out.println(NuevaPoblacion);
-        
-        //TODO toca devolver la poblacion elegida
+        return NuevaPoblacion;
     }
     
 }

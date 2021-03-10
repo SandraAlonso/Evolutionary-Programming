@@ -34,7 +34,7 @@ public class AlgoritmoGenetico {
         private Seleccion seleccion;
 
 	public void iniciarPoblacion() {
-		tamPoblacion= 100;
+		tamPoblacion= 5;
 		List<Individuo> poblacion = new ArrayList<Individuo>();
 		for (int i = 0; i < tamPoblacion; i++)
 			poblacion.add(new IndividuoFuncion1());

@@ -30,12 +30,12 @@ public class IndividuoFuncion1 extends Individuo<Boolean> {
 
 	}
 
-	public Double getValor() {
+	public Double getValor() {//Funcion a maximizar
 		Double x1 = this.getFenotipo(0), x2 = this.getFenotipo(1);
 		return (21.5 + x1 * Math.sin(4 * Math.PI * x1) + x2 * Math.sin(20 * Math.PI * x2));
 	}
 
-	private Integer bin2dec(Boolean[] list, int range1, int range2) {
+	private Integer bin2dec(Boolean[] list, int range1, int range2) { //Convierte de binario a decimal para traducir de genotipo a fenotipo
 		Integer result = 0;
 		for (int i = range1; i < range2; ++i) {
 			result = result * 2 + (list[i] ? 1 : 0);
@@ -57,7 +57,7 @@ public class IndividuoFuncion1 extends Individuo<Boolean> {
 				+ this.bin2dec(cromosoma, rang1, rang2) * (max[val] - min[val]) / (Math.pow(2, tamGenes[val]) - 1);
 	}
 
-	public String toString() {
+	public String toString() { //Printea las caracteristicas del individuo
 		return "max: " + Arrays.toString(max) + " min: " + Arrays.toString(min) + " cromosoma: "
 				+ Arrays.toString(cromosoma) + " precision: " + precision + " tamGenes: " + Arrays.toString(tamGenes)
 				;
