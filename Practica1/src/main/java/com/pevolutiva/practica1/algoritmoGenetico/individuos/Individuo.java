@@ -49,5 +49,6 @@ public abstract class Individuo<T> {
     	//System.out.println((int) (Math.log10(((max - min) / precision) + 1) / Math.log10(2)));
         return (int) (Math.log10(((max - min) / precision) + 1) / Math.log10(2));
     }
-
+    
+    
 }

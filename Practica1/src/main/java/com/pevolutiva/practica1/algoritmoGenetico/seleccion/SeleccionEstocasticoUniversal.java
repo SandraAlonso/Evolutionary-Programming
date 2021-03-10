@@ -19,10 +19,12 @@ public class SeleccionEstocasticoUniversal extends Seleccion {
 		// Establecer una marcas equidistantes entre 0 y tamPoblacion;
 		int a = 1/poblacion.size();
 		int p = poblacion.size();
-		double distanciaMarcas =  (1 / poblacion.size());
+		double distanciaMarcas =  (1 / (double) poblacion.size());
+                
+         
 
 		List<Individuo> NuevaPoblacion = new ArrayList<Individuo>();
-		Integer numIndSelec = 3;
+		Integer numIndSelec = poblacion.size();
 
 		// Repetimos el proceso tantas veces como individuos queramos seleccionar.
 		for (int i = 0; i < numIndSelec; i++) {
@@ -39,7 +41,11 @@ public class SeleccionEstocasticoUniversal extends Seleccion {
 				acum += poblacion.get(i).getValor();
 			}
 		}
+                System.out.println("Seleccion:");
 		System.out.println(NuevaPoblacion);
+                System.out.println("Nuevo de seleccionados:");
+		System.out.println(NuevaPoblacion.size());
+                
 		return NuevaPoblacion;
 	}
 

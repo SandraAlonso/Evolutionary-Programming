@@ -22,7 +22,7 @@ public class SeleccionRuleta extends Seleccion {
 		for (Individuo ind : poblacion) {
 			suma += ind.getValor();
 		}
-		Integer numIndSelec = 3;
+		Integer numIndSelec = poblacion.size();
 		Random rand = new Random();
 		List<Individuo> NuevaPoblacion = new ArrayList<Individuo>();
 

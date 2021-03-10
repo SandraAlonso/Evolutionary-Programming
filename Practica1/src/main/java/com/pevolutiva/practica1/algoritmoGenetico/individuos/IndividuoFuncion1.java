@@ -62,5 +62,7 @@ public class IndividuoFuncion1 extends Individuo<Boolean> {
 				+ Arrays.toString(cromosoma) + " precision: " + precision + " tamGenes: " + Arrays.toString(tamGenes)
 				;
 	}
-
+        
+        
+        
 }

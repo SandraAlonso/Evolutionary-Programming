@@ -16,6 +16,8 @@ import com.pevolutiva.practica1.algoritmoGenetico.individuos.IndividuoFuncion1;
 import com.pevolutiva.practica1.algoritmoGenetico.seleccion.Seleccion;
 import com.pevolutiva.practica1.algoritmoGenetico.seleccion.SeleccionEstocasticoUniversal;
 import com.pevolutiva.practica1.algoritmoGenetico.seleccion.SeleccionRuleta;
+import com.pevolutiva.practica1.algoritmoGenetico.seleccion.SeleccionTorneo;
+import com.pevolutiva.practica1.algoritmoGenetico.seleccion.SeleccionTruncamiento;
 
 /**
  *
@@ -35,7 +37,7 @@ public class AlgoritmoGenetico {
         private Seleccion seleccion;
 
 	public void iniciarPoblacion() {
-		tamPoblacion= 5;
+		tamPoblacion= 20;
 		List<Individuo> poblacion = new ArrayList<Individuo>();
 		for (int i = 0; i < tamPoblacion; i++)
 			poblacion.add(new IndividuoFuncion1());
@@ -43,9 +45,26 @@ public class AlgoritmoGenetico {
 	}
         
         public void iniciarSeleccion(){
-            //if (metodoSeleccion == "Ruleta")
-		//seleccion = new SeleccionRuleta();
-		seleccion = new SeleccionEstocasticoUniversal();
+            //switch(metodoSeleccion){
+                /*
+                case("Ruleta"):
+                    seleccion = new SeleccionRuleta();
+                    break;
+                case("Estocastico"):
+                    seleccion = new SeleccionEstocasticoUniversal();
+                    break;
+                case("Torneo"):
+                    seleccion = new SeleccionTorneo();
+                    break;
+                case("Truncamiento"):
+                    seleccion = new SeleccionTruncamiento();
+                    break;
+                */ 
+                
+            //}
+           
+            seleccion = new SeleccionTruncamiento();
+
         }
 
 	public void run() {
