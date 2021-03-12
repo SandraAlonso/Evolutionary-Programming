@@ -36,6 +36,9 @@ public abstract class Individuo<T> {
     public T[] getCromosoma() {
         return cromosoma;
     }
+    public T[] setCromosoma(T[]c) {
+        return cromosoma=c;
+    }
 
     public Integer[] getTamGenes() {
         return tamGenes;
