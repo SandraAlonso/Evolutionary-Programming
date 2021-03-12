@@ -59,6 +59,9 @@ public class AlgoritmoGenetico {
                 case("Truncamiento"):
                     seleccion = new SeleccionTruncamiento();
                     break;
+                case("Restos"):
+                    seleccion = new SeleccionRestos();
+                    break;
                 */ 
                 
             //}
