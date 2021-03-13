@@ -40,10 +40,6 @@ public class SeleccionTruncamiento extends Seleccion {
                } 
             }
             
-            for(Individuo i : NuevaPoblacion){
-                System.out.println(i.getValor());
-            }
-            
             return NuevaPoblacion;
 	}
 

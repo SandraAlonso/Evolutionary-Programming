@@ -32,13 +32,6 @@ public class SeleccionTorneo extends Seleccion {
                 }
                 NuevaPoblacion.add(poblacion.get(posMejor));
             }
-            System.out.println("Seleccion:");
-            System.out.println(NuevaPoblacion);
-            System.out.println("Nuevo de seleccionados:");
-            System.out.println(NuevaPoblacion.size());
-            for(Individuo i : NuevaPoblacion){
-                System.out.println(i.getValor());
-            }
             return NuevaPoblacion;
 	}
 

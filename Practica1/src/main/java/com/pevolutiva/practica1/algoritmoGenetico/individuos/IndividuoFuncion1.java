@@ -29,6 +29,8 @@ public class IndividuoFuncion1 extends Individuo<Boolean> {
 			this.cromosoma[i] = this.rand.nextBoolean();
 
 	}
+        
+      
 
 	public Double getValor() {//Funcion a maximizar
 		Double x1 = this.getFenotipo(0), x2 = this.getFenotipo(1);
@@ -44,23 +46,28 @@ public class IndividuoFuncion1 extends Individuo<Boolean> {
 	}
 
 	public Double getFenotipo(Integer val) {
-		int rang1 = 0, rang2 = 0;
+		int rang1 , rang2 ;
+                if(val == 0){
+                    rang1 = 0; 
+                    rang2 = tamGenes[0];
+                }
+                else{
+                    rang1 = tamGenes[0]; 
+                    rang2 = tamGenes[0] + tamGenes[1];
+                }
                 
-		for (int i = 1; i < tamGenes.length; ++i) {
-			rang2 += tamGenes[i];
-			if (val == i) {
-				break;
-			}
-			rang1 += tamGenes[i - 1];
-		}
 		return min[val]
 				+ this.bin2dec(cromosoma, rang1, rang2) * (max[val] - min[val]) / (Math.pow(2, tamGenes[val]) - 1);
 	}
 
 	public String toString() { //Printea las caracteristicas del individuo
+            /*
 		return "max: " + Arrays.toString(max) + " min: " + Arrays.toString(min) + " cromosoma: "
 				+ Arrays.toString(cromosoma) + " precision: " + precision + " tamGenes: " + Arrays.toString(tamGenes)
 				;
+            */   
+            return "Valor: " + getValor() + " Fenotipo1: " + getFenotipo(0) + 
+                       " Fenotipo2: " + getFenotipo(1);
 	}
         
         

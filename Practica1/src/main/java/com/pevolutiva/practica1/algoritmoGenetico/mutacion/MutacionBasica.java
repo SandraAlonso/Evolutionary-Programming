@@ -12,7 +12,7 @@ public class MutacionBasica extends Mutacion {
 		Random rand = new Random();
 		for (int i = 0; i < poblacion.size(); i++) {
 			Boolean[] c = (Boolean[]) poblacion.get(i).getCromosoma();
-			for (int j = 0; j < poblacion.get(i).getCromosoma().length; i++) {
+			for (int j = 0; j < poblacion.get(i).getCromosoma().length; j++) {
 				Double alt = rand.nextDouble();
 				if (porcentMut > alt) { // mutamos
 					c[j] = !c[j];

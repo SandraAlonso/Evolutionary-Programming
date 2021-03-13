@@ -5,13 +5,14 @@
  */
 package com.pevolutiva.practica1.algoritmoGenetico.individuos;
 
+import java.io.Serializable;
 import java.util.Random;
 
 /**
  *
  * @author Diego
  */
-public abstract class Individuo<T> {
+public abstract class Individuo<T> implements Serializable {
 
     protected Double[] min;
 
@@ -24,6 +25,10 @@ public abstract class Individuo<T> {
     protected Double precision;
 
     protected Random rand = new Random();
+
+    
+    
+    
 
     public Double[] getMin() {
         return min;
