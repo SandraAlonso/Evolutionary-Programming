@@ -16,6 +16,9 @@ import com.pevolutiva.practica1.algoritmoGenetico.cruce.CruceMonoPunto;
 import com.pevolutiva.practica1.algoritmoGenetico.cruce.CruceUniforme;
 import com.pevolutiva.practica1.algoritmoGenetico.individuos.Individuo;
 import com.pevolutiva.practica1.algoritmoGenetico.individuos.IndividuoFuncion1;
+import com.pevolutiva.practica1.algoritmoGenetico.individuos.IndividuoFuncion2;
+import com.pevolutiva.practica1.algoritmoGenetico.individuos.IndividuoFuncion3;
+import com.pevolutiva.practica1.algoritmoGenetico.individuos.IndividuoFuncion4;
 import com.pevolutiva.practica1.algoritmoGenetico.mutacion.Mutacion;
 import com.pevolutiva.practica1.algoritmoGenetico.mutacion.MutacionBasica;
 import com.pevolutiva.practica1.algoritmoGenetico.seleccion.Seleccion;
@@ -70,8 +73,8 @@ public class AlgoritmoGenetico {
         iniciarSeleccion();
         iniciarCruce();
         iniciarMutacion();
-        tamPoblacion = 500;
-        numGeneraciones = 100;
+        tamPoblacion = 100;
+        numGeneraciones = 5000;
         this.porcetMutaciones = 0.05;
         this.porcentCruces = 0.6;
     }
@@ -79,14 +82,14 @@ public class AlgoritmoGenetico {
     public void iniciarPoblacion() {
         List<Individuo> poblacion = new ArrayList<Individuo>();
         for (int i = 0; i < tamPoblacion; i++) {
-            poblacion.add(new IndividuoFuncion1());
+            poblacion.add(new IndividuoFuncion4(7));
         }
         this.poblacion = poblacion;
     }
 
     public void iniciarCruce() {
         cruce = new CruceUniforme();
-        //cruce = new CruceMonoPunto();
+        cruce = new CruceMonoPunto();
     }
 
     public void iniciarMutacion() {
@@ -104,7 +107,7 @@ public class AlgoritmoGenetico {
          */
 
         // }
-        seleccion = new SeleccionRestos();
+        seleccion = new SeleccionTruncamiento();
 
     }
 

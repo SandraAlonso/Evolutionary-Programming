@@ -31,7 +31,7 @@ public class SeleccionEstocasticoUniversal extends Seleccion {
 			Double acum = 0.0;
 
 			// Recorremos toda la poblacion hasta encontrar el individuo que encaja
-			for (int j = 0; i < poblacion.size(); j++) {
+			for (int j = 0; j < poblacion.size(); j++) {
 
 				Double posIndividuo = (distanciaMarcas + j - 1) / numIndSelec;
 				if ((poblacion.get(i).getValor() + acum) / suma >= posIndividuo) {
