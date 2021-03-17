@@ -5,25 +5,22 @@
  */
 package com.pevolutiva.practica1.main;
 
-import java.util.Arrays;
 
 import com.pevolutiva.practica1.algoritmoGenetico.AlgoritmoGenetico;
-import com.pevolutiva.practica1.algoritmoGenetico.individuos.IndividuoFuncion1;
+import com.pevolutiva.practica1.view.vista;
 
 /**
  *
  * @author Diego
  */
 public class Main {
-    public static void main(String[] args){
-        System.out.println("Hellow world");
-        IndividuoFuncion1 ind= new IndividuoFuncion1();
-        Boolean [] list = ind.getCromosoma();
-       // System.out.println(Arrays.toString(list));
-        //Para ver toda la información de un individuo
-        System.out.println(ind.toString());
-        
-        AlgoritmoGenetico alg = new AlgoritmoGenetico();
-        alg.run();
-    }
+	public static void main(String[] args) {
+
+		vista v = new vista();
+		v.open();
+		/*int n = v.getNumGeneracionesTx();
+		AlgoritmoGenetico alg = new AlgoritmoGenetico(n);
+		alg.run();
+*/
+	}
 }

@@ -6,6 +6,7 @@
 package com.pevolutiva.practica1.algoritmoGenetico;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
@@ -35,138 +36,175 @@ import org.apache.commons.lang.SerializationUtils;
  */
 public class AlgoritmoGenetico {
 
-    private Integer tamPoblacion;
-    private Integer numGeneraciones;
-    private Double porcentCruces;
-    private Double porcetMutaciones;
-    private Integer precision;
-    private String metodoSeleccion;
-    private String metodoCruce;
-    private String metodoMutacion;
-    private Double porcentElitismo;
-    private List<Individuo> poblacion;
-    private Seleccion seleccion;
-    private Cruce cruce;
-    private Mutacion mutacion;
-    private Individuo mejorAbsoluto;
-    private Double mediaGeneracion;
-    private Individuo mejorGeneracion;
+	private Integer tamPoblacion;
+	private Integer numGeneraciones;
+	private Double porcentCruces;
+	private Double porcetMutaciones;
+	private Double precision;
+	private String metodoSeleccion;
+	private String metodoCruce;
+	private String metodoMutacion;
+	private Double porcentElitismo;
+	private List<Individuo> poblacion;
+	private Seleccion seleccion;
+	private Cruce cruce;
+	private Mutacion mutacion;
+	private Individuo mejorAbsoluto;
+	private Double mediaGeneracion;
+	private Individuo mejorGeneracion;
 
-    public AlgoritmoGenetico(Integer tamPoblacion, Integer numGeneraciones, Double porcentCruces, Double porcetMutaciones, Integer precision, String metodoSeleccion, String metodoCruce, String metodoMutacion, Double porcentElitismo) {
-        this.tamPoblacion = tamPoblacion;
-        this.numGeneraciones = numGeneraciones;
-        this.porcentCruces = porcentCruces;
-        this.porcetMutaciones = porcetMutaciones;
-        this.precision = precision;
-        this.metodoSeleccion = metodoSeleccion;
-        this.metodoCruce = metodoCruce;
-        this.metodoMutacion = metodoMutacion;
-        this.porcentElitismo = porcentElitismo;
-        iniciarSeleccion();
-        iniciarCruce();
-        iniciarMutacion();
-        numGeneraciones = 100;
+	public AlgoritmoGenetico(Integer tamPoblacion, Integer numGeneraciones, Double porcentCruces,
+			Double porcetMutaciones, Double porcentElitismo, Double precision, String metodoSeleccion,
+			String metodoCruce, String metodoMutacion) {
+		this.tamPoblacion = tamPoblacion;
+		this.numGeneraciones = numGeneraciones;
+		this.porcentCruces = porcentCruces;
+		this.porcetMutaciones = porcetMutaciones;
+		this.precision = precision;
+		this.metodoSeleccion = metodoSeleccion;
+		this.metodoCruce = metodoCruce;
+		this.metodoMutacion = metodoMutacion;
+		this.porcentElitismo = porcentElitismo;
+		iniciarSeleccion();
+		iniciarCruce();
+		iniciarMutacion();
 
-    }
+	}
 
-    public AlgoritmoGenetico() {
-        iniciarSeleccion();
-        iniciarCruce();
-        iniciarMutacion();
-        tamPoblacion = 100;
-        numGeneraciones = 5000;
-        this.porcetMutaciones = 0.05;
-        this.porcentCruces = 0.6;
-    }
+	public AlgoritmoGenetico(int n) {
+		iniciarSeleccion();
+		iniciarCruce();
+		iniciarMutacion();
+		tamPoblacion = 100;
+		numGeneraciones = n;
+		this.porcetMutaciones = 0.05;
+		this.porcentCruces = 0.6;
+	}
 
-    public void iniciarPoblacion() {
-        List<Individuo> poblacion = new ArrayList<Individuo>();
-        for (int i = 0; i < tamPoblacion; i++) {
-            poblacion.add(new IndividuoFuncion4(7));
-        }
-        this.poblacion = poblacion;
-    }
+	public void iniciarPoblacion() {
+		List<Individuo> poblacion = new ArrayList<Individuo>();
+		for (int i = 0; i < tamPoblacion; i++) {
+			poblacion.add(new IndividuoFuncion4(7));
+		}
+		this.poblacion = poblacion;
+	}
 
-    public void iniciarCruce() {
-        cruce = new CruceUniforme();
-        cruce = new CruceMonoPunto();
-    }
+	public void iniciarCruce() {
 
-    public void iniciarMutacion() {
-        mutacion = new MutacionBasica();
-    }
+		switch (metodoCruce) {
 
-    public void iniciarSeleccion() {
-        // switch(metodoSeleccion){
-        /*
-		 * case("Ruleta"): seleccion = new SeleccionRuleta(); break;
-		 * case("Estocastico"): seleccion = new SeleccionEstocasticoUniversal(); break;
-		 * case("Torneo"): seleccion = new SeleccionTorneo(); break;
-		 * case("Truncamiento"): seleccion = new SeleccionTruncamiento(); break;
-		 * case("Restos"): seleccion = new SeleccionRestos(); break;
-         */
+		case ("Cruce monopunto"):
+			cruce = new CruceUniforme();
+			break;
+		case ("Cruce uniforme"):
+			cruce = new CruceMonoPunto();
+			break;
+		}
+	}
 
-        // }
-        seleccion = new SeleccionTruncamiento();
+	public void iniciarMutacion() {
+		switch (metodoMutacion) {
+		case ("Mutación básica"):
+			mutacion = new MutacionBasica();
+			break;
+		}
+	}
 
-    }
+	public void iniciarSeleccion() {
+		switch (metodoSeleccion) {
 
-    private List<Individuo> seleccionadosCruce(List<Individuo> nuevaPoblacion) {
-        Random rand = new Random();
-        List<Individuo> seleccionadosCruce = new ArrayList<Individuo>();
+		case ("Ruleta"):
+			seleccion = new SeleccionRuleta();
+			break;
+		case ("Estocástico universal"):
+			seleccion = new SeleccionEstocasticoUniversal();
+			break;
+		case ("Torneo"):
+			seleccion = new SeleccionTorneo();
+			break;
+		case ("Truncamiento"):
+			seleccion = new SeleccionTruncamiento();
+			break;
+		case ("Restos"):
+			seleccion = new SeleccionRestos();
+			break;
+		}
 
-        for (int i = 0; i < nuevaPoblacion.size(); ++i) {
-            Double alt = rand.nextDouble();
-            if (porcentCruces > alt) {
-                seleccionadosCruce.add(nuevaPoblacion.get(i));
-                nuevaPoblacion.remove(nuevaPoblacion.get(i));
-            }
+	}
 
-        }
-        if (seleccionadosCruce.size() % 2 != 0) {//si son impares eliminamos el ultimo.
-            seleccionadosCruce.remove(seleccionadosCruce.get(seleccionadosCruce.size() - 1));
-        }
+	private List<Individuo> seleccionadosCruce(List<Individuo> nuevaPoblacion) {
+		Random rand = new Random();
+		List<Individuo> seleccionadosCruce = new ArrayList<Individuo>();
 
-        return seleccionadosCruce;
-    }
+		for (int i = 0; i < nuevaPoblacion.size(); ++i) {
+			Double alt = rand.nextDouble();
+			if (porcentCruces > alt) {
+				seleccionadosCruce.add(nuevaPoblacion.get(i));
+				nuevaPoblacion.remove(nuevaPoblacion.get(i));
+			}
 
-    private void evaluarPoblacion() {
-        Individuo mejorTemp = this.poblacion.get(0);
-        Double total = 0.0;
-        for (Individuo ind : this.poblacion) {
-            total += ind.getValor();
-            if (mejorTemp.getValor() < ind.getValor()) {
-                mejorTemp = ind;
-            }
-        }
-        this.mediaGeneracion = total / this.poblacion.size();
-        this.mejorGeneracion = mejorTemp;
-        if (this.mejorAbsoluto.getValor() < this.mejorGeneracion.getValor()) {
-            this.mejorAbsoluto = (Individuo) SerializationUtils.clone(this.mejorGeneracion);
-        }
-    }
+		}
+		if (seleccionadosCruce.size() % 2 != 0) {// si son impares eliminamos el ultimo.
+			seleccionadosCruce.remove(seleccionadosCruce.get(seleccionadosCruce.size() - 1));
+		}
 
-    public void run() {
-        iniciarPoblacion();
-        this.mejorAbsoluto = this.poblacion.get(0);
-        Integer generacionActual = 0;
-        while (generacionActual < this.numGeneraciones) {
-            List<Individuo> nuevaPoblacion = new ArrayList<Individuo>();
-            List<Individuo> seleccionados = new ArrayList<Individuo>();
+		return seleccionadosCruce;
+	}
 
-            this.poblacion = seleccion.run(poblacion); //seleccion de Indivpiduos
-            seleccionados = seleccionadosCruce(nuevaPoblacion);//Seleccionamos los individuos que vamos a cruzar
-            seleccionados = cruce.run(seleccionados);//Elementos ya cruzados pendientes de añadirlos a la poblacion
-            this.poblacion.addAll(seleccionados);
-            this.poblacion = mutacion.run(poblacion, this.porcetMutaciones);
+	private void evaluarPoblacion() {
+		Individuo mejorTemp = this.poblacion.get(0);
+		Double total = 0.0;
+		for (Individuo ind : this.poblacion) {
+			total += ind.getValor();
+			if (mejorTemp.getValor() < ind.getValor()) {
+				mejorTemp = ind;
+			}
+		}
+		this.mediaGeneracion = total / this.poblacion.size();
+		this.mejorGeneracion = mejorTemp;
+		if (this.mejorAbsoluto.getValor() < this.mejorGeneracion.getValor()) {
+			this.mejorAbsoluto = (Individuo) SerializationUtils.clone(this.mejorGeneracion);
+		}
+	}
 
-            this.evaluarPoblacion();
+	private List<Individuo> generarElite(Double porcent) {
+		int numIndividuos = (int) (porcent * this.poblacion.size());
+		int i = 0;
+		List<Individuo> elite = new ArrayList<Individuo>();
+		Collections.sort(poblacion, (a, b) -> b.getValor().compareTo(a.getValor()));
+		while (numIndividuos > i) {
+			elite.add(poblacion.get(i));
+			poblacion.remove(poblacion.get(i));
+			i++;
+		}
 
-            System.out.println("Media generacion: " + this.mediaGeneracion);
-            System.out.println("Mejor generacion: " + this.mejorGeneracion);
-            System.out.println("Mejor absoluto: " + this.mejorAbsoluto);
-            // Siguiente generacion
-            generacionActual++;
-        }
-    }
+		return elite;
+
+	}
+
+	public void run() {
+		iniciarPoblacion();
+		this.mejorAbsoluto = this.poblacion.get(0);
+		Integer generacionActual = 0;
+		while (generacionActual < this.numGeneraciones) {
+			List<Individuo> nuevaPoblacion = new ArrayList<Individuo>();
+			List<Individuo> seleccionados = new ArrayList<Individuo>();
+			List<Individuo> elite = new ArrayList<Individuo>();
+
+			elite = generarElite(porcentElitismo);
+			this.poblacion = seleccion.run(poblacion); // seleccion de Indivpiduos
+			seleccionados = seleccionadosCruce(nuevaPoblacion);// Seleccionamos los individuos que vamos a cruzar
+			seleccionados = cruce.run(seleccionados);// Elementos ya cruzados pendientes de añadirlos a la poblacion
+			this.poblacion.addAll(seleccionados);
+			this.poblacion = mutacion.run(poblacion, this.porcetMutaciones);
+			this.poblacion.addAll(elite);
+			this.evaluarPoblacion();
+
+			System.out.println("Media generacion: " + this.mediaGeneracion);
+			System.out.println("Mejor generacion: " + this.mejorGeneracion);
+			System.out.println("Mejor absoluto: " + this.mejorAbsoluto);
+			// Siguiente generacion
+			generacionActual++;
+		}
+	}
 }
