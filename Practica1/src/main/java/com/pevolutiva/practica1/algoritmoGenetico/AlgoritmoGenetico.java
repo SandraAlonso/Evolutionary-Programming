@@ -52,10 +52,11 @@ public class AlgoritmoGenetico {
 	private Individuo mejorAbsoluto;
 	private Double mediaGeneracion;
 	private Individuo mejorGeneracion;
+	private String problema;
 
 	public AlgoritmoGenetico(Integer tamPoblacion, Integer numGeneraciones, Double porcentCruces,
 			Double porcetMutaciones, Double porcentElitismo, Double precision, String metodoSeleccion,
-			String metodoCruce, String metodoMutacion) {
+			String metodoCruce, String metodoMutacion, String problema) {
 		this.tamPoblacion = tamPoblacion;
 		this.numGeneraciones = numGeneraciones;
 		this.porcentCruces = porcentCruces;
@@ -65,27 +66,32 @@ public class AlgoritmoGenetico {
 		this.metodoCruce = metodoCruce;
 		this.metodoMutacion = metodoMutacion;
 		this.porcentElitismo = porcentElitismo;
+		this.problema = problema;
 		iniciarSeleccion();
 		iniciarCruce();
 		iniciarMutacion();
 
-	}
-
-	public AlgoritmoGenetico(int n) {
-		iniciarSeleccion();
-		iniciarCruce();
-		iniciarMutacion();
-		tamPoblacion = 100;
-		numGeneraciones = n;
-		this.porcetMutaciones = 0.05;
-		this.porcentCruces = 0.6;
 	}
 
 	public void iniciarPoblacion() {
+		System.out.print(problema);
 		List<Individuo> poblacion = new ArrayList<Individuo>();
-		for (int i = 0; i < tamPoblacion; i++) {
-			poblacion.add(new IndividuoFuncion4(7));
-		}
+		if (problema.equals("Problema 1"))
+			for (int i = 0; i < tamPoblacion; i++)
+				poblacion.add(new IndividuoFuncion1(precision));
+
+		else if (problema.equals("Problema 2"))
+			for (int i = 0; i < tamPoblacion; i++)
+				poblacion.add(new IndividuoFuncion2(precision));
+
+		else if (problema.equals("Problema 3"))
+			for (int i = 0; i < tamPoblacion; i++)
+				poblacion.add(new IndividuoFuncion3(precision));
+
+		else
+			for (int i = 0; i < tamPoblacion; i++)
+				poblacion.add(new IndividuoFuncion4(precision, 7));
+
 		this.poblacion = poblacion;
 	}
 
@@ -182,7 +188,7 @@ public class AlgoritmoGenetico {
 
 	}
 
-	public void run() {
+	public String run() {
 		iniciarPoblacion();
 		this.mejorAbsoluto = this.poblacion.get(0);
 		Integer generacionActual = 0;
@@ -206,5 +212,6 @@ public class AlgoritmoGenetico {
 			// Siguiente generacion
 			generacionActual++;
 		}
+		return this.mejorAbsoluto.toString();
 	}
 }

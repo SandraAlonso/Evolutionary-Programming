@@ -4,7 +4,7 @@ package com.pevolutiva.practica1.algoritmoGenetico.individuos;
 
 public class IndividuoFuncion2 extends Individuo<Boolean> {
 
-	public IndividuoFuncion2() {
+	public IndividuoFuncion2(Double precision) {
 		this.tamGenes = new Integer[2];
 		this.min = new Double[2];
 		this.max = new Double[2];
@@ -12,8 +12,8 @@ public class IndividuoFuncion2 extends Individuo<Boolean> {
 		this.min[1] = -10.00;
 		this.max[0] = 10.00;
 		this.max[1] = 10.00;
-		this.tamGenes[0] = this.tamGen( min[0], max[0], this.precision);
-		this.tamGenes[1] = this.tamGen( min[1], max[1], this.precision);
+		this.tamGenes[0] = this.tamGen( min[0], max[0], precision);
+		this.tamGenes[1] = this.tamGen( min[1], max[1], precision);
 		int tamTotal = tamGenes[0] + tamGenes[1];
 		this.cromosoma = new Boolean[tamTotal];
 		for (int i = 0; i < tamTotal; i++)

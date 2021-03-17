@@ -52,9 +52,7 @@ public abstract class Individuo<T> implements Serializable {
     public abstract Double getValor();
 
     public int tamGen(Double min, Double max, Double precision) {
-    	//La preision es lo mismo que el valorError y por defecto es 0.001
-    	precision=0.001;
-    	//System.out.println((int) (Math.log10(((max - min) / precision) + 1) / Math.log10(2)));
+    	
         return (int) (Math.log10(((max - min) / precision) + 1) / Math.log10(2));
     }
     

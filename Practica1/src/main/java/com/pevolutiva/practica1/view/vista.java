@@ -89,7 +89,9 @@ public class vista {
 		lblProblema.setText("Problema");
 
 		CCombo tipoProblema = new CCombo(shlPrcticaP, SWT.BORDER);
-		tipoProblema.setBounds(550, 22, 31, 21);
+		tipoProblema.setText("Problema 1");
+		tipoProblema.setItems(new String[] {"Problema 1", "Problema 2", "Problema 3", "Problema 4"});
+		tipoProblema.setBounds(550, 22, 91, 21);
 
 		// Tamaño poblacion
 		Label lblTamaoPoblacin = new Label(shlPrcticaP, SWT.NONE);
@@ -128,7 +130,7 @@ public class vista {
 
 		Label lblTipoDeSelccin = new Label(shlPrcticaP, SWT.NONE);
 		lblTipoDeSelccin.setBounds(20, 241, 130, 15);
-		lblTipoDeSelccin.setText("Tipo de selcción");
+		lblTipoDeSelccin.setText("Tipo de selección");
 
 		tipoSelecc = new CCombo(shlPrcticaP, SWT.BORDER);
 		tipoSelecc.setText("Ruleta");
@@ -149,6 +151,7 @@ public class vista {
 		lblTipoDeCruce.setText("Tipo de cruce");
 
 		tipoCruce = new CCombo(shlPrcticaP, SWT.BORDER);
+		tipoCruce.setText("Cruce monopunto");
 		tipoCruce.setItems(new String[] { "Cruce monopunto", "Cruce uniforme" });
 		tipoCruce.setBounds(20, 348, 130, 21);
 
@@ -173,6 +176,7 @@ public class vista {
 		lblTipoDeMutacin.setBounds(20, 472, 130, 15);
 
 		tipoMutacion = new CCombo(shlPrcticaP, SWT.BORDER);
+		tipoMutacion.setText("Mutación básica");
 		tipoMutacion.setItems(new String[] { "Mutación básica" });
 		tipoMutacion.setBounds(20, 493, 130, 21);
 
@@ -197,7 +201,7 @@ public class vista {
 		lblElitismo.setText("% elitismo");
 
 		porcentElitismoText = new Text(shlPrcticaP, SWT.BORDER);
-		porcentElitismoText.setText("0.05");
+		porcentElitismoText.setText("0.02");
 		porcentElitismoText.setBounds(15, 624, 135, 21);
 
 		Label label_4 = new Label(shlPrcticaP, SWT.SEPARATOR | SWT.HORIZONTAL);
@@ -240,14 +244,45 @@ public class vista {
 				String selecc = tipoSelecc.getText(); 
 				String mut = tipoMutacion.getText(); 
 				String cruc = tipoCruce.getText(); 
-				AlgoritmoGenetico alg = new AlgoritmoGenetico(tamPob, numGen, pCruce, pMut, pElit, err, selecc, cruc, mut);
-				alg.run();
+				String problema = tipoProblema.getText();
+
+				AlgoritmoGenetico alg = new AlgoritmoGenetico(tamPob, numGen, pCruce, pMut, pElit, err, selecc, cruc, mut, problema);
+				
+				solucionTx.setText(alg.run());
 			}
 
 			@Override
 			public void mouseDoubleClick(MouseEvent arg0) {
 				// TODO Auto-generated method stub
 
+			}
+		});
+		btnRestaurar.addMouseListener(new MouseListener() {
+			
+			@Override
+			public void mouseUp(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void mouseDown(MouseEvent arg0) {
+				errorTx.setText("0.001");		
+				porcentCruceTx.setText("0.6");
+				porcentMutacionTx.setText("0.05");
+				porcentElitismoText.setText("0.02");
+				tamPoblacionTx.setText("100");
+				numGeneracionesTx.setText("100");
+				tipoCruce.setText("Cruce monopunto");
+				tipoMutacion.setText("Mutación básica");
+				tipoSelecc.setText("Ruleta");
+				tipoProblema.setText("Problema 1");
+			}
+			
+			@Override
+			public void mouseDoubleClick(MouseEvent arg0) {
+				// TODO Auto-generated method stub
+				
 			}
 		});
 
