@@ -374,10 +374,11 @@ public class VistaPrincipal extends JFrame {
 				solucionTx.setText(d.toString());
 				
 				// define the legend position
-				plot.addLegend("Algoritmo genético");
+				plot.addLegend("SOUTH");
+
 				
 				// add a line plot to the PlotPanel
-				plot.addLinePlot("media de la generación", t.getArrayNumGene(), t.getArrayMedias());
+				plot.addLinePlot("media de la generación",  t.getArrayNumGene(), t.getArrayMedias());
 				plot.addLinePlot("mejor absoluto", t.getArrayNumGene(), t.getArrayMejoresAbs());
 				plot.addLinePlot("mejor de la generación", t.getArrayNumGene(), t.getArrayMejorGene());
 
