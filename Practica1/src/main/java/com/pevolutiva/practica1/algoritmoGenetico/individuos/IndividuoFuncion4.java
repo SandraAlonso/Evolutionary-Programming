@@ -15,13 +15,13 @@ public class IndividuoFuncion4 extends Individuo<Boolean> {
 		this.tamGenes = new Integer[n];
 		this.min = new Double[n];
 		this.max = new Double[n];
-                int auxTotal = 0;
-                for(int i = 0; i < n; ++i){
-                    this.min[i] = 0.00;
-                    this.max[i] = Math.PI;
-                    this.tamGenes[i] = this.tamGen( min[i], max[i], precision);
-                    auxTotal += this.tamGenes[i];
-                }
+        int auxTotal = 0;
+        for(int i = 0; i < n; ++i){
+            this.min[i] = 0.00;
+            this.max[i] = Math.PI;
+            this.tamGenes[i] = this.tamGen( min[i], max[i], precision);
+            auxTotal += this.tamGenes[i];
+        }
 		int tamTotal = auxTotal;
 		this.cromosoma = new Boolean[tamTotal];
 		for (int i = 0; i < tamTotal; i++)
