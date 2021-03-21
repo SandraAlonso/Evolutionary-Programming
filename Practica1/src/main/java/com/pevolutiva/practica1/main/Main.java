@@ -6,7 +6,7 @@
 package com.pevolutiva.practica1.main;
 
 
-import com.pevolutiva.practica1.algoritmoGenetico.AlgoritmoGenetico;
+import com.pevolutiva.practica1.vista.VistaPrincipal;
 
 /**
  *
@@ -15,11 +15,9 @@ import com.pevolutiva.practica1.algoritmoGenetico.AlgoritmoGenetico;
 public class Main {
 	public static void main(String[] args) {
 
-		//vista v = new vista();
-		//v.open();
-		/*int n = v.getNumGeneracionesTx();
-		AlgoritmoGenetico alg = new AlgoritmoGenetico(n);
-		alg.run();
-*/
+		VistaPrincipal v = new VistaPrincipal();
+		v.open();
+		
+
 	}
 }

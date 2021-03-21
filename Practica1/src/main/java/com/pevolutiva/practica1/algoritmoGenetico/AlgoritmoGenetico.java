@@ -188,7 +188,14 @@ public class AlgoritmoGenetico {
 
 	}
 
-	public String run() {
+	public Transfer run() {
+		double[] arrayMedias = new double[numGeneraciones];
+		double[] arrayMejoresAbs = new double[numGeneraciones];
+		double[] arrayMejorGene = new double[numGeneraciones];
+		double[] arrayNumGene  = new double[numGeneraciones];
+		for(int i =1;i<numGeneraciones+1;i++) {
+			arrayNumGene[i-1]=i;
+		}
 		iniciarPoblacion();
 		this.mejorAbsoluto = this.poblacion.get(0);
 		Integer generacionActual = 0;
@@ -205,13 +212,19 @@ public class AlgoritmoGenetico {
 			this.poblacion = mutacion.run(poblacion, this.porcetMutaciones);
 			this.poblacion.addAll(elite);
 			this.evaluarPoblacion();
-
+			
+			
+			arrayMedias[generacionActual]=mediaGeneracion;
+			arrayMejorGene[generacionActual]=mejorGeneracion.getValor();
+			arrayMejoresAbs[generacionActual]=mejorAbsoluto.getValor();
+			
 			System.out.println("Media generacion: " + this.mediaGeneracion);
 			System.out.println("Mejor generacion: " + this.mejorGeneracion);
 			System.out.println("Mejor absoluto: " + this.mejorAbsoluto);
 			// Siguiente generacion
 			generacionActual++;
 		}
-		return this.mejorAbsoluto.toString();
+		
+		return new Transfer(arrayMedias, arrayMejoresAbs, arrayMejorGene, arrayNumGene);
 	}
 }
