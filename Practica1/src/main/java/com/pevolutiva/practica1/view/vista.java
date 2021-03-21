@@ -2,16 +2,22 @@ package com.pevolutiva.practica1.view;
 
 
 import org.eclipse.swt.SWT;
+
+import org.eclipse.swt.widgets.Text;
+import org.math.plot.Plot2DPanel;
+
+import com.pevolutiva.practica1.algoritmoGenetico.AlgoritmoGenetico;
+
 import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.MouseListener;
 import org.eclipse.swt.widgets.Button;
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.widgets.Text;
+import org.eclipse.swt.widgets.Composite;
 
-import com.pevolutiva.practica1.algoritmoGenetico.AlgoritmoGenetico;
+import java.awt.Panel;
+
+import javax.swing.JPanel;
+
 
 public class vista {
 
@@ -39,6 +45,11 @@ public class vista {
 	private Text solucionTx;
 	private Text tamPoblacionTx;
 	private CCombo tipoSelecc;
+	private Composite composite;
+	private Composite composite_1;
+	/**
+	 * @wbp.nonvisual location=510,449
+	 */
 
 	/**
 	 * Launch the application.
@@ -79,7 +90,6 @@ public class vista {
 		shlPrcticaP.setText("Práctica 1 P. evolutiva");
 		shlPrcticaP.setLayout(null);
 
-		
 		Label lblProblema = new Label(shlPrcticaP, SWT.NONE);
 		lblProblema.setBounds(489, 23, 55, 15);
 		lblProblema.setText("Problema");
@@ -133,7 +143,6 @@ public class vista {
 		tipoSelecc.setItems(new String[] { "Estocástico universal", "Restos", "Ruleta", "Torneo", "Truncamiento" });
 		tipoSelecc.setBounds(10, 262, 130, 21);
 
-
 		label_1 = new Label(shlPrcticaP, SWT.SEPARATOR | SWT.HORIZONTAL);
 		label_1.setBounds(47, 313, 103, 8);
 
@@ -173,7 +182,7 @@ public class vista {
 
 		tipoMutacion = new CCombo(shlPrcticaP, SWT.BORDER);
 		tipoMutacion.setText("Mutación básica");
-		tipoMutacion.setItems(new String[] { "Mutación básica" });
+		tipoMutacion.setItems(new String[] {"Mutación básica"});
 		tipoMutacion.setBounds(20, 493, 130, 21);
 
 		lblMutacin_1 = new Label(shlPrcticaP, SWT.NONE);
@@ -215,12 +224,37 @@ public class vista {
 
 		solucionTx = new Text(shlPrcticaP, SWT.BORDER);
 		solucionTx.setBounds(271, 705, 596, 21);
+		
+		Panel panel = new Panel();
+		panel.setBounds(210, 93, 830, 582);
+		
+		///////////////////////////////////////
+		double[] x = { 1, 2, 3, 4, 5, 6 };
+		double[] y = { 45, 89, 6, 32, 63, 12 };
 
+		// create your PlotPanel (you can use it as a JPanel)
+		Plot2DPanel plot = new Plot2DPanel();
+
+		// define the legend position
+		plot.addLegend("SOUTH");
+
+		// add a line plot to the PlotPanel
+		plot.addLinePlot("my plot", x, y);
+
+		// put the PlotPanel in a JFrame like a JPanel
+		panel.add(plot);
+		
+		////////////////////////////////////
 		// Ejecutar
 		Button btnEjecutar = new Button(shlPrcticaP, SWT.NONE);
 		btnEjecutar.setBounds(920, 703, 120, 25);
 		btnEjecutar.setText("Ejecutar");
-
+		
+		
+		
+		
+	
+		
 		btnEjecutar.addMouseListener(new MouseListener() {
 
 			@Override
@@ -233,17 +267,18 @@ public class vista {
 			public void mouseDown(MouseEvent arg0) {
 				Integer numGen = getNumGeneracionesTx();
 				Double err = getErrorTx();
-				Double pCruce= getPorcentCruceTx();
-				Double pMut= getPorcentMutacionTx();
-				Double pElit= getPorcentElitismoText();
+				Double pCruce = getPorcentCruceTx();
+				Double pMut = getPorcentMutacionTx();
+				Double pElit = getPorcentElitismoText();
 				Integer tamPob = getTamPoblacionTx();
-				String selecc = tipoSelecc.getText(); 
-				String mut = tipoMutacion.getText(); 
-				String cruc = tipoCruce.getText(); 
+				String selecc = tipoSelecc.getText();
+				String mut = tipoMutacion.getText();
+				String cruc = tipoCruce.getText();
 				String problema = tipoProblema.getText();
 
-				AlgoritmoGenetico alg = new AlgoritmoGenetico(tamPob, numGen, pCruce, pMut, pElit, err, selecc, cruc, mut, problema);
-				
+				AlgoritmoGenetico alg = new AlgoritmoGenetico(tamPob, numGen, pCruce, pMut, pElit, err, selecc, cruc,
+						mut, problema);
+
 				solucionTx.setText(alg.run());
 			}
 
@@ -254,16 +289,16 @@ public class vista {
 			}
 		});
 		btnRestaurar.addMouseListener(new MouseListener() {
-			
+
 			@Override
 			public void mouseUp(MouseEvent arg0) {
 				// TODO Auto-generated method stub
-				
+
 			}
-			
+
 			@Override
 			public void mouseDown(MouseEvent arg0) {
-				errorTx.setText("0.001");		
+				errorTx.setText("0.001");
 				porcentCruceTx.setText("0.6");
 				porcentMutacionTx.setText("0.05");
 				porcentElitismoText.setText("0.02");
@@ -274,21 +309,20 @@ public class vista {
 				tipoSelecc.setText("Ruleta");
 				tipoProblema.setText("Problema 1");
 			}
-			
+
 			@Override
 			public void mouseDoubleClick(MouseEvent arg0) {
 				// TODO Auto-generated method stub
-				
+
 			}
 		});
 
 	}
-	
-	
 
 	public Double getErrorTx() {
 		String num = errorTx.getText();
-		return Double.parseDouble(num);	}
+		return Double.parseDouble(num);
+	}
 
 	public Double getPorcentCruceTx() {
 		String num = porcentCruceTx.getText();
