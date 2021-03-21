@@ -1,10 +1,10 @@
 package com.pevolutiva.practica1.algoritmoGenetico.individuos;
 
-public class IndividuoFucion4Reales extends Individuo<Double> {
+public class IndividuoFuncion4Reales extends Individuo<Double> {
 
 	
 	
-	public IndividuoFucion4Reales(Double precision, int n) {
+	public IndividuoFuncion4Reales(Double precision, int n) {
 		this.tamGenes = new Integer[n];
 		this.min = new Double[n];
 		this.max = new Double[n];
