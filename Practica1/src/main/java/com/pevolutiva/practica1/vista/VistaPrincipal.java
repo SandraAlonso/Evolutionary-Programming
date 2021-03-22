@@ -137,8 +137,8 @@ public class VistaPrincipal extends JFrame {
 		JLabel lblNewLabel_14 = new JLabel("Problema");
 
 		JComboBox tipoProblema = new JComboBox();
-		tipoProblema.setModel(
-				new DefaultComboBoxModel(new String[] { "Problema 1", "Problema 2", "Problema 3", "Problema 4" }));
+		tipoProblema.setModel(new DefaultComboBoxModel(
+				new String[] { "Problema 1", "Problema 2", "Problema 3", "Problema 4", "Problema 4 reales" }));
 
 		// Grafica
 		JPanel panel = new JPanel();
@@ -147,13 +147,13 @@ public class VistaPrincipal extends JFrame {
 
 		panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
 		panel.add(plot);
-		
+
 		JSeparator separator_4_2 = new JSeparator();
-		
+
 		JSeparator separator_4_1 = new JSeparator();
-		
+
 		JSeparator separator_4_3 = new JSeparator();
-		
+
 		solucionTx = new JTextField();
 		solucionTx.setColumns(10);
 
@@ -196,7 +196,7 @@ public class VistaPrincipal extends JFrame {
 							.addGap(395)
 							.addComponent(lblNewLabel_14)
 							.addGap(18)
-							.addComponent(tipoProblema, GroupLayout.PREFERRED_SIZE, 98, GroupLayout.PREFERRED_SIZE)))
+							.addComponent(tipoProblema, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
 					.addGap(0)
 					.addComponent(btnNewButton_1, GroupLayout.PREFERRED_SIZE, 135, GroupLayout.PREFERRED_SIZE)
 					.addGap(73))
@@ -234,12 +234,12 @@ public class VistaPrincipal extends JFrame {
 											.addGap(75)))
 									.addGap(80))
 								.addGroup(gl_contentPane.createSequentialGroup()
-									.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+									.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 										.addGroup(gl_contentPane.createSequentialGroup()
 											.addComponent(lblNewLabel_8, GroupLayout.DEFAULT_SIZE, 47, Short.MAX_VALUE)
 											.addGap(5)
 											.addComponent(separator_4_3, GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE))
-										.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
+										.addGroup(gl_contentPane.createSequentialGroup()
 											.addComponent(lblNewLabel_5)
 											.addPreferredGap(ComponentPlacement.RELATED)
 											.addComponent(separator_4_2, GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE)
@@ -334,6 +334,28 @@ public class VistaPrincipal extends JFrame {
 					.addContainerGap(85, Short.MAX_VALUE))
 		);
 
+		tipoProblema.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (tipoProblema.getSelectedItem().equals("Problema 4 reales")) {
+					System.out.print("hola");
+					tipoCruce.addItem("Cruce aritmético");
+					tipoCruce.addItem("Cruce BLXa");
+					tipoMutacion.addItem("Mutación uniforme");
+					tipoMutacion.removeItem("Mutación básica");
+
+				}
+				else {
+					tipoCruce.removeItem("Cruce aritmético");
+					tipoCruce.removeItem("Cruce BLXa");
+					tipoMutacion.removeItem("Mutación uniforme");
+					tipoMutacion.addItem("Mutación básica");
+
+				}
+			}
+		});
+
 		btnNewButton.addActionListener(new ActionListener() {
 
 			@Override
@@ -368,21 +390,20 @@ public class VistaPrincipal extends JFrame {
 				String cruc = (String) tipoCruce.getSelectedItem();
 				String problema = (String) tipoProblema.getSelectedItem();
 
-				AlgoritmoGenetico alg = new AlgoritmoGenetico(tamPob, numGen, pCruce, pMut, pElit, err, selecc, cruc,mut, problema);
+				AlgoritmoGenetico alg = new AlgoritmoGenetico(tamPob, numGen, pCruce, pMut, pElit, err, selecc, cruc,
+						mut, problema);
 				Transfer t = alg.run();
 				Double d = t.getArrayMejoresAbs()[t.getArrayNumGene().length - 1];
 				solucionTx.setText(d.toString());
-				
+
 				// define the legend position
 				plot.addLegend("SOUTH");
 
-				
 				// add a line plot to the PlotPanel
-				plot.addLinePlot("media de la generación",  t.getArrayNumGene(), t.getArrayMedias());
+				plot.addLinePlot("media de la generación", t.getArrayNumGene(), t.getArrayMedias());
 				plot.addLinePlot("mejor absoluto", t.getArrayNumGene(), t.getArrayMejoresAbs());
 				plot.addLinePlot("mejor de la generación", t.getArrayNumGene(), t.getArrayMejorGene());
 
-				
 			}
 		});
 		contentPane.setLayout(gl_contentPane);

@@ -81,19 +81,17 @@ public class AlgoritmoGenetico {
 			for (int i = 0; i < tamPoblacion; i++)
 				poblacion.add(new IndividuoFuncion1(precision));
 			signo = 1;
-		}	
+		}
 
 		else if (problema.equals("Problema 2")) {
 			for (int i = 0; i < tamPoblacion; i++)
 				poblacion.add(new IndividuoFuncion2(precision));
 			signo = -1;
-		}
-		else if (problema.equals("Problema 3")) {
+		} else if (problema.equals("Problema 3")) {
 			for (int i = 0; i < tamPoblacion; i++)
 				poblacion.add(new IndividuoFuncion3(precision));
 			signo = -1;
-		}
-		else {
+		} else {
 			for (int i = 0; i < tamPoblacion; i++)
 				poblacion.add(new IndividuoFuncion4(precision, 7));
 			signo = -1;
@@ -111,6 +109,12 @@ public class AlgoritmoGenetico {
 		case ("Cruce uniforme"):
 			cruce = new CruceMonoPunto();
 			break;
+		case ("Cruce BLXa"):
+			cruce = new CruceMonoPunto();
+			break;
+		case ("Cruce aritmético"):
+			cruce = new CruceMonoPunto();
+			break;
 		}
 	}
 
@@ -119,7 +123,12 @@ public class AlgoritmoGenetico {
 		case ("Mutación básica"):
 			mutacion = new MutacionBasica();
 			break;
+
+		case ("Mutación uniforme"):
+			mutacion = new MutacionBasica();
+			break;
 		}
+
 	}
 
 	public void iniciarSeleccion() {
@@ -198,12 +207,12 @@ public class AlgoritmoGenetico {
 		double[] arrayMedias = new double[numGeneraciones];
 		double[] arrayMejoresAbs = new double[numGeneraciones];
 		double[] arrayMejorGene = new double[numGeneraciones];
-		double[] arrayNumGene  = new double[numGeneraciones];
-		for(int i =1;i<numGeneraciones+1;i++) {
-			arrayNumGene[i-1]=i;
+		double[] arrayNumGene = new double[numGeneraciones];
+		for (int i = 1; i < numGeneraciones + 1; i++) {
+			arrayNumGene[i - 1] = i;
 		}
 		iniciarPoblacion();
-		
+
 		this.mejorAbsoluto = this.poblacion.get(0);
 		Integer generacionActual = 0;
 		while (generacionActual < this.numGeneraciones) {
@@ -219,19 +228,18 @@ public class AlgoritmoGenetico {
 			this.poblacion = mutacion.run(poblacion, this.porcetMutaciones);
 			this.poblacion.addAll(elite);
 			this.evaluarPoblacion();
-			
-			
-			arrayMedias[generacionActual]=mediaGeneracion * signo;
-			arrayMejorGene[generacionActual]=mejorGeneracion.getValor() * signo;
-			arrayMejoresAbs[generacionActual]=mejorAbsoluto.getValor() * signo;
-			
+
+			arrayMedias[generacionActual] = mediaGeneracion * signo;
+			arrayMejorGene[generacionActual] = mejorGeneracion.getValor() * signo;
+			arrayMejoresAbs[generacionActual] = mejorAbsoluto.getValor() * signo;
+
 			System.out.println("Media generacion: " + this.mediaGeneracion);
 			System.out.println("Mejor generacion: " + this.mejorGeneracion);
 			System.out.println("Mejor absoluto: " + this.mejorAbsoluto);
 			// Siguiente generacion
 			generacionActual++;
 		}
-		
+
 		return new Transfer(arrayMedias, arrayMejoresAbs, arrayMejorGene, arrayNumGene);
 	}
 }
