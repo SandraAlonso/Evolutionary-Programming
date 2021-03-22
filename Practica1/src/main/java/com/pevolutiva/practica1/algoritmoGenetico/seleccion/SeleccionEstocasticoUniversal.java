@@ -21,27 +21,35 @@ public class SeleccionEstocasticoUniversal extends Seleccion {
 		// Establecer una marcas equidistantes entre 0 y tamPoblacion;
 		int a = 1 / poblacion.size();
 		int p = poblacion.size();
-		double distanciaMarcas = (1 / (double) poblacion.size());
+		Double distanciaMarcas = (1 / (double) poblacion.size());
 
+		Random rand = new Random();
+		Double primeraMarca = rand.nextDouble() * distanciaMarcas; //para la primera marca entre el valor de cada distancia
 		List<Individuo> NuevaPoblacion = new ArrayList<Individuo>();
 		Integer numIndSelec = poblacion.size();
 
 		// Repetimos el proceso tantas veces como individuos queramos seleccionar.
+		
 		Double acum = 0.0;
+		int j = 0;
 		for (int i = 0; i < numIndSelec; i++) {
 			
 
-			// Recorremos toda la poblacion hasta encontrar el individuo que encaja
-			for (int j = 0; j < poblacion.size(); j++) {
-
-				Double posIndividuo = (distanciaMarcas + j - 1) / numIndSelec;
-				if ((poblacion.get(j).getValor() + acum) / suma >= posIndividuo) {
+			if( (primeraMarca + i * distanciaMarcas)  < 1) {
+				Double aux = (primeraMarca + i * distanciaMarcas);
+				Double aux2 = (acum + poblacion.get(j).getValor()) / suma;
+				if((acum + poblacion.get(j).getValor()) / suma > primeraMarca + i * distanciaMarcas ) {
 					NuevaPoblacion.add((Individuo) SerializationUtils.clone(poblacion.get(j)));
-					acum += poblacion.get(j).getValor();
-					break;
 				}
-				acum += poblacion.get(j).getValor();
+				else {
+					acum += poblacion.get(j).getValor();
+					++j;
+					NuevaPoblacion.add((Individuo) SerializationUtils.clone(poblacion.get(j)));
+				}
 			}
+			else
+				break;
+			
 		}
 		System.out.println("Seleccion:");
 		System.out.println(NuevaPoblacion);
