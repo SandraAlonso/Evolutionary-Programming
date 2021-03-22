@@ -38,7 +38,7 @@ public class SeleccionTruncamiento extends Seleccion {
 
 		for (int i = 0; i < numSelec; ++i) {
 			for (int j = 0; j < selec; ++j) {
-				NuevaPoblacion.add((Individuo) SerializationUtils.clone(copyPoblacion.get(j)));
+				NuevaPoblacion.add((Individuo) SerializationUtils.clone(copyPoblacion.get(i)));
 			}
 		}
 

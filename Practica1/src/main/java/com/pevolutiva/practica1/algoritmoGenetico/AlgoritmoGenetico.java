@@ -165,6 +165,7 @@ public class AlgoritmoGenetico {
 			}
 
 		}
+		
 		if (seleccionadosCruce.size() % 2 != 0) {// si son impares eliminamos el ultimo.
 			seleccionadosCruce.remove(seleccionadosCruce.get(seleccionadosCruce.size() - 1));
 		}
@@ -198,7 +199,6 @@ public class AlgoritmoGenetico {
 			poblacion.remove(poblacion.get(i));
 			i++;
 		}
-
 		return elite;
 
 	}
@@ -221,13 +221,17 @@ public class AlgoritmoGenetico {
 			List<Individuo> elite = new ArrayList<Individuo>();
 
 			elite = generarElite(porcentElitismo);
-			this.poblacion = seleccion.run(poblacion); // seleccion de Indivpiduos
-			seleccionados = seleccionadosCruce(nuevaPoblacion);// Seleccionamos los individuos que vamos a cruzar
+			this.poblacion = seleccion.run(poblacion); // seleccion de Individuos
+			System.out.println("Poblacion: " + this.poblacion.size());
+			seleccionados = seleccionadosCruce(this.poblacion);// Seleccionamos los individuos que vamos a cruzar
+			System.out.println("Seleccionados: " + seleccionados.size());
 			seleccionados = cruce.run(seleccionados);// Elementos ya cruzados pendientes de añadirlos a la poblacion
 			this.poblacion.addAll(seleccionados);
 			this.poblacion = mutacion.run(poblacion, this.porcetMutaciones);
 			this.poblacion.addAll(elite);
 			this.evaluarPoblacion();
+			System.out.println("Poblacion: " + this.poblacion.size());
+			
 
 			arrayMedias[generacionActual] = mediaGeneracion * signo;
 			arrayMejorGene[generacionActual] = mejorGeneracion.getValor() * signo;

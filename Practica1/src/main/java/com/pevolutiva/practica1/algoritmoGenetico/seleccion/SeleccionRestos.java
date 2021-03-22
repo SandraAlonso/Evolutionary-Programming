@@ -37,7 +37,7 @@ public class SeleccionRestos extends Seleccion {
 				// Redondeamos hacia arriba
 				int nuevosInd = (int) Math.ceil(poblacion.get(i).getValor() / suma);
 				for (int j = 0; j < nuevosInd; j++) {
-					NuevaPoblacion.add((Individuo) SerializationUtils.clone(poblacion.get(j)));
+					NuevaPoblacion.add((Individuo) SerializationUtils.clone(poblacion.get(i)));
 				}
 			}
 		}

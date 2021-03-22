@@ -27,8 +27,9 @@ public class SeleccionEstocasticoUniversal extends Seleccion {
 		Integer numIndSelec = poblacion.size();
 
 		// Repetimos el proceso tantas veces como individuos queramos seleccionar.
+		Double acum = 0.0;
 		for (int i = 0; i < numIndSelec; i++) {
-			Double acum = 0.0;
+			
 
 			// Recorremos toda la poblacion hasta encontrar el individuo que encaja
 			for (int j = 0; j < poblacion.size(); j++) {
@@ -36,6 +37,7 @@ public class SeleccionEstocasticoUniversal extends Seleccion {
 				Double posIndividuo = (distanciaMarcas + j - 1) / numIndSelec;
 				if ((poblacion.get(j).getValor() + acum) / suma >= posIndividuo) {
 					NuevaPoblacion.add((Individuo) SerializationUtils.clone(poblacion.get(j)));
+					acum += poblacion.get(j).getValor();
 					break;
 				}
 				acum += poblacion.get(j).getValor();
