@@ -53,6 +53,7 @@ public class AlgoritmoGenetico {
 	private Double mediaGeneracion;
 	private Individuo mejorGeneracion;
 	private String problema;
+	private Integer signo;
 
 	public AlgoritmoGenetico(Integer tamPoblacion, Integer numGeneraciones, Double porcentCruces,
 			Double porcetMutaciones, Double porcentElitismo, Double precision, String metodoSeleccion,
@@ -76,22 +77,27 @@ public class AlgoritmoGenetico {
 	public void iniciarPoblacion() {
 		System.out.print(problema);
 		List<Individuo> poblacion = new ArrayList<Individuo>();
-		if (problema.equals("Problema 1"))
+		if (problema.equals("Problema 1")) {
 			for (int i = 0; i < tamPoblacion; i++)
 				poblacion.add(new IndividuoFuncion1(precision));
+			signo = 1;
+		}	
 
-		else if (problema.equals("Problema 2"))
+		else if (problema.equals("Problema 2")) {
 			for (int i = 0; i < tamPoblacion; i++)
 				poblacion.add(new IndividuoFuncion2(precision));
-
-		else if (problema.equals("Problema 3"))
+			signo = -1;
+		}
+		else if (problema.equals("Problema 3")) {
 			for (int i = 0; i < tamPoblacion; i++)
 				poblacion.add(new IndividuoFuncion3(precision));
-
-		else
+			signo = -1;
+		}
+		else {
 			for (int i = 0; i < tamPoblacion; i++)
 				poblacion.add(new IndividuoFuncion4(precision, 7));
-
+			signo = -1;
+		}
 		this.poblacion = poblacion;
 	}
 
@@ -197,6 +203,7 @@ public class AlgoritmoGenetico {
 			arrayNumGene[i-1]=i;
 		}
 		iniciarPoblacion();
+		
 		this.mejorAbsoluto = this.poblacion.get(0);
 		Integer generacionActual = 0;
 		while (generacionActual < this.numGeneraciones) {
@@ -214,9 +221,9 @@ public class AlgoritmoGenetico {
 			this.evaluarPoblacion();
 			
 			
-			arrayMedias[generacionActual]=mediaGeneracion;
-			arrayMejorGene[generacionActual]=mejorGeneracion.getValor();
-			arrayMejoresAbs[generacionActual]=mejorAbsoluto.getValor();
+			arrayMedias[generacionActual]=mediaGeneracion * signo;
+			arrayMejorGene[generacionActual]=mejorGeneracion.getValor() * signo;
+			arrayMejoresAbs[generacionActual]=mejorAbsoluto.getValor() * signo;
 			
 			System.out.println("Media generacion: " + this.mediaGeneracion);
 			System.out.println("Mejor generacion: " + this.mejorGeneracion);
