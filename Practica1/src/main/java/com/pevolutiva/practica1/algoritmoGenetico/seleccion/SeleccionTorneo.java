@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import org.apache.commons.lang.SerializationUtils;
+
 /**
  *
  * @author Diego
@@ -30,7 +32,7 @@ public class SeleccionTorneo extends Seleccion {
                         posMejor = posAux;
                     }
                 }
-                NuevaPoblacion.add(poblacion.get(posMejor));
+                NuevaPoblacion.add((Individuo) SerializationUtils.clone(poblacion.get(posMejor)));
             }
             return NuevaPoblacion;
 	}

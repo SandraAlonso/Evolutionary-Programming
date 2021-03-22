@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import org.apache.commons.lang.SerializationUtils;
+
 /**
  *
  * @author Diego
@@ -33,7 +35,7 @@ public class SeleccionRuleta extends Seleccion {
 				Double aux2 = (ind.getValor() + acum) / suma;
 
 				if ((ind.getValor() + acum) / suma >= alt) {
-					NuevaPoblacion.add(ind);
+					NuevaPoblacion.add((Individuo) SerializationUtils.clone(ind));
 					break;
 				}
 				acum += ind.getValor();

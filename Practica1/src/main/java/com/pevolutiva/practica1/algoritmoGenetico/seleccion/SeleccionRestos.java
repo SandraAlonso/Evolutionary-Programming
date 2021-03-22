@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import org.apache.commons.lang.SerializationUtils;
+
 /**
  *
  * @author Diego
@@ -35,7 +37,7 @@ public class SeleccionRestos extends Seleccion {
 				// Redondeamos hacia arriba
 				int nuevosInd = (int) Math.ceil(poblacion.get(i).getValor() / suma);
 				for (int j = 0; j < nuevosInd; j++) {
-					NuevaPoblacion.add(poblacion.get(i));
+					NuevaPoblacion.add((Individuo) SerializationUtils.clone(poblacion.get(j)));
 				}
 			}
 		}
@@ -45,7 +47,7 @@ public class SeleccionRestos extends Seleccion {
 			List<Individuo> poblacionExtra = s.run(poblacion);
 			int diferencia = poblacion.size() - NuevaPoblacion.size();
 			for (int i = 0; i < diferencia; i++) {
-				NuevaPoblacion.add(poblacionExtra.get(i));
+				NuevaPoblacion.add((Individuo) SerializationUtils.clone(poblacion.get(i)));
 			}
 		}
 
