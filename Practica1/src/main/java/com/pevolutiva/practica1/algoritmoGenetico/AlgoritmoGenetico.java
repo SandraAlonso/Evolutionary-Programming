@@ -156,17 +156,25 @@ public class AlgoritmoGenetico {
 	private List<Individuo> seleccionadosCruce(List<Individuo> nuevaPoblacion) {
 		Random rand = new Random();
 		List<Individuo> seleccionadosCruce = new ArrayList<Individuo>();
-
-		for (int i = 0; i < nuevaPoblacion.size(); ++i) {
+		int tope = nuevaPoblacion.size();
+		int i = 0;
+		while(true) {
+			if(i >= nuevaPoblacion.size()) {
+				break;
+			}
 			Double alt = rand.nextDouble();
 			if (porcentCruces > alt) {
 				seleccionadosCruce.add(nuevaPoblacion.get(i));
 				nuevaPoblacion.remove(nuevaPoblacion.get(i));
 			}
-
+			else {
+				++i;
+			}
 		}
 		
+		
 		if (seleccionadosCruce.size() % 2 != 0) {// si son impares eliminamos el ultimo.
+			nuevaPoblacion.add(seleccionadosCruce.get(seleccionadosCruce.size() - 1));
 			seleccionadosCruce.remove(seleccionadosCruce.get(seleccionadosCruce.size() - 1));
 		}
 
