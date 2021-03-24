@@ -1,6 +1,6 @@
 package com.pevolutiva.practica1.algoritmoGenetico;
 
-
+import com.pevolutiva.practica1.algoritmoGenetico.individuos.Individuo;
 
 public class Transfer {
 
@@ -8,6 +8,7 @@ public class Transfer {
 	private double[] arrayMejoresAbs;
 	private double[] arrayMejorGene;
 	private double[] arrayNumGene;
+	private Individuo mejorIndividuo;
 	public double[] getArrayMedias() {
 		return arrayMedias;
 	}
@@ -23,6 +24,9 @@ public class Transfer {
 	public double[] getArrayMejorGene() {
 		return arrayMejorGene;
 	}
+	public Individuo getMejorIndividuo() {
+		return mejorIndividuo;
+	}
 	public void setArrayMejorGene(double[] arrayMejorGene) {
 		this.arrayMejorGene = arrayMejorGene;
 	}
@@ -32,12 +36,13 @@ public class Transfer {
 	public void setArrayNumGene(double[] arrayNumGene) {
 		this.arrayNumGene = arrayNumGene;
 	}
-	public Transfer(double[] arrayMedias, double[] arrayMejoresAbs, double[] arrayMejorGene, double[] arrayNumGene) {
+	public Transfer(double[] arrayMedias, double[] arrayMejoresAbs, double[] arrayMejorGene, double[] arrayNumGene, Individuo mejorIndividuo) {
 		super();
 		this.arrayMedias = arrayMedias;
 		this.arrayMejoresAbs = arrayMejoresAbs;
 		this.arrayMejorGene = arrayMejorGene;
 		this.arrayNumGene = arrayNumGene;
+		this.mejorIndividuo= mejorIndividuo;
 	}
 
 	

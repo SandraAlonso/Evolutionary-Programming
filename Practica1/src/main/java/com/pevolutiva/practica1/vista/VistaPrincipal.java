@@ -338,18 +338,19 @@ public class VistaPrincipal extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				tipoCruce.removeItem("Cruce aritmético");
+				tipoCruce.removeItem("Cruce BLXa");
+				tipoMutacion.removeItem("Mutación uniforme");
+				tipoMutacion.removeItem("Mutación básica");
+
 				if (tipoProblema.getSelectedItem().equals("Problema 4 reales")) {
-					System.out.print("hola");
 					tipoCruce.addItem("Cruce aritmético");
 					tipoCruce.addItem("Cruce BLXa");
 					tipoMutacion.addItem("Mutación uniforme");
-					tipoMutacion.removeItem("Mutación básica");
 
 				}
 				else {
-					tipoCruce.removeItem("Cruce aritmético");
-					tipoCruce.removeItem("Cruce BLXa");
-					tipoMutacion.removeItem("Mutación uniforme");
+					
 					tipoMutacion.addItem("Mutación básica");
 
 				}
@@ -393,8 +394,7 @@ public class VistaPrincipal extends JFrame {
 				AlgoritmoGenetico alg = new AlgoritmoGenetico(tamPob, numGen, pCruce, pMut, pElit, err, selecc, cruc,
 						mut, problema);
 				Transfer t = alg.run();
-				Double d = t.getArrayMejoresAbs()[t.getArrayNumGene().length - 1];
-				solucionTx.setText(d.toString());
+				solucionTx.setText(t.getMejorIndividuo().toString());
 
 				// define the legend position
 				plot.addLegend("SOUTH");

@@ -244,6 +244,6 @@ public class AlgoritmoGenetico {
 			generacionActual++;
 		}
 
-		return new Transfer(arrayMedias, arrayMejoresAbs, arrayMejorGene, arrayNumGene);
+		return new Transfer(arrayMedias, arrayMejoresAbs, arrayMejorGene, arrayNumGene, mejorAbsoluto);
 	}
 }
