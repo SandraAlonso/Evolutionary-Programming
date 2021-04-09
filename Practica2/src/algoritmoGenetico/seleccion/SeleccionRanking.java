@@ -12,6 +12,7 @@ import algoritmoGenetico.individuos.Individuo;
 public class SeleccionRanking extends Seleccion {
 
 	Double beta = 1.5;
+	Double suma = 0.0;
 
 	private List<Double> puntuacionesRanking(List<Individuo> poblacion) {
 
@@ -22,6 +23,8 @@ public class SeleccionRanking extends Seleccion {
 			aux *= 2 * (this.beta - 1);
 			aux = beta - aux;
 			aux = aux * (1 / poblacion.size());
+			//Caulculamos el acumulado
+			suma += aux;
 			sol.add(aux);
 		}
 
@@ -34,26 +37,24 @@ public class SeleccionRanking extends Seleccion {
 		List<Individuo> copyPoblacion = new ArrayList<Individuo>(poblacion);
 		List<Individuo> nuevaPoblacion = new ArrayList<Individuo>();
 		Collections.sort(copyPoblacion, (a, b) -> b.getValor().compareTo(a.getValor()));
-
-		Double suma = 0.0;
-
-		for (Individuo ind : poblacion) {
-			suma += ind.getValor();
-		}
+		
+		List<Double> ranking = new ArrayList<Double>();
+		ranking = puntuacionesRanking(copyPoblacion);
+		
 		Integer numIndSelec = poblacion.size();
 		Random rand = new Random();
 
 		for (int i = 0; i < numIndSelec; i++) {
 			Double alt = rand.nextDouble();
 			Double acum = 0.0;
-			for (Individuo ind : poblacion) {
-				Double aux2 = (ind.getValor() + acum) / suma;
+			for (int j = 0; j< ranking.size(); j++) {
+				Double aux2 = (ranking.get(j) + acum) / suma;
 
-				if ((ind.getValor() + acum) / suma >= alt) {
-					nuevaPoblacion.add((Individuo) SerializationUtils.clone(ind));
+				if ((ranking.get(j) + acum) / suma >= alt) {
+					nuevaPoblacion.add((Individuo) SerializationUtils.clone(copyPoblacion.get(j)));
 					break;
 				}
-				acum += ind.getValor();
+				acum += ranking.get(j);
 			}
 		}
 		System.out.println(nuevaPoblacion);
