@@ -10,40 +10,38 @@ import org.apache.commons.lang.SerializationUtils;
 import algoritmoGenetico.individuos.Individuo;
 
 public class SeleccionRanking extends Seleccion {
-	
+
 	Double beta = 1.5;
-	
-	private List<Double> puntuacionesRanking(List<Individuo> poblacion){
-		
+
+	private List<Double> puntuacionesRanking(List<Individuo> poblacion) {
+
 		List<Double> sol = new ArrayList<Double>();
-		
-		for(int i = 0; i < poblacion.size(); ++i) {
+
+		for (int i = 0; i < poblacion.size(); ++i) {
 			double aux = (double) i / poblacion.size();
-			aux *= 2 * (this.beta - 1); 
-			aux = 2 - aux; 
+			aux *= 2 * (this.beta - 1);
+			aux = beta - aux;
+			aux = aux * (1 / poblacion.size());
 			sol.add(aux);
 		}
-		
+
 		return sol;
 	}
 
 	@Override
 	public List<Individuo> run(List<Individuo> poblacion) {
-		
+
 		List<Individuo> copyPoblacion = new ArrayList<Individuo>(poblacion);
 		List<Individuo> nuevaPoblacion = new ArrayList<Individuo>();
 		Collections.sort(copyPoblacion, (a, b) -> b.getValor().compareTo(a.getValor()));
-		
-		
-		
+
 		Double suma = 0.0;
-		
+
 		for (Individuo ind : poblacion) {
 			suma += ind.getValor();
 		}
 		Integer numIndSelec = poblacion.size();
 		Random rand = new Random();
-		
 
 		for (int i = 0; i < numIndSelec; i++) {
 			Double alt = rand.nextDouble();
