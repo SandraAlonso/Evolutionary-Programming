@@ -9,8 +9,8 @@ import com.pevolutiva.practica1.algoritmoGenetico.individuos.Individuo;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
 import org.apache.commons.lang.SerializationUtils;
+
 
 /**
  *
