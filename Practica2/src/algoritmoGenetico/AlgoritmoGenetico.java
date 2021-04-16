@@ -25,7 +25,7 @@ import algoritmoGenetico.seleccion.Seleccion;
 import algoritmoGenetico.seleccion.SeleccionEstocasticoUniversal;
 import algoritmoGenetico.seleccion.SeleccionRestos;
 import algoritmoGenetico.seleccion.SeleccionRuleta;
-import algoritmoGenetico.seleccion.SeleccionTorneo;
+import algoritmoGenetico.seleccion.SeleccionTorneoDeterministico;
 import algoritmoGenetico.seleccion.SeleccionTruncamiento;
 
 /**
@@ -124,7 +124,7 @@ public class AlgoritmoGenetico {
 			seleccion = new SeleccionEstocasticoUniversal();
 			break;
 		case ("Torneo"):
-			seleccion = new SeleccionTorneo();
+			seleccion = new SeleccionTorneoDeterministico();
 			break;
 		case ("Truncamiento"):
 			seleccion = new SeleccionTruncamiento();
@@ -186,8 +186,7 @@ public class AlgoritmoGenetico {
 		List<Individuo> elite = new ArrayList<Individuo>();
 		Collections.sort(poblacion, (a, b) -> b.getValor().compareTo(a.getValor()));
 		while (numIndividuos > i) {
-			elite.add(poblacion.get(i));
-			poblacion.remove(poblacion.get(i));
+			elite.add((Individuo) SerializationUtils.clone(poblacion.get(i)));
 			i++;
 		}
 		return elite;
@@ -219,6 +218,12 @@ public class AlgoritmoGenetico {
 			seleccionados = cruce.run(seleccionados);// Elementos ya cruzados pendientes de aÃ±adirlos a la poblacion
 			this.poblacion.addAll(seleccionados);
 			this.poblacion = mutacion.run(poblacion, this.porcetMutaciones);
+			//Ordenamos y eliminamos a los peores
+			Collections.sort(poblacion, (a, b) -> b.getValor().compareTo(a.getValor()));
+			for(int i =0;i<elite.size();i++) {
+				poblacion.remove(poblacion.size()-1);
+			}
+			//Reañadimos en la popblacion
 			this.poblacion.addAll(elite);
 			this.evaluarPoblacion();
 			System.out.println("Poblacion: " + this.poblacion.size());

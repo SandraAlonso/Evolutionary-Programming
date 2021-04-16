@@ -16,7 +16,7 @@ import org.apache.commons.lang.SerializationUtils;
  *
  * @author Diego
  */
-public class SeleccionTorneo extends Seleccion {
+public class SeleccionTorneoDeterministico extends Seleccion {
 
 	@Override
 	public List<Individuo> run(List<Individuo> poblacion) {

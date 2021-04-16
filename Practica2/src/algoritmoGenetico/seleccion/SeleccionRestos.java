@@ -42,7 +42,7 @@ public class SeleccionRestos extends Seleccion {
 			}
 		}
 		if (NuevaPoblacion.size() < poblacion.size()) {// Tenemos que rellenar por otro metodo
-			SeleccionTorneo s = new SeleccionTorneo(); // Escogemos torneo porque así nos aseguramos que quedan los
+			SeleccionTorneoDeterministico s = new SeleccionTorneoDeterministico(); // Escogemos torneo porque así nos aseguramos que quedan los
 														// mejores y además nos proporciona copias repetidas
 			List<Individuo> poblacionExtra = s.run(poblacion);
 			int diferencia = poblacion.size() - NuevaPoblacion.size();
