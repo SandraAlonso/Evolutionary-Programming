@@ -5,11 +5,16 @@
  */
 package algoritmoGenetico;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
+import java.util.Scanner;
 import java.util.Set;
 
 import org.apache.commons.lang.SerializationUtils;
@@ -60,6 +65,13 @@ public class AlgoritmoGenetico {
 	private Individuo mejorGeneracion;
 	private String problema;
 	private Integer signo;
+	
+	public static String textoCifrado;
+	
+	public static Map<String, Double> monogramas;
+	public static Map<String, Double> bigramas;
+	public static Map<String, Double> trigramas;
+	public static Map<String, Double> cuadragramas;
 
 	public AlgoritmoGenetico(Integer tamPoblacion, Integer numGeneraciones, Double porcentCruces,
 			Double porcetMutaciones, Double porcentElitismo, Double precision, String metodoSeleccion,
@@ -77,6 +89,7 @@ public class AlgoritmoGenetico {
 //		iniciarSeleccion();
 //		iniciarCruce();
 //		iniciarMutacion();
+		leerNgrams();
 
 	}
 
@@ -114,6 +127,74 @@ public class AlgoritmoGenetico {
 		}
 
 	}
+	
+
+	private void leerNgrams() {
+		monogramas = new HashMap<String, Double>();
+		try {
+		      File myObj = new File("n-grams/frecuencias/monogramas.txt");
+		      Scanner myReader = new Scanner(myObj);
+		      while (myReader.hasNextLine()) {
+		        String data = myReader.nextLine();
+		        String key = data.split(" ")[0].toLowerCase();
+		        Double val = Double.parseDouble(data.split(" ")[1]);
+		        monogramas.put(key, val);
+		        }
+		      myReader.close();
+		    } catch (FileNotFoundException e) {
+		      System.out.println("An error occurred.");
+		      e.printStackTrace();
+			}
+		
+		bigramas = new HashMap<String, Double>();
+		try {
+		      File myObj = new File("n-grams/frecuencias/bigramas.txt");
+		      Scanner myReader = new Scanner(myObj);
+		      while (myReader.hasNextLine()) {
+		        String data = myReader.nextLine();
+		        String key = data.split(" ")[0].toLowerCase();
+		        Double val = Double.parseDouble(data.split(" ")[1]);
+		        bigramas.put(key, val);
+		        }
+		      myReader.close();
+		    } catch (FileNotFoundException e) {
+		      System.out.println("An error occurred.");
+		      e.printStackTrace();
+			}
+		trigramas = new HashMap<String, Double>();
+		try {
+		      File myObj = new File("n-grams/frecuencias/trigramas.txt");
+		      Scanner myReader = new Scanner(myObj);
+		      while (myReader.hasNextLine()) {
+		        String data = myReader.nextLine();
+		        String key = data.split(" ")[0].toLowerCase();
+		        Double val = Double.parseDouble(data.split(" ")[1]);
+		        trigramas.put(key, val);
+		        }
+		      myReader.close();
+		    } catch (FileNotFoundException e) {
+		      System.out.println("An error occurred.");
+		      e.printStackTrace();
+			}
+		
+		cuadragramas = new HashMap<String, Double>();
+		try {
+		      File myObj = new File("n-grams/frecuencias/cuadragramas.txt");
+		      Scanner myReader = new Scanner(myObj);
+		      while (myReader.hasNextLine()) {
+		        String data = myReader.nextLine();
+		        String key = data.split(" ")[0].toLowerCase();
+		        Double val = Double.parseDouble(data.split(" ")[1]);
+		        cuadragramas.put(key, val);
+		        }
+		      myReader.close();
+		    } catch (FileNotFoundException e) {
+		      System.out.println("An error occurred.");
+		      e.printStackTrace();
+			}
+		
+		//System.out.println(cuadragramas);
+		}
 
 	public void iniciarMutacion() {
 

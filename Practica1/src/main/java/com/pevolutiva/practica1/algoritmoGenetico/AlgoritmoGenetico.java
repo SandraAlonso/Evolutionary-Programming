@@ -5,11 +5,14 @@
  */
 package com.pevolutiva.practica1.algoritmoGenetico;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
+import java.util.Scanner;
 import java.util.Set;
 
 import com.pevolutiva.practica1.algoritmoGenetico.cruce.Cruce;
@@ -99,6 +102,7 @@ public class AlgoritmoGenetico {
 		this.poblacion = poblacion;
 	}
 
+
 	public void iniciarCruce() {
 
 		switch (metodoCruce) {
@@ -158,21 +162,19 @@ public class AlgoritmoGenetico {
 		List<Individuo> seleccionadosCruce = new ArrayList<Individuo>();
 		int tope = nuevaPoblacion.size();
 		int i = 0;
-		while(true) {
-			if(i >= nuevaPoblacion.size()) {
+		while (true) {
+			if (i >= nuevaPoblacion.size()) {
 				break;
 			}
 			Double alt = rand.nextDouble();
 			if (porcentCruces > alt) {
 				seleccionadosCruce.add(nuevaPoblacion.get(i));
 				nuevaPoblacion.remove(nuevaPoblacion.get(i));
-			}
-			else {
+			} else {
 				++i;
 			}
 		}
-		
-		
+
 		if (seleccionadosCruce.size() % 2 != 0) {// si son impares eliminamos el ultimo.
 			nuevaPoblacion.add(seleccionadosCruce.get(seleccionadosCruce.size() - 1));
 			seleccionadosCruce.remove(seleccionadosCruce.get(seleccionadosCruce.size() - 1));
@@ -239,7 +241,6 @@ public class AlgoritmoGenetico {
 			this.poblacion.addAll(elite);
 			this.evaluarPoblacion();
 			System.out.println("Poblacion: " + this.poblacion.size());
-			
 
 			arrayMedias[generacionActual] = mediaGeneracion * signo;
 			arrayMejorGene[generacionActual] = mejorGeneracion.getValor() * signo;
