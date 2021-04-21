@@ -12,20 +12,28 @@ import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
-
 import org.apache.commons.lang.SerializationUtils;
 
-
-
 import algoritmoGenetico.cruce.Cruce;
+import algoritmoGenetico.cruce.CruceCO;
+import algoritmoGenetico.cruce.CruceCX;
+import algoritmoGenetico.cruce.CruceERX;
+import algoritmoGenetico.cruce.CruceInventado;
+import algoritmoGenetico.cruce.CruceOX;
+import algoritmoGenetico.cruce.CruceOXPP;
+import algoritmoGenetico.cruce.CrucePMX;
 import algoritmoGenetico.individuos.Individuo;
 import algoritmoGenetico.individuos.Individuo1;
 import algoritmoGenetico.mutacion.Mutacion;
+import algoritmoGenetico.mutacion.MutacionHeuristica;
+import algoritmoGenetico.mutacion.MutacionInsercion;
 import algoritmoGenetico.seleccion.Seleccion;
 import algoritmoGenetico.seleccion.SeleccionEstocasticoUniversal;
+import algoritmoGenetico.seleccion.SeleccionRanking;
 import algoritmoGenetico.seleccion.SeleccionRestos;
 import algoritmoGenetico.seleccion.SeleccionRuleta;
 import algoritmoGenetico.seleccion.SeleccionTorneoDeterministico;
+import algoritmoGenetico.seleccion.SeleccionTorneoProbabilistico;
 import algoritmoGenetico.seleccion.SeleccionTruncamiento;
 
 /**
@@ -80,37 +88,48 @@ public class AlgoritmoGenetico {
 
 	public void iniciarCruce() {
 
-		/*
 		switch (metodoCruce) {
 
-		case ("Cruce monopunto"):
-			cruce = new CruceUniforme();
+		case ("Cruce CO"):
+			cruce = new CruceCO();
 			break;
-		case ("Cruce uniforme"):
-			cruce = new CruceMonoPunto();
+		case ("Cruce CX"):
+			cruce = new CruceCX();
 			break;
-		case ("Cruce BLXa"):
-			cruce = new CruceMonoPunto();
+		case ("Cruce ERX"):
+			cruce = new CruceERX();
 			break;
-		case ("Cruce aritm茅tico"):
-			cruce = new CruceMonoPunto();
+		case ("Cruce OX"):
+			cruce = new CruceOX();
+			break;
+		case ("Cruce OXPP"):
+			cruce = new CruceOXPP();
+			break;
+		case ("Cruce PMX"):
+			cruce = new CrucePMX();
+			break;
+		case ("Cruce nuevo"):
+			cruce = new CruceInventado();
 			break;
 		}
-		*/
+
 	}
 
 	public void iniciarMutacion() {
-		/*
-		switch (metodoMutacion) {
-		case ("Mutaci贸n b谩sica"):
-			mutacion = new MutacionBasica();
+
+		/*switch (metodoMutacion) {
+		case ("Mutaci髇 heur韘tica"):
+			mutacion = new MutacionHeuristica();
 			break;
 
-		case ("Mutaci贸n uniforme"):
-			mutacion = new MutacionBasica();
+		case ("Mutaci贸n por inserci髇"):
+			mutacion = new MutacionInsercion();
 			break;
-		}
-		*/
+
+		case ("Mutaci贸n nueva"):
+			mutacion = new MuatcionInventada();
+			break;
+		}*/
 
 	}
 
@@ -123,7 +142,7 @@ public class AlgoritmoGenetico {
 		case ("Estoc谩stico universal"):
 			seleccion = new SeleccionEstocasticoUniversal();
 			break;
-		case ("Torneo"):
+		case ("Torneo determin韘tico"):
 			seleccion = new SeleccionTorneoDeterministico();
 			break;
 		case ("Truncamiento"):
@@ -131,6 +150,12 @@ public class AlgoritmoGenetico {
 			break;
 		case ("Restos"):
 			seleccion = new SeleccionRestos();
+			break;
+		case ("Ranking"):
+			seleccion = new SeleccionRanking();
+			break;
+		case ("Torneo probabil韘tico"):
+			seleccion = new SeleccionTorneoProbabilistico();
 			break;
 		}
 
@@ -141,21 +166,19 @@ public class AlgoritmoGenetico {
 		List<Individuo> seleccionadosCruce = new ArrayList<Individuo>();
 		int tope = nuevaPoblacion.size();
 		int i = 0;
-		while(true) {
-			if(i >= nuevaPoblacion.size()) {
+		while (true) {
+			if (i >= nuevaPoblacion.size()) {
 				break;
 			}
 			Double alt = rand.nextDouble();
 			if (porcentCruces > alt) {
 				seleccionadosCruce.add(nuevaPoblacion.get(i));
 				nuevaPoblacion.remove(nuevaPoblacion.get(i));
-			}
-			else {
+			} else {
 				++i;
 			}
 		}
-		
-		
+
 		if (seleccionadosCruce.size() % 2 != 0) {// si son impares eliminamos el ultimo.
 			nuevaPoblacion.add(seleccionadosCruce.get(seleccionadosCruce.size() - 1));
 			seleccionadosCruce.remove(seleccionadosCruce.get(seleccionadosCruce.size() - 1));
@@ -218,16 +241,15 @@ public class AlgoritmoGenetico {
 			seleccionados = cruce.run(seleccionados);// Elementos ya cruzados pendientes de a帽adirlos a la poblacion
 			this.poblacion.addAll(seleccionados);
 			this.poblacion = mutacion.run(poblacion, this.porcetMutaciones);
-			//Ordenamos y eliminamos a los peores
+			// Ordenamos y eliminamos a los peores
 			Collections.sort(poblacion, (a, b) -> b.getValor().compareTo(a.getValor()));
-			for(int i =0;i<elite.size();i++) {
-				poblacion.remove(poblacion.size()-1);
+			for (int i = 0; i < elite.size(); i++) {
+				poblacion.remove(poblacion.size() - 1);
 			}
-			//Rea馻dimos en la popblacion
+			// Rea馻dimos en la popblacion
 			this.poblacion.addAll(elite);
 			this.evaluarPoblacion();
 			System.out.println("Poblacion: " + this.poblacion.size());
-			
 
 			arrayMedias[generacionActual] = mediaGeneracion * signo;
 			arrayMejorGene[generacionActual] = mejorGeneracion.getValor() * signo;
@@ -240,8 +262,8 @@ public class AlgoritmoGenetico {
 			generacionActual++;
 		}
 
-		
 		return null;
-		//return new Transfer(arrayMedias, arrayMejoresAbs, arrayMejorGene, arrayNumGene, mejorAbsoluto);
+		// return new Transfer(arrayMedias, arrayMejoresAbs, arrayMejorGene,
+		// arrayNumGene, mejorAbsoluto);
 	}
 }
