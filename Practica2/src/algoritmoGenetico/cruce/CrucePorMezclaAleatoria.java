@@ -6,8 +6,29 @@ import java.util.Random;
 
 import algoritmoGenetico.individuos.Individuo;
 
-public class CruceInventado extends Cruce {
-
+public class CrucePorMezclaAleatoria extends Cruce {
+	/*Nuevo cruce implementado: Cruce por mezcla aleatoria
+	 * 
+	 * Para cada elemento del individuo se obtiene un numero aleatorio. Si este es mayor a 0.5, se intercambiará con el de otrio progenitor.
+	 * 1. Se obtiene un numero aleatorio.
+	 * 2. Si este es mayor que 0.5 se intentará intercambiar ese elemento con el otro progenitor.
+	 * 	2.a. Si ese elemento aun no está contenido en el individuo descendiente, se intercambia.
+	 * 	2.b. Si ese elemento ya está contenido, dejamos el hueco.
+	 * 3. Si el numero aleatorio es menor a 0.5 se deja igual.
+	 * 	3.a. Si el elemento ya está contendio, dejamos el hueco.
+	 * 4. Una vez rellenado todos los huecos posibles,s e colocan en los huecos vacios por orden, los elementos que aun no hemos colocado.
+	 * Ejemplo:
+	 * [2, 7, 9, 6, 10, 8, 1, 4, 3, 5] y [9, 4, 2, 5, 1, 3, 10, 7, 8, 6]  
+	 *  -     -         -  -        -     -     -     -      -     -
+	 *  Los elementos subrayados han obtenido un numero aleatorio mayor a 0.5 y po rlo tanto intentan intercambiarse.
+	 * [9, 7, 2, 6, 10, 3, -, 4, -, -]
+	 * [2, 4, 9, 5, 10, 3, 1, 7, -, 6]
+	 * 
+	 * Rellenamos los huecos
+	 * 
+	 * [9, 7, 2, 6, 10, 3, 1, 4, 5, 8]
+	 * [2, 4, 9, 5, 10, 3, 1, 7, 8, 6]
+	 * */
 	@Override
 	public List<Individuo> run(List<Individuo> poblacion) {
 		for (int i = 0; i < poblacion.size(); i += 2) {

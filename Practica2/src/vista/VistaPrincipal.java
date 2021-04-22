@@ -93,7 +93,7 @@ public class VistaPrincipal extends JFrame {
 		JLabel lblNewLabel_6 = new JLabel("Tipo de cruce");
 
 		JComboBox tipoCruce = new JComboBox();
-		tipoCruce.setModel(new DefaultComboBoxModel(new String[] {"Cruce CO", "Cruce CX", "Cruce ERX", "Cruce OX", "Cruce OXPP", "Cruce PMX", "Cruce nuevo"}));
+		tipoCruce.setModel(new DefaultComboBoxModel(new String[] {"Cruce CO", "Cruce CX", "Cruce ERX", "Cruce OX", "Cruce OXPP", "Cruce PMX", "Cruce por mezcla aleatoria"}));
 
 		JLabel lblNewLabel_7 = new JLabel("% cruce");
 
@@ -106,7 +106,7 @@ public class VistaPrincipal extends JFrame {
 		JLabel lblNewLabel_9 = new JLabel("Tipo de mutación");
 
 		JComboBox tipoMutacion = new JComboBox();
-		tipoMutacion.setModel(new DefaultComboBoxModel(new String[] {"Mutaci\u00F3n heur\u00EDstica", "Mutaci\u00F3n por inserci\u00F3n", "Mutaci\u00F3n nueva"}));
+		tipoMutacion.setModel(new DefaultComboBoxModel(new String[] {"Mutaci\u00F3n heur\u00EDstica", "Mutaci\u00F3n por inserci\u00F3n", "Mutaci\u00F3n complementaria", "Mutaci\u00F3n por intercambio", "Mutaci\u00F3n por inversi\u00F3n"}));
 
 		JLabel lblNewLabel_10 = new JLabel("% mutación");
 
