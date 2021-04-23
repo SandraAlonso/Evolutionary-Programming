@@ -2,6 +2,7 @@ package algoritmoGenetico.mutacion;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -35,18 +36,24 @@ public class MutacionHeuristica extends Mutacion {
 				for(Integer k : pos) {
 					perm.add((Integer) poblacion.get(i).getCromosoma()[k]);
 				}
-				List<List<Integer>> posiblesPermutaciones = new ArrayList<>();
+				List<List<Integer>> posiblesPermutaciones = new ArrayList<>(perm.size());
 				
-				permutar(perm, 0, new ArrayList<Integer>(), posiblesPermutaciones, new ArrayList<Boolean>());
+				permutar(perm, 0, new ArrayList<Integer>(Collections.nCopies(n, -1)), posiblesPermutaciones,  new ArrayList<Boolean>(Collections.nCopies(n, false)));
 				
-				Double mejorPerm = Double.MIN_NORMAL;
-				int mejorVal = -1;
+				
 				Integer[] cromosomaAux = (Integer[]) poblacion.get(i).getCromosoma();
-				for (int k = 0; k < posiblesPermutaciones.size(); k++) {
+				
+				int mejorVal = 0;
+				for (int l = 0; l < posiblesPermutaciones.get(0).size(); l++) {
+					cromosomaAux[pos.get(l)] = posiblesPermutaciones.get(0).get(l);						
+				}
+				poblacion.get(i).setCromosoma(cromosomaAux);
+				Double mejorPerm = poblacion.get(i).getValor();
+				for (int k = 1; k < posiblesPermutaciones.size(); k++) {
 					for (int l = 0; l < posiblesPermutaciones.get(k).size(); l++) {
-						poblacion.get(i).getCromosoma()[pos.get(l)] = posiblesPermutaciones.get(k).get(l);						
+						cromosomaAux[pos.get(l)] = posiblesPermutaciones.get(k).get(l);						
 					}
-					
+					poblacion.get(i).setCromosoma(cromosomaAux);
 					if(mejorPerm < poblacion.get(i).getValor()) {
 						mejorPerm = poblacion.get(i).getValor();
 						mejorVal = k;
@@ -54,14 +61,15 @@ public class MutacionHeuristica extends Mutacion {
 				}
 				
 				for (int l = 0; l < posiblesPermutaciones.get(mejorVal).size(); l++) {
-					poblacion.get(i).getCromosoma()[pos.get(l)] = posiblesPermutaciones.get(mejorVal).get(l);						
+					cromosomaAux[pos.get(l)] = posiblesPermutaciones.get(mejorVal).get(l);						
 				}
+				poblacion.get(i).setCromosoma(cromosomaAux);
 
 			}
 		}
 		
 		// TODO Auto-generated method stub
-		return null;
+		return poblacion;
 	}
 	
 

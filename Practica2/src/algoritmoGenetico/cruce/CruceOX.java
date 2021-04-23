@@ -1,6 +1,7 @@
 package algoritmoGenetico.cruce;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import algoritmoGenetico.individuos.Individuo;
@@ -16,8 +17,8 @@ public class CruceOX extends Cruce {
 			Integer[] cromosoma2 = new Integer[26];
 
 			// Vectores de marcas
-			List<Boolean> marcas1 = new ArrayList(cromosoma1.length);
-			List<Boolean> marcas2 = new ArrayList(cromosoma1.length);
+			List<Boolean> marcas1 = new ArrayList(Collections.nCopies(cromosoma1.length, false));
+			List<Boolean> marcas2 = new ArrayList(Collections.nCopies(cromosoma1.length, false));
 
 			// Cambiados valores centrales
 			for (int j = 9; j < 17; j++) {
@@ -31,7 +32,7 @@ public class CruceOX extends Cruce {
 			for (int j = 17; j < cromosoma1.length; j++) {
 				if (!marcas1.get((int) poblacion.get(i).getCromosoma()[j])) {
 					cromosoma1[k] = (Integer) poblacion.get(i).getCromosoma()[j];
-					marcas1.set(cromosoma1[j], true);
+					marcas1.set(cromosoma1[k], true);
 					k++;
 				}
 			}
@@ -41,7 +42,7 @@ public class CruceOX extends Cruce {
 				}
 				if (!marcas1.get((int) poblacion.get(i).getCromosoma()[j])) {
 					cromosoma1[k] = (Integer) poblacion.get(i).getCromosoma()[j];
-					marcas1.set(cromosoma1[j], true);
+					marcas1.set(cromosoma1[k], true);
 					k++;
 				}
 
@@ -51,7 +52,7 @@ public class CruceOX extends Cruce {
 			for (int j = 17; j < cromosoma2.length; j++) {
 				if (!marcas2.get((int) poblacion.get(i+1).getCromosoma()[j])) {
 					cromosoma2[k] = (Integer) poblacion.get(i+1).getCromosoma()[j];
-					marcas2.set(cromosoma2[j], true);
+					marcas2.set(cromosoma2[k], true);
 					k++;
 				}
 			}
@@ -61,7 +62,7 @@ public class CruceOX extends Cruce {
 				}
 				if (!marcas2.get((int) poblacion.get(i+1).getCromosoma()[j])) {
 					cromosoma2[k] = (Integer) poblacion.get(i+1).getCromosoma()[j];
-					marcas2.set(cromosoma2[j], true);
+					marcas2.set(cromosoma2[k], true);
 					k++;
 				}
 

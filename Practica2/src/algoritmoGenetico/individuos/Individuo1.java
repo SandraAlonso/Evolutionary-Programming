@@ -16,11 +16,15 @@ public class Individuo1 extends Individuo<Integer> {
 	private int numTrigramas = 0;
 	private String[] letras= { "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r",
 			"s", "t", "u", "v", "w", "x", "y", "z" };
+	private Double fitnessCalculado;
+	private Boolean yaCalculado;
 
 	public Individuo1() {
 		numMonogramas = 0;
 		textoDescifrado = "";
 		int tamTotal = 26;
+		yaCalculado = false;
+		fitnessCalculado = 0.0;
 		List<Integer> numeros = new ArrayList<>();
 		this.cromosoma = new Integer[tamTotal];
 		for (int i = 0; i < tamTotal; ++i) {
@@ -38,6 +42,7 @@ public class Individuo1 extends Individuo<Integer> {
 
 	private void descifrar() {
 		String aux = AlgoritmoGenetico.textoCifrado;
+		textoDescifrado = "";
 		char[] listChar = aux.toCharArray();
 		for (char c : listChar) {
 			if (Character.isLetter(c)) {
@@ -91,9 +96,18 @@ public class Individuo1 extends Individuo<Integer> {
 		}
 		return sol;
 	}
+	
+	@Override
+	public Integer[] setCromosoma(Integer[]c) {
+		yaCalculado = false;
+        return cromosoma=c;
+    } 
 
 	@Override
 	public Double getValor() {
+		if(yaCalculado) {
+			return fitnessCalculado;
+		}
 		Double fitness = 0.0;
 		numMonogramas = 0;
 		int numBigramas = 0;
@@ -128,6 +142,8 @@ public class Individuo1 extends Individuo<Integer> {
 				fitness += (double) (entry.getValue() / numTrigramas)
 						* this.log2(AlgoritmoGenetico.trigramas.get(entry.getKey()));
 		}
+		yaCalculado = true;
+		fitnessCalculado = fitness;
 		return fitness;
 
 	}

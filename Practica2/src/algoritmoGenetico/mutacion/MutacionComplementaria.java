@@ -19,11 +19,11 @@ public class MutacionComplementaria extends Mutacion {
 		Random rand = new Random();
 		int posicionesACambiar = rand.nextInt(5) + 1;
 		for (int i = 0; i < poblacion.size(); i++) {
-			Double[] c = (Double[]) poblacion.get(i).getCromosoma();
+			Integer[] c = (Integer[]) poblacion.get(i).getCromosoma();
 			Double alt = rand.nextDouble();
 			if (porcentMut > alt) { // mutamos
 				for(int j =0;j<c.length;j++) {
-					c[j]=26-c[j]+1;
+					c[j]=25-c[j];
 				}
 			}
 			poblacion.get(i).setCromosoma(c);

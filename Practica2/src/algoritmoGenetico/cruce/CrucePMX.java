@@ -1,6 +1,7 @@
 package algoritmoGenetico.cruce;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import algoritmoGenetico.individuos.Individuo;
@@ -14,8 +15,8 @@ public class CrucePMX extends Cruce {
 			Integer[] cromosoma2 = new Integer[26];
 
 			// Vectores de marcas
-			List<Boolean> marcas1 = new ArrayList(cromosoma1.length);
-			List<Boolean> marcas2 = new ArrayList(cromosoma1.length);
+			List<Boolean> marcas1 = new ArrayList<Boolean>(Collections.nCopies(cromosoma1.length, false));
+			List<Boolean> marcas2 = new ArrayList<Boolean>(Collections.nCopies(cromosoma1.length, false));
 
 			// Cambiados valores centrales
 			for (int j = 9; j < 17; j++) {

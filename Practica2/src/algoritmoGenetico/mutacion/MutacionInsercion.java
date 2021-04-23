@@ -12,7 +12,7 @@ public class MutacionInsercion extends Mutacion {
 		Random rand = new Random();
 		int posicionesACambiar = rand.nextInt(5)+1;
 		for (int i = 0; i < poblacion.size(); i++) {
-			Double[] c = (Double[]) poblacion.get(i).getCromosoma();
+			Integer[] c = (Integer[]) poblacion.get(i).getCromosoma();
 			Double alt = rand.nextDouble();
 			if (porcentMut > alt) { // mutamos
 				for(int j =0;j<posicionesACambiar;j++) {

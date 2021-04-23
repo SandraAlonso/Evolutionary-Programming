@@ -12,12 +12,12 @@ public class MutacionIntercambio extends Mutacion {
 		Random rand = new Random();
 		int posicionesACambiar = rand.nextInt(5) + 1;
 		for (int i = 0; i < poblacion.size(); i++) {
-			Double[] c = (Double[]) poblacion.get(i).getCromosoma();
+			Integer[] c = (Integer[]) poblacion.get(i).getCromosoma();
 			Double alt = rand.nextDouble();
 			if (porcentMut > alt) { // mutamos 
 				int pos1= rand.nextInt(26);
 				int pos2= rand.nextInt(26);
-				Double aux = c[pos1];
+				Integer aux = c[pos1];
 				c[pos1]=c[pos2];
 				c[pos2]=aux;
 			}

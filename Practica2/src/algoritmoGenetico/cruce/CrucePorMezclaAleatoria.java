@@ -1,6 +1,7 @@
 package algoritmoGenetico.cruce;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -35,8 +36,8 @@ public class CrucePorMezclaAleatoria extends Cruce {
 			Random rand = new Random();
 			Integer[] cromosoma1 = new Integer[26];
 			Integer[] cromosoma2 = new Integer[26];
-			List<Boolean> marcas1 = new ArrayList(cromosoma1.length);
-			List<Boolean> marcas2 = new ArrayList(cromosoma2.length);
+			List<Boolean> marcas1 = new ArrayList(Collections.nCopies(cromosoma1.length, false));
+			List<Boolean> marcas2 = new ArrayList(Collections.nCopies(cromosoma1.length, false));
 
 			cromosoma1[0] = (Integer) poblacion.get(i + 1).getCromosoma()[0];
 			marcas1.set(cromosoma1[0], true);

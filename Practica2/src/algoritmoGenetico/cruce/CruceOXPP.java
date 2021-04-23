@@ -1,6 +1,7 @@
 package algoritmoGenetico.cruce;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import algoritmoGenetico.individuos.Individuo;
@@ -18,17 +19,17 @@ public class CruceOXPP extends Cruce {
 			Integer[] cromosoma2 = new Integer[26];
 
 			// Vectores de marcas
-			List<Boolean> marcas1 = new ArrayList(cromosoma1.length);
-			List<Boolean> marcas2 = new ArrayList(cromosoma1.length);
+			List<Boolean> marcas1 = new ArrayList(Collections.nCopies(cromosoma1.length, false));
+			List<Boolean> marcas2 = new ArrayList(Collections.nCopies(cromosoma1.length, false));
 			
 			//Intercambio de posiciones prioritarias
-			Integer aux = cromosoma1[pos1];
-			cromosoma1[pos1]= cromosoma2[pos1];
-			cromosoma2[pos1] = aux;
 			
-			aux = cromosoma1[pos2];
-			cromosoma1[pos2]= cromosoma2[pos2];
-			cromosoma2[pos2] = aux;
+			cromosoma1[pos1]= (Integer) poblacion.get(i + 1).getCromosoma()[pos1];
+			cromosoma2[pos1] = (Integer) poblacion.get(i).getCromosoma()[pos1];
+			
+			
+			cromosoma1[pos2]= (Integer) poblacion.get(i + 1).getCromosoma()[pos2];
+			cromosoma2[pos2] = (Integer) poblacion.get(i).getCromosoma()[pos2];
 
 			//Relleno de cromosomas
 			//Cromosoma 1
@@ -36,7 +37,7 @@ public class CruceOXPP extends Cruce {
 			for (int j = 17; j < cromosoma1.length; j++) {
 				if (!marcas1.get((int) poblacion.get(i).getCromosoma()[j])) {
 					cromosoma1[k] = (Integer) poblacion.get(i).getCromosoma()[j];
-					marcas1.set(cromosoma1[j], true);
+					marcas1.set(cromosoma1[k], true);
 					k++;
 				}
 			}
@@ -46,7 +47,7 @@ public class CruceOXPP extends Cruce {
 				}
 				if (!marcas1.get((int) poblacion.get(i).getCromosoma()[j])) {
 					cromosoma1[k] = (Integer) poblacion.get(i).getCromosoma()[j];
-					marcas1.set(cromosoma1[j], true);
+					marcas1.set(cromosoma1[k], true);
 					k++;
 				}
 				if(k == pos1 || k == pos2)
@@ -58,7 +59,7 @@ public class CruceOXPP extends Cruce {
 			for (int j = 17; j < cromosoma2.length; j++) {
 				if (!marcas2.get((int) poblacion.get(i+1).getCromosoma()[j])) {
 					cromosoma2[k] = (Integer) poblacion.get(i+1).getCromosoma()[j];
-					marcas2.set(cromosoma2[j], true);
+					marcas2.set(cromosoma2[k], true);
 					k++;
 				}
 			}
@@ -68,7 +69,7 @@ public class CruceOXPP extends Cruce {
 				}
 				if (!marcas2.get((int) poblacion.get(i+1).getCromosoma()[j])) {
 					cromosoma2[k] = (Integer) poblacion.get(i+1).getCromosoma()[j];
-					marcas2.set(cromosoma2[j], true);
+					marcas2.set(cromosoma2[k], true);
 					k++;
 				}
 				if(k == pos1 || k == pos2)

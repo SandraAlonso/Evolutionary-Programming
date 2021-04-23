@@ -67,7 +67,6 @@ public class AlgoritmoGenetico {
 	private Double mediaGeneracion;
 	private Individuo mejorGeneracion;
 	private String problema;
-	private Integer signo;
 	private String mejorTexto;
 
 	public static String textoCifrado;
@@ -207,7 +206,7 @@ public class AlgoritmoGenetico {
 			mutacion = new MutacionHeuristica();
 			break;
 
-		case ("MutaciÃ³n por inserción"):
+		case ("Mutación por inserción"):
 			mutacion = new MutacionInsercion();
 			break;
 
@@ -343,9 +342,9 @@ public class AlgoritmoGenetico {
 			this.evaluarPoblacion();
 			System.out.println("Poblacion: " + this.poblacion.size());
 
-			arrayMedias[generacionActual] = mediaGeneracion * signo;
-			arrayMejorGene[generacionActual] = mejorGeneracion.getValor() * signo;
-			arrayMejoresAbs[generacionActual] = mejorAbsoluto.getValor() * signo;
+			arrayMedias[generacionActual] = mediaGeneracion ;
+			arrayMejorGene[generacionActual] = mejorGeneracion.getValor() ;
+			arrayMejoresAbs[generacionActual] = mejorAbsoluto.getValor() ;
 
 			System.out.println("Media generacion: " + this.mediaGeneracion);
 			System.out.println("Mejor generacion: " + this.mejorGeneracion);

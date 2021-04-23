@@ -15,12 +15,12 @@ public class MutacionInversion extends Mutacion {
 		Random rand = new Random();
 		int posicionesACambiar = rand.nextInt(5) + 1;
 		for (int i = 0; i < poblacion.size(); i++) {
-			Double[] c = (Double[]) poblacion.get(i).getCromosoma();
+			Integer[] c = (Integer[]) poblacion.get(i).getCromosoma();
 			Double alt = rand.nextDouble();
 			if (porcentMut > alt) { // mutamos
 				int pos1= rand.nextInt(26);
 				int pos2= rand.nextInt(26);
-				List<Double> elems = new ArrayList<Double>();
+				List<Integer> elems = new ArrayList<Integer>();
 				if(pos2>pos1) {
 					for(int j =pos1;j<pos2;j++) {
 						elems.add(c[j]);

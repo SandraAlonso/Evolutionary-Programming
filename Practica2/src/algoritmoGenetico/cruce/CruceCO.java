@@ -32,13 +32,41 @@ public class CruceCO extends Cruce {
 			for (int j = 0; j < 26; j++) {
 				posiciones.add(j);
 			}
-			for (int j = 0; j < posiciones.size(); j++) {
-				while (posiciones.get(k) != poblacion.get(i + 1).getCromosoma()[j])
+			for (int j = 0; j < cromosoma2.length; j++) {
+				while (!posiciones.get(k).equals(poblacion.get(i + 1).getCromosoma()[j]))
 					k++;
 				posiciones.remove(k);
-				cromosoma1[j] = k;
+				cromosoma2[j] = k;
 				k = 0;
 			}
+			
+			
+			for(int j = 12; j < cromosoma1.length; ++j) {
+				int aux = cromosoma1[j];
+				cromosoma1[j] = cromosoma2[j];
+				cromosoma2[j] = aux;
+			}
+			
+			for (int j = 0; j < 26; j++) {
+				posiciones.add(j);
+			}
+			
+			for (int j = 0; j < cromosoma1.length; j++) {
+				int aux = cromosoma1[j];
+				cromosoma1[j] = posiciones.get(cromosoma1[j]);
+				posiciones.remove(aux);
+			}
+			
+			for (int j = 0; j < 26; j++) {
+				posiciones.add(j);
+			}
+			
+			for (int j = 0; j < cromosoma2.length; j++) {
+				int aux = cromosoma2[j];
+				cromosoma2[j] = posiciones.get(cromosoma2[j]);
+				posiciones.remove(aux);
+			}
+						
 			poblacion.get(i).setCromosoma(cromosoma1);
 			poblacion.get(i + 1).setCromosoma(cromosoma2);
 		}
