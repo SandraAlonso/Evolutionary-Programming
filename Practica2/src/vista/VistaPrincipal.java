@@ -22,6 +22,8 @@ import javax.swing.border.EmptyBorder;
 
 import org.math.plot.Plot2DPanel;
 
+import algoritmoGenetico.AlgoritmoGenetico;
+import algoritmoGenetico.Transfer;
 
 import javax.swing.JTextPane;
 
@@ -373,11 +375,12 @@ public class VistaPrincipal extends JFrame {
 				String selecc = (String) tipoSelecc.getSelectedItem();
 				String mut = (String) tipoMutacion.getSelectedItem();
 				String cruc = (String) tipoCruce.getSelectedItem();
+				String textoCifrado = textoPropuesto.getText();
 				
-				/*AlgoritmoGenetico alg = new AlgoritmoGenetico(tamPob, numGen, pCruce, pMut, pElit, err, selecc, cruc,
-						mut, problema);
+				AlgoritmoGenetico alg = new AlgoritmoGenetico(tamPob, numGen, pCruce, pMut, pElit, selecc, cruc,
+						mut, textoCifrado);
 				Transfer t = alg.run();
-				solucionTx.setText(t.getMejorIndividuo().toString());
+				textoSolucion.setText(t.getMejorIndividuo().devolverTexto());
 
 				// define the legend position
 				plot.addLegend("SOUTH");
@@ -385,7 +388,7 @@ public class VistaPrincipal extends JFrame {
 				// add a line plot to the PlotPanel
 				plot.addLinePlot("media de la generación", t.getArrayNumGene(), t.getArrayMedias());
 				plot.addLinePlot("mejor absoluto", t.getArrayNumGene(), t.getArrayMejoresAbs());
-				plot.addLinePlot("mejor de la generación", t.getArrayNumGene(), t.getArrayMejorGene());*/
+				plot.addLinePlot("mejor de la generación", t.getArrayNumGene(), t.getArrayMejorGene());
 
 			}
 		});

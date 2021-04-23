@@ -16,14 +16,16 @@ public class main {
 		alg.iniciarPoblacion();*/
 		
 
-		String prueba = "In the code snippet below you will also learn how to use the toCharArray method to covert a string into an array of char. Here we use the method so that we can check every character in the for-each loop to see is the character is a letter or not.";
+		/*String prueba = "In the code snippet below you will also learn how to use the toCharArray method to covert a string into an array of char. Here we use the method so that we can check every character in the for-each loop to see is the character is a letter or not.";
 		
 		Map<String,Long> digramFrec = Arrays.stream(prueba.replaceAll("(?<!^| ).(?! |$)", "$0$0").
 				split(" |(?<=\\G..)")).filter(s -> s.length() > 1).collect(Collectors.groupingBy(s -> s,
 				Collectors.counting()));
-		System.out.println(digramFrec);
-		//VistaPrincipal v = new VistaPrincipal();
-		//v.open();
+		System.out.println(digramFrec);*/
+		VistaPrincipal v = new VistaPrincipal();
+		v.open();
+		/*AlgoritmoGenetico alg = new AlgoritmoGenetico(100, 100, 0.6, 0.02, 0.02, "Truncamiento", "Cruce OX", "Mutación por intercambio");
+		alg.run();*/
 	}
 
 }

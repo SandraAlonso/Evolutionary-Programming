@@ -14,30 +14,30 @@ public class CruceCO extends Cruce {
 			Integer[] cromosoma1 = new Integer[26];
 			Integer[] cromosoma2 = new Integer[26];
 
-			List<Integer> posiciones = new ArrayList(cromosoma1.length);
+			List<Integer> posiciones = new ArrayList();
 
-			for(int j =0;j<posiciones.size();j++) {
-				posiciones.set(j, j);
+			for (int j = 0; j < 26; j++) {
+				posiciones.add(j);
 			}
-			int k =1;
-			for(int j =0;j<cromosoma1.length;j++) {
-				while(posiciones.get(k)!=poblacion.get(i).getCromosoma()[j] )
+			int k = 0;
+			for (int j = 0; j < cromosoma1.length; j++) {
+				while (!posiciones.get(k).equals(poblacion.get(i).getCromosoma()[j]))
 					k++;
 				posiciones.remove(k);
-				cromosoma1[j]=k;
-				k=1;
+				cromosoma1[j] = k;
+				k = 0;
 			}
-			
-			k =1;
-			for(int j =0;j<posiciones.size();j++) {
-				posiciones.set(j, j);
+
+			k = 0;
+			for (int j = 0; j < 26; j++) {
+				posiciones.add(j);
 			}
-			for(int j =0;j<cromosoma2.length;j++) {
-				while(posiciones.get(k)!=poblacion.get(i+1).getCromosoma()[j] )
+			for (int j = 0; j < posiciones.size(); j++) {
+				while (posiciones.get(k) != poblacion.get(i + 1).getCromosoma()[j])
 					k++;
 				posiciones.remove(k);
-				cromosoma1[j]=k;
-				k=1;
+				cromosoma1[j] = k;
+				k = 0;
 			}
 			poblacion.get(i).setCromosoma(cromosoma1);
 			poblacion.get(i + 1).setCromosoma(cromosoma2);

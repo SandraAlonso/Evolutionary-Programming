@@ -68,6 +68,7 @@ public class AlgoritmoGenetico {
 	private Individuo mejorGeneracion;
 	private String problema;
 	private Integer signo;
+	private String mejorTexto;
 
 	public static String textoCifrado;
 
@@ -77,29 +78,29 @@ public class AlgoritmoGenetico {
 	public static Map<String, Double> cuadragramas;
 
 	public AlgoritmoGenetico(Integer tamPoblacion, Integer numGeneraciones, Double porcentCruces,
-			Double porcetMutaciones, Double porcentElitismo, Double precision, String metodoSeleccion,
-			String metodoCruce, String metodoMutacion, String problema) {
+			Double porcetMutaciones, Double porcentElitismo, String metodoSeleccion,
+			String metodoCruce, String metodoMutacion, String textoCifrado) {
 		this.tamPoblacion = tamPoblacion;
 		this.numGeneraciones = numGeneraciones;
 		this.porcentCruces = porcentCruces;
 		this.porcetMutaciones = porcetMutaciones;
-		this.precision = precision;
 		this.metodoSeleccion = metodoSeleccion;
 		this.metodoCruce = metodoCruce;
 		this.metodoMutacion = metodoMutacion;
 		this.porcentElitismo = porcentElitismo;
-		this.problema = problema;
-//		iniciarSeleccion();
-//		iniciarCruce();
-//		iniciarMutacion();
+		this.textoCifrado=textoCifrado.toLowerCase();
+		iniciarSeleccion();
+		iniciarCruce();
+		iniciarMutacion();
 		leerNgrams();
 
 	}
 
 	public void iniciarPoblacion() {
-		List<Individuo> poblacion = new ArrayList<Individuo>();
+		this.poblacion = new ArrayList<Individuo>();
 		for (int i = 0; i < tamPoblacion; i++)
 			poblacion.add(new Individuo1());
+		
 	}
 
 
@@ -229,7 +230,7 @@ public class AlgoritmoGenetico {
 		case ("Ruleta"):
 			seleccion = new SeleccionRuleta();
 			break;
-		case ("EstocÃ¡stico universal"):
+		case ("Estocástico universal"):
 			seleccion = new SeleccionEstocasticoUniversal();
 			break;
 		case ("Torneo determinístico"):
@@ -290,6 +291,7 @@ public class AlgoritmoGenetico {
 		this.mejorGeneracion = mejorTemp;
 		if (this.mejorAbsoluto.getValor() < this.mejorGeneracion.getValor()) {
 			this.mejorAbsoluto = (Individuo) SerializationUtils.clone(this.mejorGeneracion);
+			this.mejorTexto = this.mejorAbsoluto.devolverTexto();
 		}
 	}
 
@@ -352,8 +354,7 @@ public class AlgoritmoGenetico {
 			generacionActual++;
 		}
 
-		return null;
-		// return new Transfer(arrayMedias, arrayMejoresAbs, arrayMejorGene,
-		// arrayNumGene, mejorAbsoluto);
+		 return new Transfer(arrayMedias, arrayMejoresAbs, arrayMejorGene,
+		arrayNumGene, mejorAbsoluto, mejorTexto);
 	}
 }

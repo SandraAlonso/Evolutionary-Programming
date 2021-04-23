@@ -37,5 +37,7 @@ public abstract class Individuo<T> implements Serializable {
         return (int) (Math.log10(((max - min) / precision) + 1) / Math.log10(2));
     }
     
+    public abstract String devolverTexto();
+    
     
 }
