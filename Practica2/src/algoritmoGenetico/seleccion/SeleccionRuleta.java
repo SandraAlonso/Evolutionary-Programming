@@ -41,7 +41,6 @@ public class SeleccionRuleta extends Seleccion {
 				acum += ind.getValor();
 			}
 		}
-		System.out.println(NuevaPoblacion);
 		return NuevaPoblacion;
 	}
 

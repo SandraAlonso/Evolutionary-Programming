@@ -323,17 +323,24 @@ public class AlgoritmoGenetico {
 			List<Individuo> nuevaPoblacion = new ArrayList<Individuo>();
 			List<Individuo> seleccionados = new ArrayList<Individuo>();
 			List<Individuo> elite = new ArrayList<Individuo>();
-
+			System.out.println("generacionactual: "+generacionActual);
 			elite = generarElite(porcentElitismo);
 			this.poblacion = seleccion.run(poblacion); // seleccion de Individuos
 			System.out.println("Poblacion: " + this.poblacion.size());
 			seleccionados = seleccionadosCruce(this.poblacion);// Seleccionamos los individuos que vamos a cruzar
 			System.out.println("Seleccionados: " + seleccionados.size());
+			System.out.print("llego");
+
 			seleccionados = cruce.run(seleccionados);// Elementos ya cruzados pendientes de añadirlos a la poblacion
+			System.out.print("llego3");
+
 			this.poblacion.addAll(seleccionados);
+
 			this.poblacion = mutacion.run(poblacion, this.porcetMutaciones);
 			// Ordenamos y eliminamos a los peores
 			Collections.sort(poblacion, (a, b) -> b.getValor().compareTo(a.getValor()));
+			System.out.print("llego2");
+
 			for (int i = 0; i < elite.size(); i++) {
 				poblacion.remove(poblacion.size() - 1);
 			}

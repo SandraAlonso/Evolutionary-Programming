@@ -15,16 +15,27 @@ public class MutacionInsercion extends Mutacion {
 			Integer[] c = (Integer[]) poblacion.get(i).getCromosoma();
 			Double alt = rand.nextDouble();
 			if (porcentMut > alt) { // mutamos
+				System.out.println("mutacion por insercion antes");
+				for(int a =0;a<c.length;a++)
+					System.out.print(c[a]+" ");
 				for(int j =0;j<posicionesACambiar;j++) {
-					int posActual = rand.nextInt(26);
-					int posFinal = rand.nextInt(posActual);
-					for(int k =posFinal+1;k<posActual;k++) {
+					int posActual = rand.nextInt(25)+1;
+					int posFinal = rand.nextInt(posActual)+1;
+					System.out.println(" i "+i+ " posAct "+posActual+ " posfinal "+posFinal);
+					int aux = c[posActual];
+
+					for(int k = posActual;k>posFinal;k--) {
 						c[k]=c[k-1];
+
 					}
-					c[posFinal]=c[posActual];
-					c[posActual]=c[posActual-1];
+					
+					
+					c[posFinal]=aux;
 					
 				}
+				System.out.println("mutacion por insercion");
+				for(int a =0;a<c.length;a++)
+					System.out.print(c[a]+" ");
 				poblacion.get(i).setCromosoma(c);
 
 			}

@@ -22,10 +22,11 @@ public class SeleccionRanking extends Seleccion {
 			double aux = (double) i / poblacion.size();
 			aux *= 2 * (this.beta - 1);
 			aux = beta - aux;
-			aux = aux * (1 / poblacion.size());
+			aux = aux * (1 / (double)poblacion.size());
 			//Caulculamos el acumulado
 			suma += aux;
 			sol.add(aux);
+			
 		}
 
 		return sol;
@@ -57,7 +58,7 @@ public class SeleccionRanking extends Seleccion {
 				acum += ranking.get(j);
 			}
 		}
-		System.out.println(nuevaPoblacion);
+		suma=0.0;
 		return nuevaPoblacion;
 	}
 
