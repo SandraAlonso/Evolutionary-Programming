@@ -52,10 +52,8 @@ public class SeleccionEstocasticoUniversal extends Seleccion {
 				break;
 			
 		}
-		System.out.println("Seleccion:");
-		System.out.println(NuevaPoblacion);
-		System.out.println("Nuevo de seleccionados:");
-		System.out.println(NuevaPoblacion.size());
+		
+		
 
 		return NuevaPoblacion;
 	}

@@ -3,6 +3,7 @@ package algoritmoGenetico.mutacion;
 import java.util.List;
 import java.util.Random;
 
+import algoritmoGenetico.AlgoritmoGenetico;
 import algoritmoGenetico.individuos.Individuo;
 
 public class MutacionIntercambio extends Mutacion {
@@ -15,6 +16,7 @@ public class MutacionIntercambio extends Mutacion {
 			Integer[] c = (Integer[]) poblacion.get(i).getCromosoma();
 			Double alt = rand.nextDouble();
 			if (porcentMut > alt) { // mutamos 
+				AlgoritmoGenetico.totalMutaciones++;
 				int pos1= rand.nextInt(26);
 				int pos2= rand.nextInt(26);
 				Integer aux = c[pos1];

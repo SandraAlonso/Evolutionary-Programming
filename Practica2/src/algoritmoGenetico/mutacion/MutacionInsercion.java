@@ -3,6 +3,7 @@ package algoritmoGenetico.mutacion;
 import java.util.List;
 import java.util.Random;
 
+import algoritmoGenetico.AlgoritmoGenetico;
 import algoritmoGenetico.individuos.Individuo;
 
 public class MutacionInsercion extends Mutacion {
@@ -15,13 +16,11 @@ public class MutacionInsercion extends Mutacion {
 			Integer[] c = (Integer[]) poblacion.get(i).getCromosoma();
 			Double alt = rand.nextDouble();
 			if (porcentMut > alt) { // mutamos
-				System.out.println("mutacion por insercion antes");
-				for(int a =0;a<c.length;a++)
-					System.out.print(c[a]+" ");
+				AlgoritmoGenetico.totalMutaciones++;
+				
 				for(int j =0;j<posicionesACambiar;j++) {
 					int posActual = rand.nextInt(25)+1;
 					int posFinal = rand.nextInt(posActual)+1;
-					System.out.println(" i "+i+ " posAct "+posActual+ " posfinal "+posFinal);
 					int aux = c[posActual];
 
 					for(int k = posActual;k>posFinal;k--) {
@@ -33,9 +32,7 @@ public class MutacionInsercion extends Mutacion {
 					c[posFinal]=aux;
 					
 				}
-				System.out.println("mutacion por insercion");
-				for(int a =0;a<c.length;a++)
-					System.out.print(c[a]+" ");
+				
 				poblacion.get(i).setCromosoma(c);
 
 			}

@@ -3,6 +3,7 @@ package algoritmoGenetico.mutacion;
 import java.util.List;
 import java.util.Random;
 
+import algoritmoGenetico.AlgoritmoGenetico;
 import algoritmoGenetico.individuos.Individuo;
 
 public class MutacionComplementaria extends Mutacion {
@@ -22,6 +23,7 @@ public class MutacionComplementaria extends Mutacion {
 			Integer[] c = (Integer[]) poblacion.get(i).getCromosoma();
 			Double alt = rand.nextDouble();
 			if (porcentMut > alt) { // mutamos
+				AlgoritmoGenetico.totalMutaciones++;
 				for(int j =0;j<c.length;j++) {
 					c[j]=25-c[j];
 				}

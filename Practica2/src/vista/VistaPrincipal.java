@@ -36,7 +36,6 @@ public class VistaPrincipal extends JFrame {
 	private JTextField porcentCruceTx;
 	private JTextField porcentMutacionTx;
 	private JTextField porcentElitismoTx;
-	private JTextField textField;
 
 	/**
 	 * Launch the application.
@@ -143,12 +142,11 @@ public class VistaPrincipal extends JFrame {
 		
 		JLabel textoSolucionLb = new JLabel("Texto soluci\u00F3n");
 		
-		textField = new JTextField();
-		textField.setColumns(10);
-		
 		JLabel lblol = new JLabel("a b c d e f g h i j k l m n o p q r s t u v w x y z");
 		
 		JLabel lblNewLabel = new JLabel("Soluci\u00F3n");
+		
+		JLabel solucionLetras = new JLabel("");
 
 		GroupLayout gl_contentPane = new GroupLayout(contentPane1);
 		gl_contentPane.setHorizontalGroup(
@@ -206,14 +204,14 @@ public class VistaPrincipal extends JFrame {
 							.addGap(300))
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
+								.addComponent(solucionLetras, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 								.addGroup(gl_contentPane.createSequentialGroup()
 									.addComponent(lblNewLabel_11)
 									.addPreferredGap(ComponentPlacement.RELATED)
 									.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
 										.addComponent(lblNewLabel_12, GroupLayout.PREFERRED_SIZE, 190, GroupLayout.PREFERRED_SIZE)
 										.addComponent(porcentElitismoTx, GroupLayout.PREFERRED_SIZE, 130, GroupLayout.PREFERRED_SIZE)))
-								.addComponent(textField, GroupLayout.PREFERRED_SIZE, 214, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblol, GroupLayout.PREFERRED_SIZE, 216, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblol, GroupLayout.DEFAULT_SIZE, 216, Short.MAX_VALUE)
 								.addComponent(lblNewLabel))
 							.addPreferredGap(ComponentPlacement.RELATED, 6, Short.MAX_VALUE)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
@@ -234,7 +232,7 @@ public class VistaPrincipal extends JFrame {
 							.addGap(29))))
 		);
 		gl_contentPane.setVerticalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
+			gl_contentPane.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addGap(27)
 					.addComponent(tamPoblacionLb)
@@ -290,10 +288,10 @@ public class VistaPrincipal extends JFrame {
 					.addComponent(lblNewLabel)
 					.addGap(28)
 					.addComponent(lblol)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addGap(165))
-				.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
+					.addGap(18)
+					.addComponent(solucionLetras)
+					.addGap(164))
+				.addGroup(gl_contentPane.createSequentialGroup()
 					.addContainerGap()
 					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 621, GroupLayout.PREFERRED_SIZE)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
@@ -351,7 +349,7 @@ public class VistaPrincipal extends JFrame {
 						mut, textoCifrado);
 				Transfer t = alg.run();
 				textoSolucion.setText(t.getMejorIndividuo().devolverTexto());
-				textField.setText(t.getMejorIndividuo().solucion());
+				solucionLetras.setText(t.getMejorIndividuo().solucion());
 				// define the legend position
 				plot.addLegend("SOUTH");
 

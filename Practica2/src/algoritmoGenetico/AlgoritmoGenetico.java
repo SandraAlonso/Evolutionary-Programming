@@ -66,6 +66,11 @@ public class AlgoritmoGenetico {
 	private Individuo mejorAbsoluto;
 	private Double mediaGeneracion;
 	private Individuo mejorGeneracion;
+	private Individuo peorIndividuo;
+	private Integer totalCruces;
+	public static Integer totalMutaciones;
+
+
 	private String problema;
 	private String mejorTexto;
 
@@ -93,6 +98,8 @@ public class AlgoritmoGenetico {
 		iniciarCruce();
 		iniciarMutacion();
 		leerNgrams();
+		this.totalCruces=0;
+		this.totalMutaciones=0;
 
 	}
 
@@ -185,7 +192,6 @@ public class AlgoritmoGenetico {
 			e.printStackTrace();
 		}
 
-		// System.out.println(cuadragramas);
 	}
 	public void iniciarCruce() {
 
@@ -333,6 +339,7 @@ public class AlgoritmoGenetico {
 			arrayNumGene[i - 1] = i;
 		}
 		iniciarPoblacion();
+		this.peorIndividuo = this.poblacion.get(0);
 
 		this.mejorAbsoluto = this.poblacion.get(0);
 		Integer generacionActual = 0;
@@ -346,18 +353,19 @@ public class AlgoritmoGenetico {
 			System.out.println("Poblacion: " + this.poblacion.size());
 			seleccionados = seleccionadosCruce(this.poblacion);// Seleccionamos los individuos que vamos a cruzar
 			System.out.println("Seleccionados: " + seleccionados.size());
-			System.out.print("llego");
 
 			seleccionados = cruce.run(seleccionados);// Elementos ya cruzados pendientes de añadirlos a la poblacion
-			System.out.print("llego3");
-
+			totalCruces+=seleccionados.size();
 			this.poblacion.addAll(seleccionados);
 
 			this.poblacion = mutacion.run(poblacion, this.porcetMutaciones);
 			// Ordenamos y eliminamos a los peores
+			
 			Collections.sort(poblacion, (a, b) -> b.getValor().compareTo(a.getValor()));
-			System.out.print("llego2");
-
+			
+			if(peorIndividuo.getValor()> poblacion.get(poblacion.size()-1).getValor()) {
+				peorIndividuo=poblacion.get(poblacion.size()-1); 
+			}
 			for (int i = 0; i < elite.size(); i++) {
 				poblacion.remove(poblacion.size() - 1);
 			}
@@ -370,9 +378,14 @@ public class AlgoritmoGenetico {
 			arrayMejorGene[generacionActual] = mejorGeneracion.getValor() ;
 			arrayMejoresAbs[generacionActual] = mejorAbsoluto.getValor() ;
 
-			System.out.println("Media generacion: " + this.mediaGeneracion);
-			System.out.println("Mejor generacion: " + this.mejorGeneracion);
-			System.out.println("Mejor absoluto: " + this.mejorAbsoluto);
+			System.out.println("Media generacion: " + this.mediaGeneracion.toString());
+			System.out.println("Mejor generacion: " + this.mejorGeneracion.toString());
+			System.out.println("Mejor absoluto: " + this.mejorAbsoluto.toString());
+			System.out.println("Peor absoluto: " + this.peorIndividuo.toString());
+			System.out.println("Total cruces: " + this.totalCruces);
+			System.out.println("Total mutaciones: " + this.totalMutaciones);
+
+
 			// Siguiente generacion
 			generacionActual++;
 		}

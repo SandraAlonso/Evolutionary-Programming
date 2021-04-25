@@ -220,4 +220,11 @@ public class Individuo1 extends Individuo<Integer> {
 		return textoDescifrado;
 	}
 
+	@Override
+	public String toString() {
+		return "Individuo1 [fitnessCalculado=" + fitnessCalculado + ", cromosoma=" + Arrays.toString(cromosoma) + "]";
+	}
+	
+	
+
 }
