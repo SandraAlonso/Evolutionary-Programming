@@ -351,7 +351,7 @@ public class VistaPrincipal extends JFrame {
 						mut, textoCifrado);
 				Transfer t = alg.run();
 				textoSolucion.setText(t.getMejorIndividuo().devolverTexto());
-
+				textField.setText(t.getMejorIndividuo().solucion());
 				// define the legend position
 				plot.addLegend("SOUTH");
 

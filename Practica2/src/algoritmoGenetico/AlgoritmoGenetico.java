@@ -74,7 +74,8 @@ public class AlgoritmoGenetico {
 	public static Map<String, Double> monogramas;
 	public static Map<String, Double> bigramas;
 	public static Map<String, Double> trigramas;
-	public static Map<String, Double> cuadragramas;
+	public static Map<String, Double> cuatrigramas;
+	public static Map<String, Double> palabras;
 
 	public AlgoritmoGenetico(Integer tamPoblacion, Integer numGeneraciones, Double porcentCruces,
 			Double porcetMutaciones, Double porcentElitismo, String metodoSeleccion,
@@ -152,15 +153,31 @@ public class AlgoritmoGenetico {
 			e.printStackTrace();
 		}
 
-		cuadragramas = new HashMap<String, Double>();
+		cuatrigramas = new HashMap<String, Double>();
 		try {
-			File myObj = new File("n-grams/frecuencias/cuadragramas.txt");
+			File myObj = new File("n-grams/frecuencias/cuatrigramas.txt");
 			Scanner myReader = new Scanner(myObj);
 			while (myReader.hasNextLine()) {
 				String data = myReader.nextLine();
 				String key = data.split(" ")[0].toLowerCase();
 				Double val = Double.parseDouble(data.split(" ")[1]);
-				cuadragramas.put(key, val);
+				cuatrigramas.put(key, val);
+			}
+			myReader.close();
+		} catch (FileNotFoundException e) {
+			System.out.println("An error occurred.");
+			e.printStackTrace();
+		}
+		
+		palabras = new HashMap<String, Double>();
+		try {
+			File myObj = new File("n-grams/frecuencias/palabras.txt");
+			Scanner myReader = new Scanner(myObj);
+			while (myReader.hasNextLine()) {
+				String data = myReader.nextLine();
+				String key = data.split(" ")[0].toLowerCase();
+				Double val = Double.parseDouble(data.split(" ")[1]);
+				palabras.put(key, val);
 			}
 			myReader.close();
 		} catch (FileNotFoundException e) {

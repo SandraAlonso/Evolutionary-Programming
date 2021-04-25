@@ -21,8 +21,12 @@ public class SeleccionRuleta extends Seleccion {
 	@Override
 	public List<Individuo> run(List<Individuo> poblacion) {
 		Double suma = 0.0;
+		Double min = poblacion.get(0).getValor();
 		for (Individuo ind : poblacion) {
 			suma += ind.getValor();
+			if(min > ind.getValor()) {
+				min = ind.getValor();
+			}
 		}
 		Integer numIndSelec = poblacion.size();
 		Random rand = new Random();
@@ -32,9 +36,9 @@ public class SeleccionRuleta extends Seleccion {
 			Double alt = rand.nextDouble();
 			Double acum = 0.0;
 			for (Individuo ind : poblacion) {
-				Double aux2 = (ind.getValor() + acum) / suma;
+				Double aux2 = ((ind.getValor() + min) + acum) / suma;
 
-				if ((ind.getValor() + acum) / suma >= alt) {
+				if (((ind.getValor() + min) + acum) / suma >= alt) {
 					NuevaPoblacion.add((Individuo) SerializationUtils.clone(ind));
 					break;
 				}

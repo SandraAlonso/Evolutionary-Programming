@@ -14,6 +14,8 @@ public class Individuo1 extends Individuo<Integer> {
 	private String textoDescifrado;
 	private int numMonogramas;
 	private int numTrigramas = 0;
+	private int numCuatrigramas;
+	private int numPalabras;
 	private String[] letras= { "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r",
 			"s", "t", "u", "v", "w", "x", "y", "z" };
 	private Double fitnessCalculado;
@@ -23,6 +25,8 @@ public class Individuo1 extends Individuo<Integer> {
 		numMonogramas = 0;
 		textoDescifrado = "";
 		int tamTotal = 26;
+		numPalabras = 0;
+		numCuatrigramas = 0;
 		yaCalculado = false;
 		fitnessCalculado = 0.0;
 		List<Integer> numeros = new ArrayList<>();
@@ -52,6 +56,17 @@ public class Individuo1 extends Individuo<Integer> {
 				textoDescifrado += c;
 			}
 		}
+	}
+	
+	@Override
+	public String solucion() {
+		String sol = "";
+		
+		for(Integer i : this.cromosoma) {
+			sol += letras[i] + " ";
+		}
+		
+		return sol;
 	}
 
 	private Map<String, Long> unigramas() {
@@ -97,6 +112,41 @@ public class Individuo1 extends Individuo<Integer> {
 		return sol;
 	}
 	
+	private Map<String, Long> cuatrigramas() {
+		Map<String, Long> sol = new HashMap();
+		String[] palabras = textoDescifrado.split(" ");
+		for (String s : palabras) {
+			if (s.length() >= 4) {
+				for (int i = 0; i < s.length() - 3; i++) {
+					String a = s.substring(i, i + 4);
+					if (sol.containsKey(a)) {
+						sol.put(s, sol.get(a) + 1);
+					} else {
+						sol.put(a, (long) 1);
+					}
+					numCuatrigramas++;
+				}
+			}
+		}
+		return sol;
+	}
+	
+	private Map<String, Long> palabras() {
+		Map<String, Long> sol = new HashMap();
+		String[] palabras = textoDescifrado.split(" ");
+		for (String s : palabras) {
+			if (sol.containsKey(s)) {
+				sol.put(s, sol.get(s) + 1);
+			} else {
+				sol.put(s, (long) 1);
+			}
+			numPalabras++;
+			
+		}
+		return sol;
+	}
+	
+	
 	@Override
 	public Integer[] setCromosoma(Integer[]c) {
 		yaCalculado = false;
@@ -130,18 +180,35 @@ public class Individuo1 extends Individuo<Integer> {
 		for (Map.Entry<String, Long> entry : digramFrec.entrySet()) {
 			numBigramas += entry.getValue();
 		}
-
+		
 		for (Map.Entry<String, Long> entry : digramFrec.entrySet()) {
 			if (AlgoritmoGenetico.bigramas.containsKey(entry.getKey()))
-				fitness += (double) (entry.getValue() / numBigramas)
+				
+				fitness += (double) (entry.getValue() / (double) numBigramas)
 						* this.log2(AlgoritmoGenetico.bigramas.get(entry.getKey()));
 		}
+
 		// Trigramas;
 		for (Map.Entry<String, Long> entry : trigramas().entrySet()) {
 			if (AlgoritmoGenetico.trigramas.containsKey(entry.getKey()))
-				fitness += (double) (entry.getValue() / numTrigramas)
+				fitness += (double) (entry.getValue() / (double) numTrigramas)
 						* this.log2(AlgoritmoGenetico.trigramas.get(entry.getKey()));
 		}
+		
+		//cuatrigramas
+		for (Map.Entry<String, Long> entry : cuatrigramas().entrySet()) {
+			if (AlgoritmoGenetico.cuatrigramas.containsKey(entry.getKey()))
+				fitness += (double) (entry.getValue() / (double) numCuatrigramas)
+						* this.log2(AlgoritmoGenetico.cuatrigramas.get(entry.getKey()));
+		}
+		
+		
+		//palabras
+//		for (Map.Entry<String, Long> entry : palabras().entrySet()) {
+//			if (AlgoritmoGenetico.palabras.containsKey(entry.getKey()))
+//				fitness += (double) (entry.getValue() / (double) numPalabras)
+//						* this.log2(AlgoritmoGenetico.palabras.get(entry.getKey()));
+//		}
 		yaCalculado = true;
 		fitnessCalculado = fitness;
 		return fitness;
