@@ -80,6 +80,7 @@ public class AlgoritmoGenetico {
 	public static Map<String, Double> bigramas;
 	public static Map<String, Double> trigramas;
 	public static Map<String, Double> cuatrigramas;
+	public static Map<String, Double> quintigrama;
 	public static Map<String, Double> palabras;
 
 	public AlgoritmoGenetico(Integer tamPoblacion, Integer numGeneraciones, Double porcentCruces,
@@ -169,6 +170,22 @@ public class AlgoritmoGenetico {
 				String key = data.split(" ")[0].toLowerCase();
 				Double val = Double.parseDouble(data.split(" ")[1]);
 				cuatrigramas.put(key, val);
+			}
+			myReader.close();
+		} catch (FileNotFoundException e) {
+			System.out.println("An error occurred.");
+			e.printStackTrace();
+		}
+		
+		quintigrama = new HashMap<String, Double>();
+		try {
+			File myObj = new File("n-grams/frecuencias/quintigramas.txt");
+			Scanner myReader = new Scanner(myObj);
+			while (myReader.hasNextLine()) {
+				String data = myReader.nextLine();
+				String key = data.split(" ")[0].toLowerCase();
+				Double val = Double.parseDouble(data.split(" ")[1]);
+				quintigrama.put(key, val);
 			}
 			myReader.close();
 		} catch (FileNotFoundException e) {

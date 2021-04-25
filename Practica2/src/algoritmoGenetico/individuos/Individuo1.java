@@ -20,6 +20,7 @@ public class Individuo1 extends Individuo<Integer> {
 			"s", "t", "u", "v", "w", "x", "y", "z" };
 	private Double fitnessCalculado;
 	private Boolean yaCalculado;
+	private int numQuintigrama;
 
 	public Individuo1() {
 		numMonogramas = 0;
@@ -29,6 +30,7 @@ public class Individuo1 extends Individuo<Integer> {
 		numCuatrigramas = 0;
 		yaCalculado = false;
 		fitnessCalculado = 0.0;
+		numQuintigrama = 0;
 		List<Integer> numeros = new ArrayList<>();
 		this.cromosoma = new Integer[tamTotal];
 		for (int i = 0; i < tamTotal; ++i) {
@@ -131,6 +133,25 @@ public class Individuo1 extends Individuo<Integer> {
 		return sol;
 	}
 	
+	private Map<String, Long> quintigrama() {
+		Map<String, Long> sol = new HashMap();
+		String[] palabras = textoDescifrado.split(" ");
+		for (String s : palabras) {
+			if (s.length() >= 4) {
+				for (int i = 0; i < s.length() - 4; i++) {
+					String a = s.substring(i, i + 5);
+					if (sol.containsKey(a)) {
+						sol.put(s, sol.get(a) + 1);
+					} else {
+						sol.put(a, (long) 1);
+					}
+					numQuintigrama++;
+				}
+			}
+		}
+		return sol;
+	}
+	
 	private Map<String, Long> palabras() {
 		Map<String, Long> sol = new HashMap();
 		String[] palabras = textoDescifrado.split(" ");
@@ -200,6 +221,11 @@ public class Individuo1 extends Individuo<Integer> {
 			if (AlgoritmoGenetico.cuatrigramas.containsKey(entry.getKey()))
 				fitness += (double) (entry.getValue() / (double) numCuatrigramas)
 						* this.log2(AlgoritmoGenetico.cuatrigramas.get(entry.getKey()));
+		}
+		for (Map.Entry<String, Long> entry : quintigrama().entrySet()) {
+			if (AlgoritmoGenetico.quintigrama.containsKey(entry.getKey()))
+				fitness += (double) (entry.getValue() / (double) numQuintigrama)
+						* this.log2(AlgoritmoGenetico.quintigrama.get(entry.getKey()));
 		}
 		
 		
