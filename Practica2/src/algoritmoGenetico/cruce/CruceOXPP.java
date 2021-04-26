@@ -30,6 +30,11 @@ public class CruceOXPP extends Cruce {
 			
 			cromosoma1[pos2]= (Integer) poblacion.get(i + 1).getCromosoma()[pos2];
 			cromosoma2[pos2] = (Integer) poblacion.get(i).getCromosoma()[pos2];
+			
+			marcas1.set(cromosoma1[pos1], true);
+			marcas1.set(cromosoma1[pos2], true);
+			marcas2.set(cromosoma2[pos1], true);
+			marcas2.set(cromosoma2[pos2], true);
 
 			//Relleno de cromosomas
 			//Cromosoma 1

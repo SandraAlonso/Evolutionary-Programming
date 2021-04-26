@@ -24,14 +24,16 @@ public class CruceCX extends Cruce {
 			//Ciclo
 			int i =0;
 			Integer dato= cromosoma2[0];
-			while(dato.equals(cromosoma1[0])) {
-				while(dato.equals(cromosoma1[i]))
+			marcas2.set(i, true);
+			while(!dato.equals(cromosoma1[0])) {
+				while(!dato.equals(cromosoma1[i]))
 					i++;
 				dato=cromosoma2[i];
 				//Marcamos los utillizados
 				marcas2.set(i, true);
 				i=0;
 			}
+			
 			i=0;
 			//Intercambiamos los no utilizados
 			while(i<marcas2.size()) {

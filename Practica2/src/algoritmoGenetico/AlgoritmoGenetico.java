@@ -398,6 +398,7 @@ public class AlgoritmoGenetico {
 			System.out.println("Media generacion: " + this.mediaGeneracion.toString());
 			System.out.println("Mejor generacion: " + this.mejorGeneracion.toString());
 			System.out.println("Mejor absoluto: " + this.mejorAbsoluto.toString());
+			System.out.println("Mejor solucion: " + this.mejorAbsoluto.solucion());
 			System.out.println("Peor absoluto: " + this.peorIndividuo.toString());
 			System.out.println("Total cruces: " + this.totalCruces);
 			System.out.println("Total mutaciones: " + this.totalMutaciones);
