@@ -66,13 +66,13 @@ public class VistaPrincipal extends JFrame {
 		JLabel tamPoblacionLb = new JLabel("Tamaño población");
 
 		tamPoblacionTx = new JTextField();
-		tamPoblacionTx.setText("100");
+		tamPoblacionTx.setText("150");
 		tamPoblacionTx.setColumns(10);
 
 		JLabel numGeneracionesLb = new JLabel("Número de generaciones");
 
 		numGeneracionesTx = new JTextField();
-		numGeneracionesTx.setText("100");
+		numGeneracionesTx.setText("200");
 		numGeneracionesTx.setColumns(10);
 
 		JLabel lblNewLabel_3 = new JLabel("Selección");
@@ -80,14 +80,14 @@ public class VistaPrincipal extends JFrame {
 		JLabel lblNewLabel_4 = new JLabel("Tipo de selección");
 
 		JComboBox tipoSelecc = new JComboBox();
-		tipoSelecc.setModel(new DefaultComboBoxModel(new String[] {"Estoc\u00E1stico universal", "Restos", "Ruleta", "Torneo determin\u00EDstico", "Torneo probabil\u00EDstico", "Truncamiento", "Ranking"}));
+		tipoSelecc.setModel(new DefaultComboBoxModel(new String[] {"Torneo determin\u00EDstico","Estoc\u00E1stico universal", "Restos", "Ruleta",  "Torneo probabil\u00EDstico", "Truncamiento", "Ranking"}));
 
 		JLabel lblNewLabel_5 = new JLabel("Cruce");
 
 		JLabel lblNewLabel_6 = new JLabel("Tipo de cruce");
 
 		JComboBox tipoCruce = new JComboBox();
-		tipoCruce.setModel(new DefaultComboBoxModel(new String[] {"Cruce CO", "Cruce CX", "Cruce ERX", "Cruce OX", "Cruce OXPP", "Cruce PMX", "Cruce por mezcla aleatoria"}));
+		tipoCruce.setModel(new DefaultComboBoxModel(new String[] {"Cruce OX","Cruce CO", "Cruce CX", "Cruce ERX",  "Cruce OXPP", "Cruce PMX", "Cruce por mezcla aleatoria"}));
 
 		JLabel lblNewLabel_7 = new JLabel("% cruce");
 
@@ -213,10 +213,9 @@ public class VistaPrincipal extends JFrame {
 										.addComponent(porcentElitismoTx, GroupLayout.PREFERRED_SIZE, 130, GroupLayout.PREFERRED_SIZE)))
 								.addComponent(lblol, GroupLayout.DEFAULT_SIZE, 216, Short.MAX_VALUE)
 								.addComponent(lblNewLabel))
-							.addPreferredGap(ComponentPlacement.RELATED, 6, Short.MAX_VALUE)
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 								.addGroup(gl_contentPane.createSequentialGroup()
-									.addGap(16)
+									.addGap(22)
 									.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 										.addComponent(textoPropuesto, GroupLayout.DEFAULT_SIZE, 262, Short.MAX_VALUE)
 										.addComponent(textoPropuestoLb))
@@ -228,88 +227,95 @@ public class VistaPrincipal extends JFrame {
 									.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
 										.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 135, GroupLayout.PREFERRED_SIZE)
 										.addComponent(btnNewButton_1, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 135, GroupLayout.PREFERRED_SIZE)))
-								.addComponent(panel, GroupLayout.DEFAULT_SIZE, 713, Short.MAX_VALUE))
+								.addGroup(gl_contentPane.createSequentialGroup()
+									.addGap(6)
+									.addComponent(panel, GroupLayout.DEFAULT_SIZE, 713, Short.MAX_VALUE)))
 							.addGap(29))))
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.TRAILING)
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGap(27)
-					.addComponent(tamPoblacionLb)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(tamPoblacionTx, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(numGeneracionesLb)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(numGeneracionesTx, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addGap(62)
-					.addComponent(lblNewLabel_3)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+				.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
 						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGap(17)
-							.addComponent(separator_4_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_contentPane.createSequentialGroup()
+							.addContainerGap()
+							.addComponent(panel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+						.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
+							.addGap(27)
+							.addComponent(tamPoblacionLb)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(tamPoblacionTx, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addComponent(lblNewLabel_4)))
-					.addGap(11)
-					.addComponent(tipoSelecc, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addGap(18)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addComponent(lblNewLabel_5)
+							.addComponent(numGeneracionesLb)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(numGeneracionesTx, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addGap(62)
+							.addComponent(lblNewLabel_3)
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_contentPane.createSequentialGroup()
+									.addGap(17)
+									.addComponent(separator_4_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+								.addGroup(gl_contentPane.createSequentialGroup()
+									.addPreferredGap(ComponentPlacement.UNRELATED)
+									.addComponent(lblNewLabel_4)))
+							.addGap(11)
+							.addComponent(tipoSelecc, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 							.addGap(18)
-							.addComponent(separator_4_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-						.addComponent(lblNewLabel_6))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(tipoCruce, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(lblNewLabel_7)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(porcentCruceTx, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addGap(16)
-					.addComponent(separator_3_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addGap(25)
-					.addComponent(lblNewLabel_8)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(lblNewLabel_9)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(tipoMutacion, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(lblNewLabel_10)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(porcentMutacionTx, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(lblNewLabel_11)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(lblNewLabel_12)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(porcentElitismoTx, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED, 85, Short.MAX_VALUE)
-					.addComponent(lblNewLabel)
-					.addGap(28)
-					.addComponent(lblol)
-					.addGap(18)
-					.addComponent(solucionLetras)
-					.addGap(164))
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 621, GroupLayout.PREFERRED_SIZE)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGap(150)
-							.addComponent(btnNewButton)
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+								.addGroup(gl_contentPane.createSequentialGroup()
+									.addComponent(lblNewLabel_5)
+									.addGap(18)
+									.addComponent(separator_4_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+								.addComponent(lblNewLabel_6))
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(tipoCruce, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addComponent(lblNewLabel_7)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(porcentCruceTx, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addGap(16)
+							.addComponent(separator_3_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addGap(25)
+							.addComponent(lblNewLabel_8)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addComponent(lblNewLabel_9)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(tipoMutacion, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addComponent(lblNewLabel_10)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(porcentMutacionTx, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addComponent(lblNewLabel_11)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addComponent(lblNewLabel_12)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(porcentElitismoTx, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+					.addPreferredGap(ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
+							.addComponent(lblNewLabel)
+							.addGap(28)
+							.addComponent(lblol)
 							.addGap(18)
-							.addComponent(btnNewButton_1, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGap(18)
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-								.addComponent(textoPropuestoLb)
-								.addComponent(textoSolucionLb))
-							.addGap(13)
+							.addComponent(solucionLetras)
+							.addGap(164))
+						.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
-								.addComponent(textoPropuesto, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 263, GroupLayout.PREFERRED_SIZE)
-								.addComponent(textoSolucion, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 263, GroupLayout.PREFERRED_SIZE))))
-					.addContainerGap())
+								.addGroup(gl_contentPane.createSequentialGroup()
+									.addGap(150)
+									.addComponent(btnNewButton)
+									.addGap(18)
+									.addComponent(btnNewButton_1, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE))
+								.addGroup(gl_contentPane.createSequentialGroup()
+									.addGap(18)
+									.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+										.addComponent(textoPropuestoLb)
+										.addComponent(textoSolucionLb))
+									.addGap(13)
+									.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
+										.addComponent(textoPropuesto, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 263, GroupLayout.PREFERRED_SIZE)
+										.addComponent(textoSolucion, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 263, GroupLayout.PREFERRED_SIZE))))
+							.addContainerGap())))
 		);
 
 		btnNewButton.addActionListener(new ActionListener() {
@@ -322,9 +328,9 @@ public class VistaPrincipal extends JFrame {
 				porcentElitismoTx.setText("0.02");
 				tamPoblacionTx.setText("100");
 				numGeneracionesTx.setText("100");
-				tipoCruce.setSelectedItem("Cruce CO");
+				tipoCruce.setSelectedItem("Cruce OX");
 				tipoMutacion.setSelectedItem("Mutación heurística");
-				tipoSelecc.setSelectedItem("Estocástico universal");
+				tipoSelecc.setSelectedItem("Torneo determin\\u00EDstico");
 				textoPropuesto.setText("");
 				textoSolucion.setText("");
 			}

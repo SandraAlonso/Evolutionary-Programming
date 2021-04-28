@@ -222,6 +222,7 @@ public class Individuo1 extends Individuo<Integer> {
 				fitness += (double) (entry.getValue() / (double) numCuatrigramas)
 						* this.log2(AlgoritmoGenetico.cuatrigramas.get(entry.getKey()));
 		}
+		//quintigramas
 		for (Map.Entry<String, Long> entry : quintigrama().entrySet()) {
 			if (AlgoritmoGenetico.quintigrama.containsKey(entry.getKey()))
 				fitness += (double) (entry.getValue() / (double) numQuintigrama)
