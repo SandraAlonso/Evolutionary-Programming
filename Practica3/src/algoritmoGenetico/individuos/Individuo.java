@@ -40,5 +40,4 @@ public abstract class Individuo<T> implements Serializable {
     public abstract String devolverTexto();
 	public  abstract String solucion() ;
     
-    
 }
