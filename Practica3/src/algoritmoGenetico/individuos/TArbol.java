@@ -6,7 +6,7 @@ public class TArbol {
 	private TArbol[]hijos;
 	private Tipo tipo;
 	private Integer num_nodos=0;
-	private int profundidad;
+	private int profundidad = 0;
 	
 	
 	public static enum Tipo {

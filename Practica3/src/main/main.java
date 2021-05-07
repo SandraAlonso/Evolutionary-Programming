@@ -39,7 +39,7 @@ public class main {
 		 */
 		Individuo1 a = new Individuo1();
 		
-		TArbol j =a.crearArbol(null, 1, 4);
+		TArbol j =a.crearArbolCompleto(null, 4);
 		return ;
 	}
 
