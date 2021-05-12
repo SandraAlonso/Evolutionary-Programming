@@ -12,9 +12,8 @@ public class Individuo1 extends Individuo {
 	private boolean elite;
 	private int pasos = 0, bocados = 0;
 	private int posActX = 0, posActY = 0;
-	private int[] direccion = {0,1};
-	
-	
+	private int[] direccion = { 0, 1 };
+
 	@Override
 	public Double getValor() {
 		pasos = 0;
@@ -23,15 +22,14 @@ public class Individuo1 extends Individuo {
 		posActY = 0;
 		direccion[0] = 0;
 		direccion[1] = 1;
-		//TODO mirar mejor bloating		
-		if(arbol.getProfundidad() > AlgoritmoGenetico.media_prof && rand.nextBoolean()) {
+		// TODO mirar mejor bloating
+		if (arbol.getProfundidad() > AlgoritmoGenetico.media_prof && rand.nextBoolean()) {
 			return 0.0;
-		}
-		else {
+		} else {
 			ejecutarArbol(arbol);
 			return (double) bocados;
 		}
-		
+
 	}
 
 	@Override
@@ -45,98 +43,86 @@ public class Individuo1 extends Individuo {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
-	
+
 	private void ejecutarArbol(TArbol arbol) {
-		
-		while(true) {
-			if(pasos == 400 || bocados == 90) 
+
+		while (true) {
+			if (pasos == 400 || bocados == 90)
 				break;
-			if(AlgoritmoGenetico.mapa[posActY][posActX]) {
+			if (AlgoritmoGenetico.mapa[posActY][posActX]) {
 				bocados++;
 			}
-			if(arbol.getTipo() == Tipo.PROGN3 || arbol.getTipo() == Tipo.PROGN2) {
-				for(TArbol a : arbol.getHijos()) {
+			if (arbol.getTipo() == Tipo.PROGN3 || arbol.getTipo() == Tipo.PROGN2) {
+				for (TArbol a : arbol.getHijos()) {
 					ejecutarArbol(a);
 				}
-			}
-			else if(arbol.getTipo() == Tipo.SIC) {
-				if(AlgoritmoGenetico.mapa[posActY + direccion[0]][posActX+ direccion[1]]) {
+			} else if (arbol.getTipo() == Tipo.SIC) {
+				if (AlgoritmoGenetico.mapa[posActY + direccion[0]][posActX + direccion[1]]) {
 					ejecutarArbol(arbol.getHijos()[0]);
+				} else {
+					ejecutarArbol(arbol.getHijos()[1]);
 				}
-				else {
-					ejecutarArbol(arbol.getHijos()[1]);	
-				}
-			}
-			else if(arbol.getTipo() == Tipo.AVANZA) {
+			} else if (arbol.getTipo() == Tipo.AVANZA) {
 				avanzar();
-			}
-			else if(arbol.getTipo() == Tipo.GIRA_DERECHA) {
+			} else if (arbol.getTipo() == Tipo.GIRA_DERECHA) {
 				derecha();
-			}
-			else {
+			} else {
 				izquierda();
 			}
 		}
-		
+
 	}
-	
+
 	private void avanzar() {
 		posActY = posActY + direccion[0];
 		posActX = posActX + direccion[1];
 		pasos++;
 	}
-	
+
 	private void derecha() {
-		if(direccion[0] == 0) {
-			if(direccion[1] == 1) {
+		if (direccion[0] == 0) {
+			if (direccion[1] == 1) {
 				direccion[0] = 1;
 				direccion[1] = 0;
-			}
-			else {
+			} else {
 				direccion[0] = -1;
 				direccion[1] = 0;
 			}
-		}
-		else {
-			if(direccion[0] == 1) {
+		} else {
+			if (direccion[0] == 1) {
 				direccion[0] = 0;
 				direccion[1] = -1;
-			}
-			else {
+			} else {
 				direccion[0] = 0;
 				direccion[1] = 1;
 			}
 		}
 	}
-	
+
 	private void izquierda() {
-		if(direccion[0] == 0) {
-			if(direccion[1] == 1) {
+		if (direccion[0] == 0) {
+			if (direccion[1] == 1) {
 				direccion[0] = -1;
 				direccion[1] = 0;
-			}
-			else {
+			} else {
 				direccion[0] = 1;
 				direccion[1] = 0;
 			}
-		}
-		else {
-			if(direccion[0] == 1) {
+		} else {
+			if (direccion[0] == 1) {
 				direccion[0] = 0;
 				direccion[1] = 1;
-			}
-			else {
+			} else {
 				direccion[0] = 0;
 				direccion[1] = -1;
 			}
 		}
 	}
-	
+
 	public TArbol crearArbolCompleto(TArbol arbol, Integer prof_max) {
 		arbol = new TArbol();
 		TArbol[] hijos;
-		if (prof_max > 0) {//operador
+		if (prof_max > 0) {// operador
 			Tipo operador = TArbol.Tipo.values()[rand.nextInt(3) + 3];
 			arbol.setTipo(operador);
 			if (operador == Tipo.PROGN3) {
@@ -145,28 +131,28 @@ public class Individuo1 extends Individuo {
 				hijos = new TArbol[2];
 			int prof = 0;
 			for (int i = 0; i < hijos.length; i++) {
-				TArbol HI = crearArbolCompleto(hijos[i],  prof_max - 1);
+				TArbol HI = crearArbolCompleto(hijos[i], prof_max - 1);
 				HI.setPadre(arbol);
-				if(HI.getProfundidad() > prof)
+				if (HI.getProfundidad() > prof)
 					prof = HI.getProfundidad();
 				arbol.setNum_nodos(arbol.getNum_nodos() + HI.getNum_nodos());
 				hijos[i] = HI;
 
 			}
+			arbol.setNum_nodos(1+arbol.getNum_nodos());
 			arbol.setProfundidad(prof + 1);
 			arbol.setHijos(hijos);
 
-		}
-		else { //operando
+		} else { // operando
 			Tipo operador = TArbol.Tipo.values()[rand.nextInt(3)];
 			arbol.setTipo(operador);
 			arbol.setNum_nodos(arbol.getNum_nodos() + 1);
 		}
-		
+
 		return arbol;
-		
+
 	}
-	
+
 	public TArbol crearArbolCreciente(TArbol arbol, Integer prof_min, Integer prof_max) {
 		arbol = new TArbol();
 		TArbol[] hijos;
@@ -178,17 +164,18 @@ public class Individuo1 extends Individuo {
 				hijos = new TArbol[3];
 			} else
 				hijos = new TArbol[2];
-			
+
 			int prof = 0;
 			for (int i = 0; i < hijos.length; i++) {
 				TArbol HI = crearArbolCreciente(hijos[i], prof_min - 1, prof_max - 1);
 				HI.setPadre(arbol);
-				if(HI.getProfundidad() > prof)
+				if (HI.getProfundidad() > prof)
 					prof = HI.getProfundidad();
 				arbol.setNum_nodos(arbol.getNum_nodos() + HI.getNum_nodos());
 				hijos[i] = HI;
 
 			}
+			arbol.setNum_nodos(1+arbol.getNum_nodos());
 			arbol.setProfundidad(prof + 1);
 			arbol.setHijos(hijos);
 		}
@@ -205,27 +192,38 @@ public class Individuo1 extends Individuo {
 			if (alt < 3) {// operando
 				arbol.setNum_nodos(arbol.getNum_nodos() + 1);
 			} else {// operador
-				if (operador==Tipo.PROGN3) 
+				if (operador == Tipo.PROGN3)
 					hijos = new TArbol[3];
-				 else
+				else
 					hijos = new TArbol[2];
 				int prof = 0;
 				for (int i = 0; i < hijos.length; i++) {
 					TArbol HI = crearArbolCreciente(hijos[i], prof_min - 1, prof_max - 1);
 					HI.setPadre(arbol);
-					if(HI.getProfundidad() > prof)
+					if (HI.getProfundidad() > prof)
 						prof = HI.getProfundidad();
 					arbol.setNum_nodos(arbol.getNum_nodos() + HI.getNum_nodos());
 					hijos[i] = HI;
 
 				}
+				arbol.setNum_nodos(1+arbol.getNum_nodos());
 				arbol.setProfundidad(prof + 1);
 				arbol.setHijos(hijos);
 			}
 
 		}
-		
+
 		return arbol;
+	}
+
+	@Override
+	public TArbol getArbol() {
+		return this.arbol;
+	}
+
+	@Override
+	public void setArbol(TArbol a) {
+		this.arbol = a;
 	}
 
 }

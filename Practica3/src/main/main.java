@@ -1,10 +1,14 @@
 package main;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 import algoritmoGenetico.AlgoritmoGenetico;
+import algoritmoGenetico.cruce.Cruce;
+import algoritmoGenetico.cruce.CruceIntercambio;
 import algoritmoGenetico.individuos.Individuo;
 import algoritmoGenetico.individuos.Individuo1;
 import algoritmoGenetico.individuos.TArbol;
@@ -38,9 +42,19 @@ public class main {
 		 * "Truncamiento", "Cruce OX", "Mutación por intercambio"); alg.run();
 		 */
 		Individuo1 a = new Individuo1();
-		
-		TArbol j =a.crearArbolCompleto(null, 4);
-		return ;
+		Individuo1 c = new Individuo1();
+
+		TArbol j = a.crearArbolCompleto(null, 4);
+		a.setArbol(j);
+		TArbol b = c.crearArbolCompleto(null, 4);
+		c.setArbol(b);
+		List<Individuo> poblacion = new ArrayList<Individuo>();
+		poblacion.add(a);
+		poblacion.add(c);
+		Cruce cr = new CruceIntercambio();
+		cr.run(poblacion);
+		System.out.print(c);
+		return;
 	}
 
 }

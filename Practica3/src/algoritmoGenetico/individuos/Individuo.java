@@ -39,5 +39,7 @@ public abstract class Individuo<T> implements Serializable {
     
     public abstract String devolverTexto();
 	public  abstract String solucion() ;
-    
+    public abstract TArbol getArbol();
+    public abstract void setArbol(TArbol a);
+
 }

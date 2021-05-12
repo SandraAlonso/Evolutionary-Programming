@@ -3,17 +3,15 @@ package algoritmoGenetico.individuos;
 public class TArbol {
 
 	private TArbol padre;
-	private TArbol[]hijos;
+	private TArbol[] hijos;
 	private Tipo tipo;
-	private Integer num_nodos=0;
+	private Integer num_nodos = 0;
 	private int profundidad = 0;
-	
-	
+
 	public static enum Tipo {
 		AVANZA, GIRA_DERECHA, GIRA_IZQUIERDA, SIC, PROGN2, PROGN3
-		}
-	
-	
+	}
+
 	public TArbol getPadre() {
 		return padre;
 	}
@@ -54,5 +52,24 @@ public class TArbol {
 		this.profundidad = profundidad;
 	}
 
-	
+	public void actualizarArbol(TArbol a) {
+		Integer profMax = 0;
+		Integer numNodosTotal = 0;
+		if(a.getHijos()!=null) {
+		for (int i = 0; i < a.getHijos().length; i++) {
+			actualizarArbol(a.getHijos()[i]);
+			numNodosTotal+=a.getHijos()[i].getNum_nodos();
+			if (profMax < a.getHijos()[i].getProfundidad())
+				profMax = a.getHijos()[i].getProfundidad();
+
+		}
+		}
+		setNum_nodos(++numNodosTotal);
+		setProfundidad(++profMax);
+	}
+
+	public void setHijo(Integer i, TArbol hi) {
+		hijos[i] = hi;
+	}
+
 }
