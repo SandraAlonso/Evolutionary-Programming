@@ -30,7 +30,7 @@ public class MutacionPermutacion extends Mutacion {
 
 	private void permutacion(TArbol a) {
 		int i = 0;
-		if(rand.nextBoolean() && (a.getTipo() == Tipo.PROGN2 || a.getTipo() == Tipo.PROGN2 || a.getTipo() == Tipo.SIC)) {
+		if(rand.nextBoolean() && (a.getTipo() == Tipo.PROGN2 || a.getTipo() == Tipo.PROGN3 || a.getTipo() == Tipo.SIC)) {
 			TArbol aux = a.getHijos()[0];
 			for(int j = 0; j < a.getHijos().length; ++j) {
 				a.setHijo(j, a.getHijos()[j + 1]);

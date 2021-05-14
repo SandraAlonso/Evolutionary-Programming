@@ -41,7 +41,7 @@ public class main {
 		 * AlgoritmoGenetico alg = new AlgoritmoGenetico(100, 100, 0.6, 0.02, 0.02,
 		 * "Truncamiento", "Cruce OX", "Mutación por intercambio"); alg.run();
 		 */
-		Individuo1 a = new Individuo1();
+		/*Individuo1 a = new Individuo1();
 		Individuo1 c = new Individuo1();
 
 		TArbol j = a.crearArbolCompleto(null, 4);
@@ -54,7 +54,10 @@ public class main {
 		Cruce cr = new CruceIntercambio();
 		cr.run(poblacion);
 		System.out.print(c);
-		return;
+		return;*/
+		AlgoritmoGenetico alg = new AlgoritmoGenetico(100, 100, 0.6, 0.02, 0.02,
+				  "Truncamiento", "Cruce por intercambio", "Mutación hoist", "creciente"); 
+		alg.run();
 	}
 
 }

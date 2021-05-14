@@ -1,6 +1,8 @@
 package algoritmoGenetico.individuos;
 
-public class TArbol {
+import java.io.Serializable;
+
+public class TArbol implements Serializable{
 
 	private TArbol padre;
 	private TArbol[] hijos;

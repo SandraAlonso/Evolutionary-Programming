@@ -13,8 +13,11 @@ public class Individuo1 extends Individuo {
 	private int pasos = 0, bocados = 0;
 	private int posActX = 0, posActY = 0;
 	private int[] direccion = { 0, 1 };
-
+	private String metodoInicializacion;
+	private int prof_min;
+	private int prof_max;
 	@Override
+	
 	public Double getValor() {
 		pasos = 0;
 		bocados = 0;
@@ -27,8 +30,20 @@ public class Individuo1 extends Individuo {
 			return 0.0;
 		} else {
 			ejecutarArbol(arbol);
-			return (double) bocados;
+			Double d = new Double(bocados);
+			return d;
 		}
+
+	}
+
+	public Individuo1(String metodoIni, int profMin, int profMax) {
+		metodoInicializacion=metodoIni;
+		prof_min=profMin;
+		prof_max=profMax;
+		if(metodoInicializacion.equals("creciente"))
+			this.arbol=crearArbolCreciente(arbol, prof_min, prof_max);
+		else
+			this.arbol=crearArbolCompleto(arbol, prof_max);
 
 	}
 
@@ -74,8 +89,14 @@ public class Individuo1 extends Individuo {
 	}
 
 	private void avanzar() {
-		posActY = posActY + direccion[0];
-		posActX = posActX + direccion[1];
+		if(posActY + direccion[0]>=32)
+			posActY=0;
+		else
+			posActY = posActY + direccion[0];
+		if(posActX + direccion[1]>=32)
+			posActX=0;
+		else
+			posActX = posActX + direccion[1];
 		pasos++;
 	}
 

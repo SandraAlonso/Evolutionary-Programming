@@ -31,7 +31,7 @@ public class MutacionArbol extends Mutacion {
 		int i = 0;
 		while (i < a.getHijos().length && !salida) {
 			if(rand.nextBoolean()) {
-				Individuo1 aux = new Individuo1();
+				Individuo1 aux = new Individuo1(null, 1, 3);
 				a.setHijo(i, aux.crearArbolCreciente(null, 1, 3));
 				salida = true;
 				return;
