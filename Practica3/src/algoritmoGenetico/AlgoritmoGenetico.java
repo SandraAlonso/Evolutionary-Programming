@@ -54,8 +54,11 @@ public class AlgoritmoGenetico {
 	private Double mediaGeneracion;
 	private Individuo mejorGeneracion;
 	private Individuo peorIndividuo;
+	private Double covarianza;
+	private Double varianza;
 	public static boolean[][] mapa= new boolean[32][32];
 
+	public static Double k;
 	public static Double media_prof;
 
 	public AlgoritmoGenetico(Integer tamPoblacion, Integer numGeneraciones, Double porcentCruces,
@@ -208,6 +211,33 @@ public class AlgoritmoGenetico {
 		return seleccionadosCruce;
 	}
 
+	private void calcularCovarianza() {
+		Double cov = 0.0;
+		for (int i = 0; i < poblacion.size(); i++) {
+			for (int j = 0; j < poblacion.size(); j++) {
+				cov += (poblacion.get(i).getValorSinK() - poblacion.get(j).getValorSinK()) * (poblacion.get(i).getArbol().getProfundidad() - poblacion.get(j).getArbol().getProfundidad());
+			}
+			
+		}
+		this.covarianza = cov / (2 * (double) poblacion.size() * (double) poblacion.size());
+	}
+	
+	private void calcularVarianza() {
+		Double v = 0.0;
+		for (int i = 0; i < poblacion.size(); i++) {
+			v += Math.pow(poblacion.get(i).getArbol().getProfundidad() - this.media_prof, 2);
+			
+		}
+		this.varianza = v / (double) poblacion.size();
+	}
+	
+	private void calcularK() {
+		calcularMedia();
+		calcularCovarianza();
+		calcularVarianza();
+		k = covarianza / varianza;
+	}
+	
 	private void evaluarPoblacion() {
 		Individuo mejorTemp = this.poblacion.get(0);
 		Double total = 0.0;
@@ -255,16 +285,18 @@ public class AlgoritmoGenetico {
 			List<Individuo> seleccionados = new ArrayList<Individuo>();
 			List<Individuo> elite = new ArrayList<Individuo>();
 			System.out.println("generacionactual: " + generacionActual);
-			calcularMedia();
+			calcularK();
 			elite = generarElite(porcentElitismo);
 			this.poblacion = seleccion.run(poblacion); // seleccion de Individuos
 			System.out.println("Poblacion: " + this.poblacion.size());
 			seleccionados = seleccionadosCruce(this.poblacion);// Seleccionamos los individuos que vamos a cruzar
 			System.out.println("Seleccionados: " + seleccionados.size());
-
+			
+			System.out.println("Cruce");
 			seleccionados = cruce.run(seleccionados);// Elementos ya cruzados pendientes de añadirlos a la poblacion
 			this.poblacion.addAll(seleccionados);
 
+			System.out.println("Mutacion");
 			this.poblacion = mutacion.run(poblacion, this.porcetMutaciones);
 			// Ordenamos y eliminamos a los peores
 

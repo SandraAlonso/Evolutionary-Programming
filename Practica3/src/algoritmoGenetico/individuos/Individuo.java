@@ -31,6 +31,7 @@ public abstract class Individuo<T> implements Serializable {
 
   
     public abstract Double getValor();
+    public abstract Double getValorSinK();
 
     public int tamGen(Double min, Double max, Double precision) {
     	

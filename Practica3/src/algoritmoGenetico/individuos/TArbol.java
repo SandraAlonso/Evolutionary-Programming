@@ -72,6 +72,7 @@ public class TArbol implements Serializable{
 
 	public void setHijo(Integer i, TArbol hi) {
 		hijos[i] = hi;
+		hijos[i].setPadre(hi);
 	}
 
 }

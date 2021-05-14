@@ -5,11 +5,12 @@ import java.util.Random;
 
 import algoritmoGenetico.individuos.Individuo;
 import algoritmoGenetico.individuos.TArbol;
+import algoritmoGenetico.individuos.TArbol.Tipo;
 
 public class CruceIntercambio extends Cruce {
 
-	private TArbol padre1;
-	private TArbol padre2;
+	private TArbol padre1 = null;
+	private TArbol padre2 = null;
 	private Integer hijo1;
 	private Integer hijo2;
 	private Double prob = 0.9;
@@ -20,9 +21,22 @@ public class CruceIntercambio extends Cruce {
 	public List<Individuo> run(List<Individuo> poblacion) {
 
 		for (int i = 0; i < poblacion.size(); i += 2) {
-			elegirSubArbol1(poblacion.get(i).getArbol());
+			padre1 = null;
+			padre2 = null;
+
+			while (padre1 == null) {
+				salida = false;
+				elegirSubArbol1(poblacion.get(i).getArbol());
+				// prob -= (prob > 0.1) ? 0.1 : 0;
+			}
+			prob = 0.9;
 			salida = false;
-			elegirSubArbol2(poblacion.get(i + 1).getArbol());
+			while (padre2 == null) {
+				salida = false;
+				elegirSubArbol2(poblacion.get(i + 1).getArbol());
+				// prob -= (prob > 0.1) ? 0.1 : 0;
+			}
+			prob = 0.9;
 			// Intercambio de hijos
 
 			TArbol aux = padre1.getHijos()[hijo1];
@@ -30,7 +44,7 @@ public class CruceIntercambio extends Cruce {
 			padre2.setHijo(hijo2, aux);
 
 			poblacion.get(i).getArbol().actualizarArbol(poblacion.get(i).getArbol());
-			poblacion.get(i+1).getArbol().actualizarArbol(poblacion.get(i+1).getArbol());
+			poblacion.get(i + 1).getArbol().actualizarArbol(poblacion.get(i + 1).getArbol());
 
 		}
 		return poblacion;
@@ -39,65 +53,65 @@ public class CruceIntercambio extends Cruce {
 	private void elegirSubArbol1(TArbol padre) {
 		Integer i = 0;
 		while (i < padre.getHijos().length && !salida) {
-			switch (padre.getHijos()[i].getTipo()) {
-			// operandos
-			case AVANZA:
-			case GIRA_DERECHA:
-			case GIRA_IZQUIERDA:
+			if (!(padre.getHijos()[i].getTipo() == Tipo.PROGN2 || padre.getHijos()[i].getTipo() == Tipo.PROGN3
+					|| padre.getHijos()[i].getTipo() == Tipo.SIC)) {
+				// operandos
+
 				if (rand.nextDouble() < 1 - prob) {
 					hijo1 = i;
 					padre1 = padre;
 					salida = true;
-				} else
-					elegirSubArbol1(padre.getHijos()[i]);
-				break;
+				}
+
+			}
 			// operadores prob 0.9
-			case SIC:
-			case PROGN2:
-			case PROGN3:
+			else {
 				if (rand.nextDouble() < prob) {
 					hijo1 = i;
 					padre1 = padre;
 					salida = true;
-				} else
+				}
+				else {
 					elegirSubArbol1(padre.getHijos()[i]);
-				break;
-			}
-			i++;
-		}
+				}
 
+			}
+		}
+		i++;
 	}
 
+	
+
 	private void elegirSubArbol2(TArbol padre) {
-		Integer i = 0;
+		int i = 0;
 		while (i < padre.getHijos().length && !salida) {
-			switch (padre.getHijos()[i].getTipo()) {
-			// operandos
-			case AVANZA:
-			case GIRA_DERECHA:
-			case GIRA_IZQUIERDA:
+			if (!(padre.getHijos()[i].getTipo() == Tipo.PROGN2 || padre.getHijos()[i].getTipo() == Tipo.PROGN3
+					|| padre.getHijos()[i].getTipo() == Tipo.SIC)) {
+				// operandos
+
 				if (rand.nextDouble() < 1 - prob) {
 					hijo2 = i;
 					padre2 = padre;
 					salida = true;
-				} else
-					elegirSubArbol1(padre.getHijos()[i]);
-				break;
+				}
+
+			}
 			// operadores prob 0.9
-			case SIC:
-			case PROGN2:
-			case PROGN3:
+			else {
 				if (rand.nextDouble() < prob) {
 					hijo2 = i;
 					padre2 = padre;
 					salida = true;
-				} else
-					elegirSubArbol1(padre.getHijos()[i]);
-				break;
-			}
-			i++;
-		}
+				} 
+				else {
+					elegirSubArbol2(padre.getHijos()[i]);
+				}
 
+			}
+		}
+		i++;
 	}
 
 }
+
+

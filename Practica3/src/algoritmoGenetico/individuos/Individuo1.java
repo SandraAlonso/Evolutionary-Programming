@@ -26,16 +26,21 @@ public class Individuo1 extends Individuo {
 		direccion[0] = 0;
 		direccion[1] = 1;
 		// TODO mirar mejor bloating
-		if (arbol.getProfundidad() > AlgoritmoGenetico.media_prof && rand.nextBoolean()) {
-			return 0.0;
-		} else {
-			ejecutarArbol(arbol);
-			Double d = new Double(bocados);
-			return d;
-		}
+		
+		ejecutarArbol(arbol);
+		return (double) bocados + AlgoritmoGenetico.k * this.arbol.getNum_nodos();
+		
 
 	}
+	
+	@Override
+	public Double getValorSinK() {
+		// TODO Auto-generated method stub
+		ejecutarArbol(arbol);
+		return (double) bocados;
+	}
 
+	
 	public Individuo1(String metodoIni, int profMin, int profMax) {
 		metodoInicializacion=metodoIni;
 		prof_min=profMin;
@@ -200,12 +205,13 @@ public class Individuo1 extends Individuo {
 			arbol.setProfundidad(prof + 1);
 			arbol.setHijos(hijos);
 		}
-		if (prof_max == 0) {// hoja
+		else if (prof_max == 0) {// hoja
 			Tipo operador = TArbol.Tipo.values()[rand.nextInt(3)];
 			arbol.setTipo(operador);
 			arbol.setNum_nodos(arbol.getNum_nodos() + 1);
 
-		} else {// operando u operador
+		} 
+		else {// operando u operador
 			int alt = rand.nextInt(6);
 			Tipo operador = TArbol.Tipo.values()[alt];
 			arbol.setTipo(operador);
@@ -246,5 +252,8 @@ public class Individuo1 extends Individuo {
 	public void setArbol(TArbol a) {
 		this.arbol = a;
 	}
+
+
+	
 
 }
