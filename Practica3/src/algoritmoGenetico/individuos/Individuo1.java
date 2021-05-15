@@ -123,6 +123,7 @@ public class Individuo1 extends Individuo {
 				direccion[1] = 1;
 			}
 		}
+		pasos++;
 	}
 
 	private void izquierda() {
@@ -143,6 +144,7 @@ public class Individuo1 extends Individuo {
 				direccion[1] = -1;
 			}
 		}
+		pasos++;
 	}
 
 	public TArbol crearArbolCompleto(TArbol arbol, Integer prof_max) {
