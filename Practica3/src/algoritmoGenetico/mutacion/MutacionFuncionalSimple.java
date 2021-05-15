@@ -47,9 +47,11 @@ public class MutacionFuncionalSimple extends Mutacion {
 			break;
 		}
 		int i = 0;
-		while (i < a.getHijos().length && !salida) {
-			cambioFuncional(a.getHijos()[i]);
-			++i;
+		if (a.getHijos() != null) {
+			while (i < a.getHijos().length && !salida) {
+				cambioFuncional(a.getHijos()[i]);
+				++i;
+			}
 		}
 		return;
 

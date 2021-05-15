@@ -6,6 +6,7 @@ import java.util.Random;
 import algoritmoGenetico.individuos.Individuo;
 import algoritmoGenetico.individuos.Individuo1;
 import algoritmoGenetico.individuos.TArbol;
+import algoritmoGenetico.individuos.TArbol.Tipo;
 
 public class MutacionHoist extends Mutacion {
 
@@ -20,6 +21,8 @@ public class MutacionHoist extends Mutacion {
 				salida = false;
 				hoist(poblacion.get(i).getArbol());
 				if (nuevoArbol != null) {
+					nuevoArbol.setPadre(null);
+					
 					poblacion.get(i).setArbol(nuevoArbol);
 					poblacion.get(i).getArbol().actualizarArbol(poblacion.get(i).getArbol());
 				}
@@ -36,7 +39,7 @@ public class MutacionHoist extends Mutacion {
 		int i = 0;
 		if (a.getHijos() != null) {
 			while (i < a.getHijos().length && !salida) {
-				if (rand.nextBoolean()) {
+				if (rand.nextBoolean() && (a.getTipo() == Tipo.PROGN2 || a.getTipo() == Tipo.PROGN3 || a.getTipo() == Tipo.SIC)) {
 					nuevoArbol = a.getHijos()[i];
 					salida = true;
 					return;

@@ -16,11 +16,15 @@ public class CruceIntercambio extends Cruce {
 	private Double prob = 0.9;
 	private Random rand = new Random();
 	private Boolean salida = false;
+	private List<Individuo> copia_poblacion;
+	private Integer i_copy;
 
 	@Override
 	public List<Individuo> run(List<Individuo> poblacion) {
 
 		for (int i = 0; i < poblacion.size(); i += 2) {
+			copia_poblacion = poblacion;
+			i_copy = i;
 			padre1 = null;
 			padre2 = null;
 
@@ -42,6 +46,10 @@ public class CruceIntercambio extends Cruce {
 			TArbol aux = padre1.getHijos()[hijo1];
 			padre1.setHijo(hijo1, padre2.getHijos()[hijo2]);
 			padre2.setHijo(hijo2, aux);
+			
+//			if(padre1.getHijos()[hijo1].getProfundidad() <= 1 || padre2.getHijos()[hijo2].getProfundidad() <= 1) {
+//				System.out.println("Error");
+//			}
 
 			poblacion.get(i).getArbol().actualizarArbol(poblacion.get(i).getArbol());
 			poblacion.get(i + 1).getArbol().actualizarArbol(poblacion.get(i + 1).getArbol());
@@ -51,7 +59,8 @@ public class CruceIntercambio extends Cruce {
 	}
 
 	private void elegirSubArbol1(TArbol padre) {
-		Integer i = 0;
+		int i = 0;
+		//System.out.println(padre.getTipo());
 		while (i < padre.getHijos().length && !salida) {
 			if (!(padre.getHijos()[i].getTipo() == Tipo.PROGN2 || padre.getHijos()[i].getTipo() == Tipo.PROGN3
 					|| padre.getHijos()[i].getTipo() == Tipo.SIC)) {
@@ -76,14 +85,16 @@ public class CruceIntercambio extends Cruce {
 				}
 
 			}
+			i++;
 		}
-		i++;
+		
 	}
 
 	
 
 	private void elegirSubArbol2(TArbol padre) {
 		int i = 0;
+		//System.out.println(padre.getTipo());
 		while (i < padre.getHijos().length && !salida) {
 			if (!(padre.getHijos()[i].getTipo() == Tipo.PROGN2 || padre.getHijos()[i].getTipo() == Tipo.PROGN3
 					|| padre.getHijos()[i].getTipo() == Tipo.SIC)) {
@@ -108,8 +119,9 @@ public class CruceIntercambio extends Cruce {
 				}
 
 			}
+			i++;
 		}
-		i++;
+		
 	}
 
 }

@@ -28,6 +28,9 @@ public class TArbol implements Serializable{
 
 	public void setHijos(TArbol[] hijos) {
 		this.hijos = hijos;
+		for(TArbol a : this.hijos) {
+			a.padre = this;
+		}
 	}
 
 	public Tipo getTipo() {

@@ -12,13 +12,11 @@ public class MutacionTerminalSimple extends Mutacion {
 	private Random rand = new Random();
 	private Boolean salida = false;
 
-	
 	@Override
 	public List<Individuo> run(List<Individuo> poblacion, Double porcentMut) {
-		
-		
+
 		for (int i = 0; i < poblacion.size(); i++) {
-			if(rand.nextDouble() < porcentMut) {
+			if (rand.nextDouble() < porcentMut) {
 				salida = false;
 				cambioTerminal(poblacion.get(i).getArbol());
 				poblacion.get(i).getArbol().actualizarArbol(poblacion.get(i).getArbol());
@@ -28,7 +26,7 @@ public class MutacionTerminalSimple extends Mutacion {
 
 		return poblacion;
 	}
-	
+
 	private void cambioTerminal(TArbol a) {
 		switch (a.getTipo()) {
 		// operandos
@@ -55,12 +53,14 @@ public class MutacionTerminalSimple extends Mutacion {
 			}
 			break;
 		default:
-			break; 	
+			break;
 		}
 		int i = 0;
-		while (i < a.getHijos().length && !salida) {
-			cambioTerminal(a.getHijos()[i]);
-			++i;
+		if (a.getHijos() != null) {
+			while (i < a.getHijos().length && !salida) {
+				cambioTerminal(a.getHijos()[i]);
+				++i;
+			}
 		}
 		return;
 	}

@@ -56,7 +56,7 @@ public class main {
 		System.out.print(c);
 		return;*/
 		AlgoritmoGenetico alg = new AlgoritmoGenetico(100, 100, 0.6, 0.02, 0.02,
-				  "Truncamiento", "Cruce por intercambio", "Mutación hoist", "creciente"); 
+				  "Truncamiento", "Cruce por intercambio", "Mutación funcional simple", "creciente"); 
 		alg.run();
 	}
 
