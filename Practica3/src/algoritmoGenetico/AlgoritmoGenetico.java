@@ -267,7 +267,7 @@ public class AlgoritmoGenetico {
 
 	}
 
-	public void run() {
+	public Transfer run() {
 		double[] arrayMedias = new double[numGeneraciones];
 		double[] arrayMejoresAbs = new double[numGeneraciones];
 		double[] arrayMejorGene = new double[numGeneraciones];
@@ -326,7 +326,6 @@ public class AlgoritmoGenetico {
 			generacionActual++;
 			
 		}
-		return;
-		//return new Transfer(arrayMedias, arrayMejoresAbs, arrayMejorGene, arrayNumGene, mejorAbsoluto);
+		return new Transfer(arrayMedias, arrayMejoresAbs, arrayMejorGene, arrayNumGene, mejorAbsoluto);
 	}
 }

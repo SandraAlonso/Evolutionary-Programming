@@ -35,7 +35,6 @@ public class Individuo1 extends Individuo {
 	
 	@Override
 	public Double getValorSinK() {
-		// TODO Auto-generated method stub
 		ejecutarArbol(arbol);
 		return (double) bocados;
 	}
@@ -45,21 +44,17 @@ public class Individuo1 extends Individuo {
 		metodoInicializacion=metodoIni;
 		prof_min=profMin;
 		prof_max=profMax;
-		if(metodoInicializacion.equals("creciente"))
+		if(metodoInicializacion.equals("Creciente"))
 			this.arbol=crearArbolCreciente(arbol, prof_min, prof_max);
 		else
 			this.arbol=crearArbolCompleto(arbol, prof_max);
 
 	}
 
-	@Override
-	public String devolverTexto() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 
 	@Override
-	public String solucion() {
+	public boolean[][]solucion() {
 		// TODO Auto-generated method stub
 		return null;
 	}

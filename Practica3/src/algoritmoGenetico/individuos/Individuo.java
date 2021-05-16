@@ -38,8 +38,7 @@ public abstract class Individuo<T> implements Serializable {
         return (int) (Math.log10(((max - min) / precision) + 1) / Math.log10(2));
     }
     
-    public abstract String devolverTexto();
-	public  abstract String solucion() ;
+	public  abstract boolean[][] solucion() ;
     public abstract TArbol getArbol();
     public abstract void setArbol(TArbol a);
 
