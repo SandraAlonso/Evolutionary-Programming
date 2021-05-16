@@ -32,14 +32,14 @@ public class MutacionPermutacion extends Mutacion {
 		int i = 0;
 		if(rand.nextBoolean() && (a.getTipo() == Tipo.PROGN2 || a.getTipo() == Tipo.PROGN3 || a.getTipo() == Tipo.SIC)) {
 			TArbol aux = a.getHijos()[0];
-			for(int j = 0; j < a.getHijos().length; ++j) {
+			for(int j = 0; j < a.getHijos().length-1; ++j) {
 				a.setHijo(j, a.getHijos()[j + 1]);
 			}
 			a.setHijo(a.getHijos().length - 1, aux);
 			salida = true;
 			return;
 		}
-		while (i < a.getHijos().length && !salida) {
+		while (!salida && a.getHijos()!=null && i < a.getHijos().length  ) {
 			permutacion(a.getHijos()[i]);
 			
 			i++;

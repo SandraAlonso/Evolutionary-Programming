@@ -29,7 +29,7 @@ public class MutacionExpansion extends Mutacion {
 
 	private void expansion(TArbol a) {
 		int i = 0;
-		while (i < a.getHijos().length && !salida) {
+		while (a.getHijos()!=null && i < a.getHijos().length && !salida) {
 			if(rand.nextBoolean() && !(a.getTipo() == Tipo.PROGN2 || a.getTipo() == Tipo.PROGN3 || a.getTipo() == Tipo.SIC)) {
 				Individuo1 aux = new Individuo1(null, 1, 3);
 				a.setHijo(i, aux.crearArbolCompleto(null, 0));

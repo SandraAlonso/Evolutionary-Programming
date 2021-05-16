@@ -29,6 +29,7 @@ public class MutacionContraccion extends Mutacion {
 
 	private void contraccion(TArbol a) {
 		int i = 0;
+		if (a.getHijos() != null) {
 		while (i < a.getHijos().length && !salida) {
 			if(rand.nextBoolean() && (a.getTipo() == Tipo.PROGN2 || a.getTipo() == Tipo.PROGN3 || a.getTipo() == Tipo.SIC)) {
 				Individuo1 aux = new Individuo1(null, 1, 3);
@@ -42,7 +43,7 @@ public class MutacionContraccion extends Mutacion {
 			i++;
 		}
 		return;
-		
+		}
 	}
 
 }

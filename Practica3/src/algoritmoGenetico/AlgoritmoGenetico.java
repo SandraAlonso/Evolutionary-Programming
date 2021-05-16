@@ -318,10 +318,10 @@ public class AlgoritmoGenetico {
 			arrayMejorGene[generacionActual] = mejorGeneracion.getValor();
 			arrayMejoresAbs[generacionActual] = mejorAbsoluto.getValor();
 
-			System.out.println("Media generacion: " + this.mediaGeneracion.toString());
+			System.out.println("Media generacion: " + this.mediaGeneracion);
 			System.out.println("Mejor generacion: " + this.mejorGeneracion.toString());
 			System.out.println("Mejor absoluto: " + this.mejorAbsoluto.toString());
-			System.out.println("Mejor solucion: " + this.mejorAbsoluto.solucion());
+			System.out.println("Mejor solucion: " + this.mejorAbsoluto.getValor());
 			// Siguiente generacion
 			generacionActual++;
 			

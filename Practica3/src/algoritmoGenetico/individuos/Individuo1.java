@@ -59,6 +59,12 @@ public class Individuo1 extends Individuo {
 		return null;
 	}
 
+	@Override
+	public String toString() {
+		return "Individuo1 [pasos=" + pasos + ", bocados=" + bocados + ", prof_min=" + prof_min + ", prof_max="
+				+ prof_max + "]";
+	}
+
 	private void ejecutarArbol(TArbol arbol) {
 
 		while (true) {

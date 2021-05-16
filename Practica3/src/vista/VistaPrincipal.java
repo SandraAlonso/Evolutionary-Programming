@@ -331,7 +331,7 @@ public class VistaPrincipal extends JFrame {
 				 AlgoritmoGenetico alg = new AlgoritmoGenetico(tamPob, numGen, pCruce, pMut,
 				 pElit, selecc, cruc, mut, inic); 
 				 Transfer t = alg.run();
-				mostrarMapa(t.getMejorIndividuo().solucion());
+				//mostrarMapa(t.getMejorIndividuo().solucion());
 				 
 				// define the legend position
 				plot.addLegend("SOUTH");

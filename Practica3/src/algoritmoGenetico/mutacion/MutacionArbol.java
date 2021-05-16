@@ -29,6 +29,7 @@ public class MutacionArbol extends Mutacion {
 	private void subArbol(TArbol a) {
 		// TODO Auto-generated method stub
 		int i = 0;
+		if (a.getHijos() != null) {
 		while (i < a.getHijos().length && !salida) {
 			if(rand.nextBoolean()) {
 				Individuo1 aux = new Individuo1(null, 1, 3);
@@ -43,5 +44,5 @@ public class MutacionArbol extends Mutacion {
 		}
 		return;
 	}
-
+	}
 }

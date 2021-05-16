@@ -61,7 +61,7 @@ public class CruceIntercambio extends Cruce {
 	private void elegirSubArbol1(TArbol padre) {
 		int i = 0;
 		//System.out.println(padre.getTipo());
-		while (i < padre.getHijos().length && !salida) {
+		while (padre.getHijos()!=null && i < padre.getHijos().length && !salida) {
 			if (!(padre.getHijos()[i].getTipo() == Tipo.PROGN2 || padre.getHijos()[i].getTipo() == Tipo.PROGN3
 					|| padre.getHijos()[i].getTipo() == Tipo.SIC)) {
 				// operandos
@@ -95,7 +95,7 @@ public class CruceIntercambio extends Cruce {
 	private void elegirSubArbol2(TArbol padre) {
 		int i = 0;
 		//System.out.println(padre.getTipo());
-		while (i < padre.getHijos().length && !salida) {
+		while (padre.getHijos()!=null && i < padre.getHijos().length && !salida) {
 			if (!(padre.getHijos()[i].getTipo() == Tipo.PROGN2 || padre.getHijos()[i].getTipo() == Tipo.PROGN3
 					|| padre.getHijos()[i].getTipo() == Tipo.SIC)) {
 				// operandos
