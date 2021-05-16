@@ -75,13 +75,13 @@ public class VistaPrincipal extends JFrame {
 		JLabel tamPoblacionLb = new JLabel("Tamaño población");
 
 		tamPoblacionTx = new JTextField();
-		tamPoblacionTx.setText("150");
+		tamPoblacionTx.setText("100");
 		tamPoblacionTx.setColumns(10);
 
 		JLabel numGeneracionesLb = new JLabel("Número de generaciones");
 
 		numGeneracionesTx = new JTextField();
-		numGeneracionesTx.setText("200");
+		numGeneracionesTx.setText("100");
 		numGeneracionesTx.setColumns(10);
 
 		JLabel lblNewLabel_3 = new JLabel("Selección");
@@ -307,10 +307,10 @@ public class VistaPrincipal extends JFrame {
 				porcentElitismoTx.setText("0.02");
 				tamPoblacionTx.setText("100");
 				numGeneracionesTx.setText("100");
-				tipoCruce.setSelectedItem("Cruce OX");
-				tipoMutacion.setSelectedItem("Mutación heurística");
+				tipoCruce.setSelectedItem("Cruce por intercambio");
+				tipoMutacion.setSelectedItem("Mutación árbol");
 				tipoSelecc.setSelectedItem("Torneo determin\\u00EDstico");
-				ini.setSelectedItem("Creciente");
+				ini.setSelectedItem("Completa");
 			}
 		});
 
