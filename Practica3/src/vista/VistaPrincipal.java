@@ -296,7 +296,8 @@ public class VistaPrincipal extends JFrame {
 
 		// Rellenar la cuadricula con los casos de SantaFe
 		cuadricula.setLayout(new GridLayout(32, 32, 0, 0));
-		leerMapa();
+		boolean mapa[][]=new boolean[32][32];
+		leerMapa(mapa);
 		btnNewButton.addActionListener(new ActionListener() {
 
 			@Override
@@ -331,8 +332,9 @@ public class VistaPrincipal extends JFrame {
 				 AlgoritmoGenetico alg = new AlgoritmoGenetico(tamPob, numGen, pCruce, pMut,
 				 pElit, selecc, cruc, mut, inic); 
 				 Transfer t = alg.run();
-				mostrarMapa(t.getMejorIndividuo().solucion());
-				 
+				 cuadricula.removeAll();
+				 leerMapa(t.getMejorIndividuo().solucion());
+				
 				// define the legend position
 				plot.addLegend("SOUTH");
 
@@ -349,8 +351,9 @@ public class VistaPrincipal extends JFrame {
 		contentPane1.setLayout(gl_contentPane);
 	}
 
-	public void leerMapa() {
+	public void leerMapa(boolean[][] mapa) {
 		try {
+			
 			int j = 0;
 			File myObj = new File("mapa/SantaFe.txt");
 			Scanner myReader = new Scanner(myObj);
@@ -366,13 +369,16 @@ public class VistaPrincipal extends JFrame {
 						p.setBackground(Color.black);
 					} else if (key[i].equals("0")) {
 						p.setBackground(Color.white);
-					} else {
+					}
+					else if(key[i].equals("@")){
 						p.setBackground(Color.orange);
 					}
+					if(mapa[i][j]) {
+						p.setBackground(Color.green);
+
+					}
 					paneles[j][i] = p;
-
 					cuadricula.add(p);
-
 				}
 				j++;
 			}
@@ -383,25 +389,8 @@ public class VistaPrincipal extends JFrame {
 		}
 	}
 
-	public void mostrarMapa(boolean[][] mapa) {
-		for (int i = 0; i < 32; i++) {
-			for (int j = 0; j < 32; j++) {
-				JPanel p = new JPanel();
-				Border border;
-				border = BorderFactory.createLineBorder(Color.black);
-				p.setBorder(border);
-				if (mapa[i][j]) {// bocado
-					p.setBackground(Color.black);
-				} else {
-					p.setBackground(Color.white);
-				} 
-				paneles[j][i] = p;
 
-				cuadricula.add(p);
-
-			}
-		}
-	}
+	
 
 	public Double getPorcentCruceTx() {
 		String num = porcentCruceTx.getText();
