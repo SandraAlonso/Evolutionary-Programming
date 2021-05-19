@@ -331,7 +331,7 @@ public class VistaPrincipal extends JFrame {
 				 AlgoritmoGenetico alg = new AlgoritmoGenetico(tamPob, numGen, pCruce, pMut,
 				 pElit, selecc, cruc, mut, inic); 
 				 Transfer t = alg.run();
-				//mostrarMapa(t.getMejorIndividuo().solucion());
+				mostrarMapa(t.getMejorIndividuo().solucion());
 				 
 				// define the legend position
 				plot.addLegend("SOUTH");
@@ -390,13 +390,11 @@ public class VistaPrincipal extends JFrame {
 				Border border;
 				border = BorderFactory.createLineBorder(Color.black);
 				p.setBorder(border);
-				if (mapa[i].equals("#")) {// bocado
+				if (mapa[i][j]) {// bocado
 					p.setBackground(Color.black);
-				} else if (mapa[i].equals("0")) {
-					p.setBackground(Color.white);
 				} else {
-					p.setBackground(Color.orange);
-				}
+					p.setBackground(Color.white);
+				} 
 				paneles[j][i] = p;
 
 				cuadricula.add(p);

@@ -1,5 +1,7 @@
 package algoritmoGenetico.individuos;
 
+import java.util.Iterator;
+
 import algoritmoGenetico.AlgoritmoGenetico;
 import algoritmoGenetico.individuos.TArbol.Tipo;
 
@@ -16,6 +18,8 @@ public class Individuo1 extends Individuo {
 	private String metodoInicializacion;
 	private int prof_min;
 	private int prof_max;
+	private boolean[][] pasosMapa= new boolean[32][32];
+
 	@Override
 	
 	public Double getValor() {
@@ -26,7 +30,13 @@ public class Individuo1 extends Individuo {
 		direccion[0] = 0;
 		direccion[1] = 1;
 		// TODO mirar mejor bloating
-		
+		for (int i = 0; i < pasosMapa.length; i++) {
+			for (int j = 0; j < pasosMapa[i].length; j++) {
+				pasosMapa[i][j] = false;
+				
+			}
+			
+		}
 		ejecutarArbol(arbol);
 		return (double) bocados + AlgoritmoGenetico.k * this.arbol.getNum_nodos();
 		
@@ -55,14 +65,13 @@ public class Individuo1 extends Individuo {
 
 	@Override
 	public boolean[][]solucion() {
-		// TODO Auto-generated method stub
-		return null;
+		return pasosMapa;
 	}
 
 	@Override
 	public String toString() {
 		return "Individuo1 [pasos=" + pasos + ", bocados=" + bocados + ", prof_min=" + prof_min + ", prof_max="
-				+ prof_max + "]";
+				+ prof_max + ", prof_act="+ arbol.getProfundidad() +"]";
 	}
 
 	private void ejecutarArbol(TArbol arbol) {
@@ -104,6 +113,7 @@ public class Individuo1 extends Individuo {
 		else
 			posActX = posActX + direccion[1];
 		pasos++;
+		pasosMapa[posActX][posActY] = true;
 	}
 
 	private void derecha() {
