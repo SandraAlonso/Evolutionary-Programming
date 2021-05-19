@@ -38,7 +38,7 @@ public class MutacionHoist extends Mutacion {
 		// TODO Auto-generated method stub
 		int i = 0;
 		while (a.getHijos() != null && i < a.getHijos().length && !salida) {
-				if (rand.nextBoolean() && (a.getTipo() == Tipo.PROGN2 || a.getTipo() == Tipo.PROGN3 || a.getTipo() == Tipo.SIC)) {
+				if (rand.nextBoolean() && (a.getHijos()[i].getTipo() == Tipo.PROGN2 || a.getHijos()[i].getTipo() == Tipo.PROGN3 || a.getHijos()[i].getTipo() == Tipo.SIC)) {
 					nuevoArbol = a.getHijos()[i];
 					salida = true;
 					return;

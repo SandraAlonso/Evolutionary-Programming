@@ -30,19 +30,19 @@ public class MutacionContraccion extends Mutacion {
 	private void contraccion(TArbol a) {
 		int i = 0;
 		if (a.getHijos() != null) {
-		while (i < a.getHijos().length && !salida) {
-			if(rand.nextBoolean() && (a.getTipo() == Tipo.PROGN2 || a.getTipo() == Tipo.PROGN3 || a.getTipo() == Tipo.SIC)) {
-				Individuo1 aux = new Individuo1(null, 1, 3);
-				a.setHijo(i, aux.crearArbolCreciente(null, 1, 3));
-				salida = true;
-				return;
+			while (i < a.getHijos().length && !salida) {
+				if (rand.nextBoolean()
+						&& (a.getHijos()[i].getTipo() == Tipo.PROGN2 || a.getHijos()[i].getTipo() == Tipo.PROGN3 || a.getHijos()[i].getTipo() == Tipo.SIC)) {
+					Individuo1 aux = new Individuo1(null, 1, 3);
+					a.setHijo(i, aux.crearArbolCreciente(null, 1, 3));
+					salida = true;
+					return;
+				} else {
+					contraccion(a.getHijos()[i]);
+				}
+				i++;
 			}
-			else {
-				contraccion(a.getHijos()[i]);
-			}
-			i++;
-		}
-		return;
+			return;
 		}
 	}
 
