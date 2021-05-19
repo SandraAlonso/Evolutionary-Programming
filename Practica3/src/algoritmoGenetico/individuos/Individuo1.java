@@ -18,10 +18,10 @@ public class Individuo1 extends Individuo {
 	private String metodoInicializacion;
 	private int prof_min;
 	private int prof_max;
-	private boolean[][] pasosMapa= new boolean[32][32];
+	private boolean[][] pasosMapa = new boolean[32][32];
 
 	@Override
-	
+
 	public Double getValor() {
 		pasos = 0;
 		bocados = 0;
@@ -33,61 +33,68 @@ public class Individuo1 extends Individuo {
 		for (int i = 0; i < pasosMapa.length; i++) {
 			for (int j = 0; j < pasosMapa[i].length; j++) {
 				pasosMapa[i][j] = false;
-				
+
 			}
-			
+
 		}
-		ejecutarArbol(arbol);
+		while(pasos < 400 && bocados < 90)
+			ejecutarArbol(arbol);
 		return (double) bocados + AlgoritmoGenetico.k * this.arbol.getNum_nodos();
-		
 
 	}
-	
+
 	@Override
 	public Double getValorSinK() {
 		ejecutarArbol(arbol);
 		return (double) bocados;
 	}
 
-	
 	public Individuo1(String metodoIni, int profMin, int profMax) {
-		metodoInicializacion=metodoIni;
-		prof_min=profMin;
-		prof_max=profMax;
-		if(metodoInicializacion.equals("Creciente"))
-			this.arbol=crearArbolCreciente(arbol, prof_min, prof_max);
+		metodoInicializacion = metodoIni;
+		prof_min = profMin;
+		prof_max = profMax;
+		if (metodoInicializacion.equals("Creciente"))
+			this.arbol = crearArbolCreciente(arbol, prof_min, prof_max);
 		else
-			this.arbol=crearArbolCompleto(arbol, prof_max);
+			this.arbol = crearArbolCompleto(arbol, prof_max);
 
 	}
 
-	
-
 	@Override
-	public boolean[][]solucion() {
+	public boolean[][] solucion() {
 		return pasosMapa;
 	}
 
 	@Override
 	public String toString() {
 		return "Individuo1 [pasos=" + pasos + ", bocados=" + bocados + ", prof_min=" + prof_min + ", prof_max="
-				+ prof_max + ", prof_act="+ arbol.getProfundidad() +"]";
+				+ prof_max + ", prof_act=" + arbol.getProfundidad() + "]";
 	}
 
 	private void ejecutarArbol(TArbol arbol) {
 
-		while (true) {
+		
 			if (pasos == 400 || bocados == 90)
-				break;
-			if (AlgoritmoGenetico.mapa[posActY][posActX]) {
-				bocados++;
-			}
+				return;
+
 			if (arbol.getTipo() == Tipo.PROGN3 || arbol.getTipo() == Tipo.PROGN2) {
 				for (TArbol a : arbol.getHijos()) {
 					ejecutarArbol(a);
 				}
 			} else if (arbol.getTipo() == Tipo.SIC) {
-				if (AlgoritmoGenetico.mapa[posActY + direccion[0]][posActX + direccion[1]]) {
+				int posxMirar=posActX+ direccion[1];
+				int posyMirar=posActY + direccion[0];
+
+				if(posyMirar>31)
+					posyMirar=0;
+				else if(posyMirar<0)
+					posyMirar=31;
+				if(posxMirar>31)
+					posxMirar=0;
+				else if(posxMirar<0)
+					posxMirar=31;
+					
+				if (AlgoritmoGenetico.mapa[posyMirar][posxMirar]) {
 					ejecutarArbol(arbol.getHijos()[0]);
 				} else {
 					ejecutarArbol(arbol.getHijos()[1]);
@@ -99,19 +106,27 @@ public class Individuo1 extends Individuo {
 			} else {
 				izquierda();
 			}
-		}
+		
 
 	}
 
 	private void avanzar() {
-		if(posActY + direccion[0]>=32)
-			posActY=0;
+		if (posActY + direccion[0] >= 32)
+			posActY = 0;
+		else if (posActY + direccion[0] < 0)
+			posActY = 31;
 		else
 			posActY = posActY + direccion[0];
-		if(posActX + direccion[1]>=32)
-			posActX=0;
+		if (posActX + direccion[1] >= 32)
+			posActX = 0;
+		else if (posActX + direccion[1] < 0)
+			posActX = 31;
 		else
 			posActX = posActX + direccion[1];
+
+		if (!pasosMapa[posActX][posActY] && AlgoritmoGenetico.mapa[posActY][posActX]) {
+			bocados++;
+		}
 		pasos++;
 		pasosMapa[posActX][posActY] = true;
 	}
@@ -178,7 +193,7 @@ public class Individuo1 extends Individuo {
 				hijos[i] = HI;
 
 			}
-			arbol.setNum_nodos(1+arbol.getNum_nodos());
+			arbol.setNum_nodos(1 + arbol.getNum_nodos());
 			arbol.setProfundidad(prof + 1);
 			arbol.setHijos(hijos);
 
@@ -214,17 +229,15 @@ public class Individuo1 extends Individuo {
 				hijos[i] = HI;
 
 			}
-			arbol.setNum_nodos(1+arbol.getNum_nodos());
+			arbol.setNum_nodos(1 + arbol.getNum_nodos());
 			arbol.setProfundidad(prof + 1);
 			arbol.setHijos(hijos);
-		}
-		else if (prof_max == 0) {// hoja
+		} else if (prof_max == 0) {// hoja
 			Tipo operador = TArbol.Tipo.values()[rand.nextInt(3)];
 			arbol.setTipo(operador);
 			arbol.setNum_nodos(arbol.getNum_nodos() + 1);
 
-		} 
-		else {// operando u operador
+		} else {// operando u operador
 			int alt = rand.nextInt(6);
 			Tipo operador = TArbol.Tipo.values()[alt];
 			arbol.setTipo(operador);
@@ -246,7 +259,7 @@ public class Individuo1 extends Individuo {
 					hijos[i] = HI;
 
 				}
-				arbol.setNum_nodos(1+arbol.getNum_nodos());
+				arbol.setNum_nodos(1 + arbol.getNum_nodos());
 				arbol.setProfundidad(prof + 1);
 				arbol.setHijos(hijos);
 			}
@@ -265,8 +278,5 @@ public class Individuo1 extends Individuo {
 	public void setArbol(TArbol a) {
 		this.arbol = a;
 	}
-
-
-	
 
 }
