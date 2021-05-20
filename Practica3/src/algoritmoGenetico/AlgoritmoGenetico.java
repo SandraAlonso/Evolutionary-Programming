@@ -235,7 +235,10 @@ public class AlgoritmoGenetico {
 		calcularMedia();
 		calcularCovarianza();
 		calcularVarianza();
-		k = covarianza / varianza;
+		if(varianza==0.0)
+			k=0.0;
+		else
+			k = covarianza / varianza;
 	}
 	
 	private void evaluarPoblacion() {
@@ -284,19 +287,19 @@ public class AlgoritmoGenetico {
 			List<Individuo> nuevaPoblacion = new ArrayList<Individuo>();
 			List<Individuo> seleccionados = new ArrayList<Individuo>();
 			List<Individuo> elite = new ArrayList<Individuo>();
-			System.out.println("generacionactual: " + generacionActual);
+			//System.out.println("generacionactual: " + generacionActual);
 			calcularK();
 			elite = generarElite(porcentElitismo);
 			this.poblacion = seleccion.run(poblacion); // seleccion de Individuos
-			System.out.println("Poblacion: " + this.poblacion.size());
+			//System.out.println("Poblacion: " + this.poblacion.size());
 			seleccionados = seleccionadosCruce(this.poblacion);// Seleccionamos los individuos que vamos a cruzar
-			System.out.println("Seleccionados: " + seleccionados.size());
+			//System.out.println("Seleccionados: " + seleccionados.size());
 			
-			System.out.println("Cruce");
+			//System.out.println("Cruce");
 			seleccionados = cruce.run(seleccionados);// Elementos ya cruzados pendientes de a√±adirlos a la poblacion
 			this.poblacion.addAll(seleccionados);
 
-			System.out.println("Mutacion");
+			//System.out.println("Mutacion");
 			this.poblacion = mutacion.run(poblacion, this.porcetMutaciones);
 			// Ordenamos y eliminamos a los peores
 
@@ -308,11 +311,11 @@ public class AlgoritmoGenetico {
 			for (int i = 0; i < elite.size(); i++) {
 				poblacion.remove(poblacion.size() - 1);
 			}
-			// ReaÒadimos en la popblacion
+			// ReaÒadimos en la poblacion
 			this.poblacion.addAll(elite);
 
 			this.evaluarPoblacion();
-			System.out.println("Poblacion: " + this.poblacion.size());
+			//System.out.println("Poblacion: " + this.poblacion.size());
 
 			arrayMedias[generacionActual] = mediaGeneracion;
 			arrayMejorGene[generacionActual] = mejorGeneracion.getValor();

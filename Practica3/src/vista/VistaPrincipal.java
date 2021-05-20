@@ -341,8 +341,10 @@ public class VistaPrincipal extends JFrame {
 				// add a line plot to the PlotPanel
 				
 				 plot.addLinePlot("media de la generación", t.getArrayNumGene(),
-				 t.getArrayMedias()); plot.addLinePlot("mejor absoluto", t.getArrayNumGene(),
-				 t.getArrayMejoresAbs()); plot.addLinePlot("mejor de la generación",
+				 t.getArrayMedias());
+				 plot.addLinePlot("mejor absoluto", t.getArrayNumGene(),
+				 t.getArrayMejoresAbs()); 
+				 plot.addLinePlot("mejor de la generación",
 				 t.getArrayNumGene(), t.getArrayMejorGene());
 				
 
@@ -365,13 +367,10 @@ public class VistaPrincipal extends JFrame {
 					Border border;
 					border = BorderFactory.createLineBorder(Color.black);
 					p.setBorder(border);
-					if (key[i].equals("#")) {// bocado
+					if (key[i].equals("#") || key[i].equals("@")) {// bocado
 						p.setBackground(Color.black);
 					} else if (key[i].equals("0")) {
 						p.setBackground(Color.white);
-					}
-					else if(key[i].equals("@")){
-						p.setBackground(Color.orange);
 					}
 					if(mapa[i][j]) {
 						p.setBackground(Color.green);
