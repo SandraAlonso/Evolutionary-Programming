@@ -17,35 +17,57 @@ public class Individuo1 extends Individuo {
 	private int[] direccion = { 0, 1 };
 	private String metodoInicializacion;
 	private int prof_min;
+	private boolean yaCalculado = false;
 	private int prof_max;
 	private boolean[][] pasosMapa = new boolean[32][32];
 
 	@Override
 
 	public Double getValor() {
-		pasos = 0;
-		bocados = 0;
-		posActX = 0;
-		posActY = 0;
-		direccion[0] = 0;
-		direccion[1] = 1;
-		// TODO mirar mejor bloating
-		for (int i = 0; i < pasosMapa.length; i++) {
-			for (int j = 0; j < pasosMapa[i].length; j++) {
-				pasosMapa[i][j] = false;
+		if (!yaCalculado) {
+			pasos = 0;
+			bocados = 0;
+			posActX = 0;
+			posActY = 0;
+			direccion[0] = 0;
+			direccion[1] = 1;
+			// TODO mirar mejor bloating
+			for (int i = 0; i < pasosMapa.length; i++) {
+				for (int j = 0; j < pasosMapa[i].length; j++) {
+					pasosMapa[i][j] = false;
+
+				}
 
 			}
-
+			while (pasos < 400 && bocados < 90)
+				ejecutarArbol(arbol);
+			yaCalculado = true;
+			
 		}
-		while(pasos < 400 && bocados < 90)
-			ejecutarArbol(arbol);
-		return (double) bocados + AlgoritmoGenetico.k * this.arbol.getNum_nodos();
+		return (double) (bocados + AlgoritmoGenetico.k * this.arbol.getNum_nodos());
+		//return (double) bocados;
 
 	}
 
 	@Override
 	public Double getValorSinK() {
-		ejecutarArbol(arbol);
+		if (!yaCalculado) {
+			pasos = 0;
+			bocados = 0;
+			posActX = 0;
+			posActY = 0;
+			direccion[0] = 0;
+			direccion[1] = 1;
+			// TODO mirar mejor bloating
+			for (int i = 0; i < pasosMapa.length; i++) {
+				for (int j = 0; j < pasosMapa[i].length; j++) {
+					pasosMapa[i][j] = false;
+
+				}
+
+			}
+			ejecutarArbol(arbol);
+		}
 		return (double) bocados;
 	}
 
@@ -73,40 +95,38 @@ public class Individuo1 extends Individuo {
 
 	private void ejecutarArbol(TArbol arbol) {
 
-		
-			if (pasos == 400 || bocados == 90)
-				return;
+		if (pasos == 400 || bocados == 90)
+			return;
 
-			if (arbol.getTipo() == Tipo.PROGN3 || arbol.getTipo() == Tipo.PROGN2) {
-				for (TArbol a : arbol.getHijos()) {
-					ejecutarArbol(a);
-				}
-			} else if (arbol.getTipo() == Tipo.SIC) {
-				int posxMirar=posActX+ direccion[1];
-				int posyMirar=posActY + direccion[0];
-
-				if(posyMirar>31)
-					posyMirar=0;
-				else if(posyMirar<0)
-					posyMirar=31;
-				if(posxMirar>31)
-					posxMirar=0;
-				else if(posxMirar<0)
-					posxMirar=31;
-					
-				if (AlgoritmoGenetico.mapa[posyMirar][posxMirar]) {
-					ejecutarArbol(arbol.getHijos()[0]);
-				} else {
-					ejecutarArbol(arbol.getHijos()[1]);
-				}
-			} else if (arbol.getTipo() == Tipo.AVANZA) {
-				avanzar();
-			} else if (arbol.getTipo() == Tipo.GIRA_DERECHA) {
-				derecha();
-			} else {
-				izquierda();
+		if (arbol.getTipo() == Tipo.PROGN3 || arbol.getTipo() == Tipo.PROGN2) {
+			for (TArbol a : arbol.getHijos()) {
+				ejecutarArbol(a);
 			}
-		
+		} else if (arbol.getTipo() == Tipo.SIC) {
+			int posxMirar = posActX + direccion[1];
+			int posyMirar = posActY + direccion[0];
+
+			if (posyMirar > 31)
+				posyMirar = 0;
+			else if (posyMirar < 0)
+				posyMirar = 31;
+			if (posxMirar > 31)
+				posxMirar = 0;
+			else if (posxMirar < 0)
+				posxMirar = 31;
+
+			if (AlgoritmoGenetico.mapa[posyMirar][posxMirar]) {
+				ejecutarArbol(arbol.getHijos()[0]);
+			} else {
+				ejecutarArbol(arbol.getHijos()[1]);
+			}
+		} else if (arbol.getTipo() == Tipo.AVANZA) {
+			avanzar();
+		} else if (arbol.getTipo() == Tipo.GIRA_DERECHA) {
+			derecha();
+		} else {
+			izquierda();
+		}
 
 	}
 
@@ -271,11 +291,13 @@ public class Individuo1 extends Individuo {
 
 	@Override
 	public TArbol getArbol() {
+		yaCalculado = false;
 		return this.arbol;
 	}
 
 	@Override
 	public void setArbol(TArbol a) {
+		yaCalculado = false;
 		this.arbol = a;
 	}
 

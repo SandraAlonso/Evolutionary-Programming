@@ -347,7 +347,7 @@ public class VistaPrincipal extends JFrame {
 				String cruc = (String) tipoCruce.getSelectedItem();
 				String inic = (String) ini.getSelectedItem();
 				 AlgoritmoGenetico alg = new AlgoritmoGenetico(tamPob, numGen, pCruce, pMut,
-				 pElit, selecc, cruc, mut, inic); 
+				 pElit, selecc, cruc, mut, inic, profMax); 
 				 Transfer t = alg.run();
 				 cuadricula.removeAll();
 				 leerMapa(t.getMejorIndividuo().solucion());

@@ -3,6 +3,7 @@ package algoritmoGenetico.mutacion;
 import java.util.List;
 import java.util.Random;
 
+import algoritmoGenetico.AlgoritmoGenetico;
 import algoritmoGenetico.individuos.Individuo;
 import algoritmoGenetico.individuos.Individuo1;
 import algoritmoGenetico.individuos.TArbol;
@@ -32,7 +33,7 @@ public class MutacionArbol extends Mutacion {
 		if (a.getHijos() != null) {
 		while (i < a.getHijos().length && !salida) {
 			if(rand.nextBoolean()) {
-				Individuo1 aux = new Individuo1("Creciente", 1, 3);
+				Individuo1 aux = new Individuo1("Completa", 1, AlgoritmoGenetico.getProfMax());
 				a.setHijo(i, aux.crearArbolCreciente(null, 1, 3));
 				salida = true;
 				return;

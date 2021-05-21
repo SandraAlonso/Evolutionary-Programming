@@ -56,14 +56,15 @@ public class AlgoritmoGenetico {
 	private Individuo peorIndividuo;
 	private Double covarianza;
 	private Double varianza;
-	public static boolean[][] mapa= new boolean[32][32];
+	public static boolean[][] mapa = new boolean[32][32];
+	private static int profMax;
 
 	public static Double k;
 	public static Double media_prof;
 
 	public AlgoritmoGenetico(Integer tamPoblacion, Integer numGeneraciones, Double porcentCruces,
 			Double porcetMutaciones, Double porcentElitismo, String metodoSeleccion, String metodoCruce,
-			String metodoMutacion, String metodoIni) {
+			String metodoMutacion, String metodoIni, int profMax) {
 		this.tamPoblacion = tamPoblacion;
 		this.numGeneraciones = numGeneraciones;
 		this.porcentCruces = porcentCruces;
@@ -72,7 +73,8 @@ public class AlgoritmoGenetico {
 		this.metodoCruce = metodoCruce;
 		this.metodoMutacion = metodoMutacion;
 		this.porcentElitismo = porcentElitismo;
-		this.metodoIni=metodoIni;
+		this.metodoIni = metodoIni;
+		this.profMax = profMax;
 		iniciarSeleccion();
 		iniciarCruce();
 		iniciarMutacion();
@@ -82,36 +84,53 @@ public class AlgoritmoGenetico {
 
 	public void leerMapa() {
 		try {
-			int j =0;
+			int j = 0;
 			File myObj = new File("mapa/SantaFe.txt");
 			Scanner myReader = new Scanner(myObj);
 			while (myReader.hasNextLine()) {
 				String data = myReader.nextLine();
 				String key[] = data.split(" ");
-				for(int i =0;i<key.length;i++) {
+				for (int i = 0; i < key.length; i++) {
 					mapa[j][i] = (key[i].equals("0")) ? false : true;
-					}
+				}
 				j++;
 			}
 			myReader.close();
 		} catch (FileNotFoundException e) {
 			System.out.println("An error occurred.");
 			e.printStackTrace();
-		}	
+		}
+	}
+	
+	
+
+	public static int getProfMax() {
+		return profMax;
 	}
 
 	public void iniciarPoblacion() {
 		this.poblacion = new ArrayList<Individuo>();
-		for (int i = 0; i < tamPoblacion; i++)
-			poblacion.add(new Individuo1(metodoIni, 1, 4));
+		if (metodoIni.equals("Ramped and Half")) {
+			for(int i = 0; i < profMax - 1; ++i) {
+				for(int j = 0; j < (int) ((tamPoblacion / (profMax - 1)) / 2); ++j) {
+					poblacion.add(new Individuo1("Creciente", 1,  i + 2));
+					poblacion.add(new Individuo1("Completa", 1, i + 2));
+				}
+			}
+		} 
+		else {
+			for (int i = 0; i < tamPoblacion; i++)
+				poblacion.add(new Individuo1(metodoIni, 1, profMax));
+		}
 
 	}
+
 	public void calcularMedia() {
-		Double media=0.0;
-		for(Individuo i: poblacion) {
-			media+=i.getArbol().getProfundidad();
+		Double media = 0.0;
+		for (Individuo i : poblacion) {
+			media += i.getArbol().getProfundidad();
 		}
-		media_prof=media/poblacion.size();
+		media_prof = media / poblacion.size();
 	}
 
 	public void iniciarCruce() {
@@ -215,32 +234,33 @@ public class AlgoritmoGenetico {
 		Double cov = 0.0;
 		for (int i = 0; i < poblacion.size(); i++) {
 			for (int j = 0; j < poblacion.size(); j++) {
-				cov += (poblacion.get(i).getValorSinK() - poblacion.get(j).getValorSinK()) * (poblacion.get(i).getArbol().getProfundidad() - poblacion.get(j).getArbol().getProfundidad());
+				cov += (double) (poblacion.get(i).getValorSinK() - poblacion.get(j).getValorSinK())
+						* (poblacion.get(i).getArbol().getProfundidad() - poblacion.get(j).getArbol().getProfundidad());
 			}
-			
+
 		}
-		this.covarianza = cov / (2 * (double) poblacion.size() * (double) poblacion.size());
+		this.covarianza = cov / (double)(2.0 * (double) poblacion.size() * (double) poblacion.size());
 	}
-	
+
 	private void calcularVarianza() {
 		Double v = 0.0;
 		for (int i = 0; i < poblacion.size(); i++) {
-			v += Math.pow(poblacion.get(i).getArbol().getProfundidad() - this.media_prof, 2);
-			
+			v += Math.pow((double)poblacion.get(i).getArbol().getProfundidad() - this.media_prof, 2);
+
 		}
 		this.varianza = v / (double) poblacion.size();
 	}
-	
+
 	private void calcularK() {
 		calcularMedia();
 		calcularCovarianza();
 		calcularVarianza();
-		if(varianza==0.0)
-			k=0.0;
+		if (varianza == 0.0)
+			k = 0.0;
 		else
 			k = covarianza / varianza;
 	}
-	
+
 	private void evaluarPoblacion() {
 		Individuo mejorTemp = this.poblacion.get(0);
 		Double total = 0.0;
@@ -287,19 +307,19 @@ public class AlgoritmoGenetico {
 			List<Individuo> nuevaPoblacion = new ArrayList<Individuo>();
 			List<Individuo> seleccionados = new ArrayList<Individuo>();
 			List<Individuo> elite = new ArrayList<Individuo>();
-			//System.out.println("generacionactual: " + generacionActual);
+			// System.out.println("generacionactual: " + generacionActual);
 			calcularK();
 			elite = generarElite(porcentElitismo);
 			this.poblacion = seleccion.run(poblacion); // seleccion de Individuos
-			//System.out.println("Poblacion: " + this.poblacion.size());
+			// System.out.println("Poblacion: " + this.poblacion.size());
 			seleccionados = seleccionadosCruce(this.poblacion);// Seleccionamos los individuos que vamos a cruzar
-			//System.out.println("Seleccionados: " + seleccionados.size());
-			
-			//System.out.println("Cruce");
+			// System.out.println("Seleccionados: " + seleccionados.size());
+
+			// System.out.println("Cruce");
 			seleccionados = cruce.run(seleccionados);// Elementos ya cruzados pendientes de añadirlos a la poblacion
 			this.poblacion.addAll(seleccionados);
 
-			//System.out.println("Mutacion");
+			// System.out.println("Mutacion");
 			this.poblacion = mutacion.run(poblacion, this.porcetMutaciones);
 			// Ordenamos y eliminamos a los peores
 
@@ -315,7 +335,7 @@ public class AlgoritmoGenetico {
 			this.poblacion.addAll(elite);
 
 			this.evaluarPoblacion();
-			//System.out.println("Poblacion: " + this.poblacion.size());
+			// System.out.println("Poblacion: " + this.poblacion.size());
 
 			arrayMedias[generacionActual] = mediaGeneracion;
 			arrayMejorGene[generacionActual] = mejorGeneracion.getValor();
@@ -327,7 +347,7 @@ public class AlgoritmoGenetico {
 			System.out.println("Mejor solucion: " + this.mejorAbsoluto.getValor());
 			// Siguiente generacion
 			generacionActual++;
-			
+
 		}
 		return new Transfer(arrayMedias, arrayMejoresAbs, arrayMejorGene, arrayNumGene, mejorAbsoluto);
 	}
