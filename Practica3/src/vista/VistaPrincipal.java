@@ -45,6 +45,7 @@ public class VistaPrincipal extends JFrame {
 	private JTextField porcentElitismoTx;
 	private JPanel[][] paneles = new JPanel[32][32];
 	JPanel cuadricula = new JPanel();
+	private JTextField profMax;
 
 	/**
 	 * Launch the application.
@@ -151,6 +152,13 @@ public class VistaPrincipal extends JFrame {
 		
 		JComboBox ini = new JComboBox();
 		ini.setModel(new DefaultComboBoxModel(new String[] {"Completa", "Creciente", "Ramped and Half"}));
+		
+		JLabel lblNewLabel = new JLabel("Profundidad m\u00E1xima");
+		
+		profMax = new JTextField();
+		profMax.setText("4");
+		profMax.setToolTipText("");
+		profMax.setColumns(10);
 
 		GroupLayout gl_contentPane = new GroupLayout(contentPane1);
 		gl_contentPane.setHorizontalGroup(
@@ -172,7 +180,6 @@ public class VistaPrincipal extends JFrame {
 								.addComponent(tamPoblacionLb, GroupLayout.PREFERRED_SIZE, 134, GroupLayout.PREFERRED_SIZE)
 								.addComponent(tamPoblacionTx, GroupLayout.PREFERRED_SIZE, 134, GroupLayout.PREFERRED_SIZE)
 								.addComponent(numGeneracionesLb)
-								.addComponent(numGeneracionesTx, GroupLayout.PREFERRED_SIZE, 134, GroupLayout.PREFERRED_SIZE)
 								.addComponent(lblNewLabel_5)
 								.addComponent(lblNewLabel_3, GroupLayout.PREFERRED_SIZE, 85, GroupLayout.PREFERRED_SIZE)
 								.addComponent(lblNewLabel_8, GroupLayout.PREFERRED_SIZE, 59, GroupLayout.PREFERRED_SIZE)
@@ -198,7 +205,11 @@ public class VistaPrincipal extends JFrame {
 								.addComponent(inilbl)
 								.addGroup(gl_contentPane.createSequentialGroup()
 									.addGap(26)
-									.addComponent(ini, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+									.addComponent(ini, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+								.addComponent(lblNewLabel)
+								.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+									.addComponent(profMax, GroupLayout.PREFERRED_SIZE, 134, GroupLayout.PREFERRED_SIZE)
+									.addComponent(numGeneracionesTx, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 134, GroupLayout.PREFERRED_SIZE)))
 							.addGap(22)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 								.addComponent(cuadricula, GroupLayout.DEFAULT_SIZE, 701, Short.MAX_VALUE)
@@ -229,7 +240,11 @@ public class VistaPrincipal extends JFrame {
 							.addComponent(numGeneracionesLb)
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(numGeneracionesTx, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-							.addGap(62)
+							.addGap(18)
+							.addComponent(lblNewLabel)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(profMax, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addGap(4)
 							.addComponent(lblNewLabel_3)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 								.addGroup(gl_contentPane.createSequentialGroup()
@@ -304,6 +319,7 @@ public class VistaPrincipal extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				plot.removeAllPlots();
 				porcentCruceTx.setText("0.6");
+				profMax.setText("4");
 				porcentMutacionTx.setText("0.05");
 				porcentElitismoTx.setText("0.02");
 				tamPoblacionTx.setText("100");
@@ -321,6 +337,7 @@ public class VistaPrincipal extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				plot.removeAllPlots();
 				Integer numGen = getNumGeneracionesTx();
+				Integer profMax = getProfMax();
 				Double pCruce = getPorcentCruceTx();
 				Double pMut = getPorcentMutacionTx();
 				Double pElit = getPorcentElitismoText();
@@ -410,7 +427,10 @@ public class VistaPrincipal extends JFrame {
 		String num = tamPoblacionTx.getText();
 		return Integer.parseInt(num);
 	}
-
+	public Integer getProfMax() {
+		String num = profMax.getText();
+		return Integer.parseInt(num);
+	}
 	public Integer getNumGeneracionesTx() {
 		String num = numGeneracionesTx.getText();
 		return Integer.parseInt(num);
