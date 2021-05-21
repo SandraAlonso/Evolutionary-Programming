@@ -232,14 +232,19 @@ public class AlgoritmoGenetico {
 
 	private void calcularCovarianza() {
 		Double cov = 0.0;
+		Double mediaFitness = 0.0;
 		for (int i = 0; i < poblacion.size(); i++) {
-			for (int j = 0; j < poblacion.size(); j++) {
-				cov += (double) (poblacion.get(i).getValorSinK() - poblacion.get(j).getValorSinK())
-						* (poblacion.get(i).getArbol().getProfundidad() - poblacion.get(j).getArbol().getProfundidad());
-			}
+			mediaFitness += poblacion.get(i).getValorSinK();
+		}
+		mediaFitness = mediaFitness / poblacion.size();
+		for (int i = 0; i < poblacion.size(); i++) {
+			
+			cov += (double) (poblacion.get(i).getValorSinK() - mediaFitness)
+					* (poblacion.get(i).getArbol().getProfundidad() - this.media_prof);
+			
 
 		}
-		this.covarianza = cov / (double)(2.0 * (double) poblacion.size() * (double) poblacion.size());
+		this.covarianza = cov / (double) poblacion.size() ;
 	}
 
 	private void calcularVarianza() {
@@ -253,8 +258,9 @@ public class AlgoritmoGenetico {
 
 	private void calcularK() {
 		calcularMedia();
-		calcularCovarianza();
 		calcularVarianza();
+		calcularCovarianza();
+		
 		if (varianza == 0.0)
 			k = 0.0;
 		else
@@ -307,11 +313,11 @@ public class AlgoritmoGenetico {
 			List<Individuo> nuevaPoblacion = new ArrayList<Individuo>();
 			List<Individuo> seleccionados = new ArrayList<Individuo>();
 			List<Individuo> elite = new ArrayList<Individuo>();
-			// System.out.println("generacionactual: " + generacionActual);
+			System.out.println("generacionactual: " + generacionActual);
 			calcularK();
 			elite = generarElite(porcentElitismo);
 			this.poblacion = seleccion.run(poblacion); // seleccion de Individuos
-			// System.out.println("Poblacion: " + this.poblacion.size());
+			System.out.println("k: " + this.k);
 			seleccionados = seleccionadosCruce(this.poblacion);// Seleccionamos los individuos que vamos a cruzar
 			// System.out.println("Seleccionados: " + seleccionados.size());
 
