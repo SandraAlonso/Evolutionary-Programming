@@ -71,6 +71,10 @@ public class Individuo1 extends Individuo {
 		return (double) bocados;
 	}
 
+	public int getBocados() {
+		return bocados;
+	}
+
 	public Individuo1(String metodoIni, int profMin, int profMax) {
 		metodoInicializacion = metodoIni;
 		prof_min = profMin;

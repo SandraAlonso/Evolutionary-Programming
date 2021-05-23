@@ -41,5 +41,6 @@ public abstract class Individuo<T> implements Serializable {
 	public  abstract boolean[][] solucion() ;
     public abstract TArbol getArbol();
     public abstract void setArbol(TArbol a);
+	public abstract int getBocados();
 
 }
